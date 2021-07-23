@@ -7,7 +7,7 @@ const SkillsR = () => {
     return(
         <div>
             <HeaderC/>
-            <Skills/>
+            <SkillsC/>
             <FooterC/>
         </div>
     )
