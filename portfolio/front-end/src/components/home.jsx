@@ -1,10 +1,22 @@
 import React from 'react';
+import HeaderC from './header';
+import FooterC from './footer';
+
 
 const HomeC = () => {
 
     return(
         <div className="">
-
+            <HeaderC/>
+            <div className="container">
+                <div className="title-div">
+                    <p className="title">home</p>
+                </div>
+                <div className="form-div">
+                    
+                </div>
+            </div>
+            <FooterC/>
         </div>
     )
 }

@@ -1,5 +1,7 @@
 import React, {useState, useRef} from 'react';
 import CollectionAPI from "../apis/portfolioAPI";
+import HeaderC from './header';
+import FooterC from './footer';
 
 const ContactC = () => {
 
@@ -36,6 +38,7 @@ const ContactC = () => {
 
     return(
         <div>
+            <HeaderC/>
             <div className="container">
                 <div className="title-div">
                     <p className="title">contact</p>
@@ -64,6 +67,7 @@ const ContactC = () => {
                     </form>
                 </div>
             </div>
+            <FooterC/>
         </div>
     )
 }
