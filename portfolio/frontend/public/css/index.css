@@ -36,13 +36,13 @@ label{
 }
 
 .title{
-    margin-bottom: 0;
+    margin-bottom: 40px;
 }
 
 .form-div{
     display: grid;
     justify-content: center;
-    padding: 25px;
+    padding: 0 0px 40px 0px;
 }
 
 .contact-form{
@@ -58,4 +58,15 @@ label{
     display: grid;
     grid-template-columns: 75px auto;
     margin: 15px 0;
+}
+
+.project-thumbnail{
+    width: 400px;
+}
+
+.portfolio-thumbnail-div{
+    display: grid;
+    justify-content: center;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 400px));
+    gap: 40px;
 }
