@@ -44,36 +44,12 @@ const PortfolioC = () => {
                     <div className="portfolio-item-div">
                         <div className="portfolio-project">
                             <img className="project-thumbnail" src="../../images/smiles.jpg"/>
-                        </div>
-                    </div>
-                    <div className="portfolio-item-div">
-                        <div className="portfolio-project">
-                            <img className="project-thumbnail" src="../../images/smiles.jpg"/>
-                        </div>
-                    </div>
-                    <div className="portfolio-item-div">
-                        <div className="portfolio-project">
-                            <img className="project-thumbnail" src="../../images/smiles.jpg"/>
-                        </div>
-                    </div>
-                    <div className="portfolio-item-div">
-                        <div className="portfolio-project">
-                            <img className="project-thumbnail" src="../../images/smiles.jpg"/>
-                        </div>
-                    </div>
-                    <div className="portfolio-item-div">
-                        <div className="portfolio-project">
-                            <img className="project-thumbnail" src="../../images/smiles.jpg"/>
-                        </div>
-                    </div>
-                    <div className="portfolio-item-div">
-                        <div className="portfolio-project">
-                            <img className="project-thumbnail" src="../../images/smiles.jpg"/>
-                        </div>
-                    </div>
-                    <div className="portfolio-item-div">
-                        <div className="portfolio-project">
-                            <img className="project-thumbnail" src="../../images/smiles.jpg"/>
+                            <div className="thumbnail-overlay thumbnail-overlay--blur">
+                                <div className="tech-used">
+                                    <p className="tech">HTML</p>
+                                    <p className="tech">HTML</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

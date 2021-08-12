@@ -62,6 +62,34 @@ label{
 
 .project-thumbnail{
     width: 400px;
+    display: block;
+}
+
+.portfolio-item-div{
+    margin: 0;
+    padding: 0;
+}
+
+.portfolio-project{
+    width: 400px;
+    position: relative;
+}
+
+.portfolio-project::after{
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, .5);
+    top: 0;
+    left: 0;
+    transition: transform 300ms ease-in;
+    transform: scaleY(0);
+    transform-origin: top;
+}
+
+.portfolio-project:hover::after{
+    transform: scaleY(1);
 }
 
 .portfolio-thumbnail-div{
@@ -69,4 +97,49 @@ label{
     justify-content: center;
     grid-template-columns: repeat(auto-fit, minmax(400px, 400px));
     gap: 40px;
+}
+
+.thumbnail-overlay{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    display: grid;
+    align-content: center;
+    justify-content: center;
+}
+
+.thumbnail-overlay > *{
+    transform: translateY(170px);
+    opacity: 0;
+    transition: transform 300ms ease-in-out;
+
+}
+
+.thumbnail-overlay:hover > *{
+    transform: translateY(0px);
+    transition: transform 300ms ease-in-out;
+    opacity: 1;
+}
+
+.thumbnail-overlay--blur:hover{
+    backdrop-filter: blur(10px);
+}
+
+.tech-used{
+    display: block;
+    grid-template-columns: repeat(auto, minmax(1px, 1px));
+    justify-content: center;
+    align-content: center;
+}
+
+.tech{
+    display: inline-block;
+    background-color: rgb(228, 228, 228);
+    border-radius: 0;
+    width: min-content;
+    padding: 5px 10px;
+    margin: 5px;
 }
