@@ -1,18 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import HeaderC from './header';
 import FooterC from './footer';
 
 
-const ProjectDetailsC = () => {
-
-    const [project, setProject] = useState("");
+const AboutC = () => {
 
     return(
         <div className="main">
             <HeaderC/>
             <div className="container">
                 <div className="title-div">
-                    <p className="title">{project}</p>
+                    <p className="title">about</p>
                 </div>
                 <div className="form-div">
                     
@@ -23,4 +21,4 @@ const ProjectDetailsC = () => {
     )
 }
 
-export default ProjectDetailsC;
+export default AboutC;

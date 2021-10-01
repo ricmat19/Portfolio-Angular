@@ -37,7 +37,7 @@ const ContactC = () => {
     }
 
     return(
-        <div>
+        <div className="main">
             <HeaderC/>
             <div className="container">
                 <div className="title-div">

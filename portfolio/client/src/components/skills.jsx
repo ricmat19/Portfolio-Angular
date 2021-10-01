@@ -5,7 +5,7 @@ import FooterC from './footer';
 const SkillsC = () => {
 
     return(
-        <div className="">
+        <div className="main">
             <HeaderC/>
             <div className="container">
                 <div className="title-div">

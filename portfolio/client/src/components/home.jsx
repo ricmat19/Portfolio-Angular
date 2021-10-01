@@ -6,7 +6,7 @@ import FooterC from './footer';
 const HomeC = () => {
 
     return(
-        <div className="">
+        <div className="main">
             <HeaderC/>
             <div className="container">
                 <div className="title-div">

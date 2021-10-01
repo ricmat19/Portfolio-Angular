@@ -1,6 +1,15 @@
-body{
+html, body{
     margin: 0;
     font-family: 'Rajdhani';
+    height: 100%;
+}
+
+.container{
+    min-height: 100%;
+}
+
+.grid{
+    display: grid;
 }
 
 input, select, textarea{
@@ -142,4 +151,17 @@ label{
     width: min-content;
     padding: 5px 10px;
     margin: 5px;
+}
+
+.footer{
+    background: black;
+    grid-template-columns: repeat(2, 1fr);
+    padding: 0 100px;
+    height: 92px;
+    align-items: center;
+    position: relative;
+}
+
+.footer-nav{
+    grid-template-columns: repeat(5, 1fr);
 }
