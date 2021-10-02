@@ -1,15 +1,26 @@
-html, body{
+body{
     margin: 0;
+    font-size: 20px;
     font-family: 'Rajdhani';
-    height: 100%;
 }
 
-.container{
-    min-height: 100%;
+img{
+    width: 50px;
+}
+
+.main{
+    display: grid;
+    height: 100vh;
+    grid-template-rows: auto 1fr auto;
 }
 
 .grid{
     display: grid;
+}
+
+.header p, .footer p, .footer{
+    color: white;
+    text-decoration: none;
 }
 
 input, select, textarea{
@@ -17,10 +28,6 @@ input, select, textarea{
     padding: 10px;
     outline: none;
     font-family: 'Rajdhani';
-}
-
-label{
-    font-size: 15px;
 }
 
 .navbar{
@@ -33,10 +40,8 @@ label{
 }
 
 .nav-link{
-    color: white;
     text-align: center;
     text-decoration: none;
-    font-size: 20px;
 }
 
 .title-div{
@@ -46,6 +51,26 @@ label{
 
 .title{
     margin-bottom: 40px;
+}
+
+.about-content-div{
+    margin: 0 200px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.skill-category-div{
+    margin: 50px 0;
+}
+
+.skill-div{
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    text-align: center;
+}
+
+.icon-label{
+    text-align: center;
 }
 
 .form-div{
@@ -159,7 +184,7 @@ label{
     padding: 0 100px;
     height: 92px;
     align-items: center;
-    position: relative;
+    margin-top: auto;
 }
 
 .footer-nav{

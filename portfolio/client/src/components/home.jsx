@@ -8,7 +8,7 @@ const HomeC = () => {
     return(
         <div className="main">
             <HeaderC/>
-            <div className="container">
+            <div>
                 <div className="title-div">
                     <p className="title">home</p>
                 </div>
