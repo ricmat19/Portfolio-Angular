@@ -1,42 +1,58 @@
-import React, { useContext, useState } from 'react';
-import HeaderC from './header';
-import FooterC from './footer';
-import {useHistory} from "react-router-dom";
-
+import React, { useEffect, useRef, useState } from 'react';
+import HeaderC from '../header';
+import FooterC from '../footer';
+import CreateC from './create';
 
 const PortfolioC = () => {
 
-    const [pageNumber, setPageNumber] = useState(0);
+    const [createModal, setCreateModal] = useState("modal");
+    const [newProject, setNewProject] = useState("");
 
-    let history = useHistory();
+    const createRef = useRef();
 
-    const itemsPerPage = 9;
-    const pagesVisted = pageNumber * itemsPerPage;
-
-    // const portfolioThumbnails = portfolio.slice(pagesVisted, pagesVisted + itemsPerPage).map((project) => {
-    //     return(
-    //         <div className="portfolio-item-div" key={project.id} onClick={() => displayProject(project.product, project.id)}>
-    //             <div className="portfolio-project">
-    //                 <img className="project-thumbnail" src={project.imageBuffer}/>
-    //             </div>
-    //         </div>
-    //     );
-    // });
-
-    const displayProject = async (product, id) => {
-        try{
-            history.push(`/collection/${product}/${id}`)
-        }catch(err){
-            console.log(err);
-        }
+    const displayCreateModal = () => {
+        setCreateModal("modal modal-active");
     }
+
+    useEffect(() => {
+        const fetchData = async (req, res) => {
+            try{
+
+                document.addEventListener("mousedown", (event) => {
+                    if(createRef.current !== null){
+                        if(!createRef.current.contains(event.target)){
+                            setCreateModal("modal");
+                        }
+                    }
+                })
+
+            }catch(err){
+                console.log(err);
+            }
+        }
+        fetchData();
+    }, []);
 
     return(
         <div className="main">
             <HeaderC/>
+
+            <div className={createModal}>
+                <form>
+                    <div ref={createRef} className="modal-content">
+                        <CreateC createModal={createModal} setNewProject={newProject => setNewProject(newProject)}/>
+                    </div>
+                </form>
+            </div>
+
             <div className="container">
                 <div className="title-div">
                     <p className="title">portfolio</p>
+                </div>
+                <div>
+                    <div className="tech-used">
+                        <button onClick={() => displayCreateModal()} className="tech">CREATE</button>
+                    </div>
                 </div>
                 <div className="portfolio-thumbnail-div">
                     <div className="portfolio-item-div">
@@ -44,8 +60,8 @@ const PortfolioC = () => {
                             <img className="project-thumbnail" src="../../images/arcade-screen-shot.jpg"/>
                             <div className="thumbnail-overlay thumbnail-overlay--blur">
                                 <div className="tech-used">
-                                    <p className="tech">HTML</p>
-                                    <p className="tech">GITHUB</p>
+                                    <p className="tech">UPDATE</p>
+                                    <p className="tech">DELETE</p>
                                 </div>
                             </div>
                         </div>
@@ -55,8 +71,8 @@ const PortfolioC = () => {
                             <img className="project-thumbnail" src="../../images/ecommerce-store-screen-shot.jpg"/>
                             <div className="thumbnail-overlay thumbnail-overlay--blur">
                                 <div className="tech-used">
-                                    <p className="tech">HTML</p>
-                                    <p className="tech">GITHUB</p>
+                                    <p className="tech">UPDATE</p>
+                                    <p className="tech">DELETE</p>
                                 </div>
                             </div>
                         </div>
@@ -66,8 +82,8 @@ const PortfolioC = () => {
                             <img className="project-thumbnail" src="../../images/planner-screen-shot.jpg"/>
                             <div className="thumbnail-overlay thumbnail-overlay--blur">
                                 <div className="tech-used">
-                                    <p className="tech">HTML</p>
-                                    <p className="tech">GITHUB</p>
+                                    <p className="tech">UPDATE</p>
+                                    <p className="tech">DELETE</p>
                                 </div>
                             </div>
                         </div>

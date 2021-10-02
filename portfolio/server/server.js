@@ -5,7 +5,6 @@ const homeRouter = require('./routes/home');
 const aboutRouter = require('./routes/about');
 const portfolioRouter = require('./routes/portfolio');
 const projectDetailsRouter = require('./routes/projectDetails');
-const skillsRouter = require('./routes/skills'); 
 const contactRouter = require('./routes/contact');
 
 app.listen(3000, function(){
@@ -25,4 +24,3 @@ app.use(aboutRouter);
 app.use(contactRouter);
 app.use(portfolioRouter);
 app.use(projectDetailsRouter);
-app.use(skillsRouter);

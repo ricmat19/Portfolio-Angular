@@ -14,14 +14,16 @@ const AboutC = () => {
                 </div>
                 <div className="about-content-div">
                     <div className="profile-div">
-                        <img/>
+                        <div className="profile-image-div">
+                            <img className="profile-image" src="../images/about-image.jpg"/>
+                        </div>
                         <div className="info-div">
                             <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quas doloribus saepe, incidunt unde atque adipisci sint dignissimos dolorum quod provident eligendi! Labore, commodi sit! Quasi consequatur mollitia ad odit excepturi!</p>
                             <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quas doloribus saepe, incidunt unde atque adipisci sint dignissimos dolorum quod provident eligendi! Labore, commodi sit! Quasi consequatur mollitia ad odit excepturi!</p>
                             <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quas doloribus saepe, incidunt unde atque adipisci sint dignissimos dolorum quod provident eligendi! Labore, commodi sit! Quasi consequatur mollitia ad odit excepturi!</p>
                         </div>
                     </div>
-                    <div>
+                    <div className="skills-category-container-div">
                         <div className="skill-category-div">
                             <div className="sub-title">HTML</div>
                             <div className="skill-div">
@@ -73,15 +75,15 @@ const AboutC = () => {
                             <div className="sub-title">DATABASE</div>
                             <div className="skill-div">
                                 <div>
-                                    <img/>
+                                    <img src="../images/icons8-mysql-logo.svg"/>
                                     <div className="icon-label">MYSQL</div>
                                 </div>
                                 <div>
-                                    <img/>
+                                    <img src="../images/icons8-postgresql.svg"/>
                                     <div className="icon-label">POSTRESSQL</div>
                                 </div>
                                 <div>
-                                    <img/>
+                                    <img src="../images/icons8-mongodb.svg"/>
                                     <div className="icon-label">MONGODB</div>
                                 </div>
                             </div>
@@ -90,11 +92,15 @@ const AboutC = () => {
                             <div className="sub-title">OTHER</div>
                             <div className="skill-div">
                                 <div>
+                                    <img src="../images/icons8-visual-studio-logo.svg"/>
+                                    <div className="icon-label">VISUAL STUDIO</div>
+                                </div>
+                                <div>
                                     <img src="../images/github-brands.svg"/>
                                     <div className="icon-label">GITHUB</div>
                                 </div>
                                 <div>
-                                    <img/>
+                                    <img src="../images/icons8-krita.svg"/>
                                     <div className="icon-label">KRITA</div>
                                 </div>
                             </div>
