@@ -1,22 +1,52 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import IndexAPI from '../../apis/indexAPI';
 
 const AddSkillC = (props) => {
 
-    const [skills, setSkills] = useState([]);
+    const [icons, setIcons] = useState([]);
+    const [category, setCategory] = useState("");
     const [skill, setSkill] = useState("");
-    const [level, setLevel] = useState("")
+    const [level, setLevel] = useState("");
+    const [icon, setIcon] = useState("");
+    const [ranking, setRanking] = useState("");
     const [newSkill, setNewSkill] = useState("")
 
     const skillInput = useRef(null);
+
+    useEffect(() => {
+        const fetchData = async (req, res) => {
+            try{
+
+                let iconSet = []
+                function importAll(icons) {
+                    let images = {};
+                    icons.keys().forEach((index) => { 
+                        images[index.replace('./', '')] = icons(index); 
+                        Object.keys(images).forEach((key) => {
+                            iconSet.push(key)
+                            setIcons([...new Set(iconSet)]);
+                        })
+                    });
+                }
+                const skillIcons = importAll(require.context('../../images/skills'));
+
+            }catch(err){
+                console.log(err);
+            }
+        }
+        fetchData();
+    }, []);
 
     const addSkill = async (e) =>{
         e.preventDefault()
         try{
 
             const response = await IndexAPI.post("/skill/add-skill",{
+                category,
                 skill,
                 level,
+                icon,
+                ranking,
             });
             skillInput.current.value = "";
 
@@ -29,15 +59,36 @@ const AddSkillC = (props) => {
 
     return(
         <div>
-            {/* Create To Do */}
+            {/* Add Skill */}
+            <div className="grid toDo-modal-grid">
+                <label>CATEGORY</label>
+                <select onChange={e => setCategory(e.target.value)} name="category">
+                    <option disabled defaultValue>Select a Category...</option>
+                    <option>MARKUP</option>
+                    <option>STYLE</option>
+                    <option>FRONTEND</option>
+                    <option>BACKEND</option>
+                    <option>DATABASE</option>
+                    <option>OTHER</option>
+                </select>
+            </div>
             <div className="grid toDo-modal-grid">
                 <label>SKILL</label>
                 <input ref={skillInput} onChange={e => setSkill(e.target.value)} type="text" name="skill"/>
             </div>
             <div className="grid toDo-modal-grid">
+                <label>RANKING</label>
+                <select onChange={e => setRanking(e.target.value)} name="rank">
+                    <option disabled defaultValue>Select a Rank...</option>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                </select>
+            </div>
+            <div className="grid toDo-modal-grid">
                 <label>LEVEL</label>
                 <select onChange={e => setLevel(e.target.value)} name="level">
-                    <option disabled>Select a Level...</option>
+                    <option disabled defaultValue>Select a Level...</option>
                     <option>1</option>
                     <option>2</option>
                     <option>3</option>
@@ -45,8 +96,19 @@ const AddSkillC = (props) => {
                     <option>5</option>
                 </select>
             </div>
+            <div className="grid toDo-modal-grid">
+                <label>ICON</label>
+                <select onChange={e => setIcon(e.target.value)} name="icon">
+                    <option disabled defaultValue>Select an Icon...</option>
+                    {icons.map((icon, index) => {
+                        return(
+                            <option key={index}>{icon}</option>
+                        )
+                    })}
+                </select>
+            </div>
             <div>
-                <button className="form-button" type="submit" onClick={addSkill}>CREATE</button>
+                <button className="form-button" type="submit" onClick={addSkill}>ADD</button>
             </div>
         </div>
     )
