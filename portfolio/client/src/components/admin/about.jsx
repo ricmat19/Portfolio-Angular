@@ -6,8 +6,8 @@ import SkillC from './addSkill';
 
 function importAll(icons) {
     let images = {};
-    icons.keys().forEach((index) => { 
-        images[index.replace('./', '')] = icons(index); 
+    icons.keys().forEach((icon) => { 
+        images[icon.replace('./', '')] = icons(icon); 
     });
     return images
 }
@@ -46,6 +46,7 @@ const AboutC = () => {
                     skillArray.push(skills.data.results[i])
                 }
                 skillArray.sort(function(a, b){return a.ranking - b.ranking})
+                // console.log(skillArray)
                 setSkills(skillArray);
 
             }catch(err){
@@ -61,7 +62,6 @@ const AboutC = () => {
 
     return(
         <div className="main">
-            {console.log(skills)}
             <HeaderC/>
             <div className={skillModal}>
                 <div ref={skillRef} className="modal-content">
@@ -72,9 +72,6 @@ const AboutC = () => {
             <div className="container">
                 <div className="title-div">
                     <p className="title">about</p>
-                </div>
-                <div>
-                    <button onClick={() => displaySkillModal()}>CREATE</button>
                 </div>
                 <div className="about-content-div">
                     <div className="profile-div">
@@ -88,7 +85,10 @@ const AboutC = () => {
                         </div>
                     </div>
                     <div className="skills-category-container-div">
-                    <div className="skill-category-div">
+                        <div className="create-skill-div">
+                            <button onClick={() => displaySkillModal()}>CREATE</button>
+                        </div>
+                        <div className="skill-category-div">
                             <div className="sub-title">MARKUP</div>
                             <div className="skill-div">
                                 {skills.map((skill, index) => {

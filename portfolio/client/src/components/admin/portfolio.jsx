@@ -1,12 +1,24 @@
 import React, { useEffect, useRef, useState } from 'react';
+import IndexAPI from '../../apis/indexAPI';
 import HeaderC from '../header';
 import FooterC from '../footer';
-import CreateC from './create';
+import CreateC from './addProject';
+
+function importAll(projects) {
+    let images = {};
+    projects.keys().forEach((index) => { 
+        images[index.replace('./', '')] = projects(index); 
+    });
+    return images
+}
+const projects = importAll(require.context('../../images/projects'));
 
 const PortfolioC = () => {
 
     const [createModal, setCreateModal] = useState("modal");
     const [newProject, setNewProject] = useState("");
+
+    const [projects, setProjects] = useState([]);
 
     const createRef = useRef();
 
@@ -25,6 +37,14 @@ const PortfolioC = () => {
                         }
                     }
                 })
+
+                //Get all skills from DB
+                const projects = await IndexAPI.get(`/projects`);
+                const projectArray = [];
+                for(let i = 0; i < projects.data.results.length; i++){
+                    projectArray.push(projects.data.results[i])
+                }
+                setProjects(projectArray);
 
             }catch(err){
                 console.log(err);

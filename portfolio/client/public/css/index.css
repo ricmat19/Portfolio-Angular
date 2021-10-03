@@ -77,10 +77,6 @@ input, select, textarea{
     text-align: justify;
 }
 
-.skills-category-container-div{
-    margin-top: -30px;
-}
-
 .skill-category-div{
     border: black 3px solid;
     padding: 10px;
@@ -252,9 +248,47 @@ input, select, textarea{
       border: none;
       cursor: pointer;
       display: inline-block;
-      background-color: rgb(228, 228, 228);
+      background-color: black;
+      color: white;
       border-radius: 0;
       width: min-content;
       padding: 5px 10px;
       margin: 5px;
+
+  }
+
+  .skill-modal-div{
+      gap: 10px;
+  }
+
+  .skill-input{
+    grid-template-columns: 100px 1fr;
+    text-align: left;
+    align-items: center;
+  }
+
+  .create-skill-div{
+      margin-bottom: -30px;
+      text-align: right;
+  }
+
+  .create-skill-div button{
+        margin-top: 0;
+        margin-right: 0;
+  }
+
+  .skills-category-container-div{
+      margin-top: -30px;
+  }
+
+  .tech-checkbox-list{
+      grid-template-columns: 1fr auto;
+  }
+
+  .tech-checkbox-label{
+      text-align: left;
+  }
+
+  .add-project-modal{
+      gap: 20px;
   }
