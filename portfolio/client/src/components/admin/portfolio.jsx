@@ -38,11 +38,9 @@ const PortfolioC = () => {
             <HeaderC/>
 
             <div className={createModal}>
-                <form>
-                    <div ref={createRef} className="modal-content">
-                        <CreateC createModal={createModal} setNewProject={newProject => setNewProject(newProject)}/>
-                    </div>
-                </form>
+                <div ref={createRef} className="modal-content">
+                    <CreateC createModal={createModal} setNewProject={newProject => setNewProject(newProject)}/>
+                </div>
             </div>
 
             <div className="container">
@@ -50,9 +48,7 @@ const PortfolioC = () => {
                     <p className="title">portfolio</p>
                 </div>
                 <div>
-                    <div className="tech-used">
-                        <button onClick={() => displayCreateModal()} className="tech">CREATE</button>
-                    </div>
+                    <button onClick={() => displayCreateModal()}>CREATE</button>
                 </div>
                 <div className="portfolio-thumbnail-div">
                     <div className="portfolio-item-div">
@@ -60,8 +56,8 @@ const PortfolioC = () => {
                             <img className="project-thumbnail" src="../../images/arcade-screen-shot.jpg"/>
                             <div className="thumbnail-overlay thumbnail-overlay--blur">
                                 <div className="tech-used">
-                                    <p className="tech">UPDATE</p>
-                                    <p className="tech">DELETE</p>
+                                    <button>UPDATE</button>
+                                    <button>DELETE</button>
                                 </div>
                             </div>
                         </div>
@@ -71,8 +67,8 @@ const PortfolioC = () => {
                             <img className="project-thumbnail" src="../../images/ecommerce-store-screen-shot.jpg"/>
                             <div className="thumbnail-overlay thumbnail-overlay--blur">
                                 <div className="tech-used">
-                                    <p className="tech">UPDATE</p>
-                                    <p className="tech">DELETE</p>
+                                    <button>UPDATE</button>
+                                    <button>DELETE</button>
                                 </div>
                             </div>
                         </div>
@@ -82,8 +78,8 @@ const PortfolioC = () => {
                             <img className="project-thumbnail" src="../../images/planner-screen-shot.jpg"/>
                             <div className="thumbnail-overlay thumbnail-overlay--blur">
                                 <div className="tech-used">
-                                    <p className="tech">UPDATE</p>
-                                    <p className="tech">DELETE</p>
+                                    <button>UPDATE</button>
+                                    <button>DELETE</button>
                                 </div>
                             </div>
                         </div>

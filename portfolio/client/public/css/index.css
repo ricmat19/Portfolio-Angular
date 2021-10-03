@@ -207,15 +207,6 @@ input, select, textarea{
     align-content: center;
 }
 
-.tech{
-    display: inline-block;
-    background-color: rgb(228, 228, 228);
-    border-radius: 0;
-    width: min-content;
-    padding: 5px 10px;
-    margin: 5px;
-}
-
 .footer{
     background: black;
     grid-template-columns: repeat(2, 1fr);
@@ -260,4 +251,10 @@ input, select, textarea{
   button{
       border: none;
       cursor: pointer;
+      display: inline-block;
+      background-color: rgb(228, 228, 228);
+      border-radius: 0;
+      width: min-content;
+      padding: 5px 10px;
+      margin: 5px;
   }

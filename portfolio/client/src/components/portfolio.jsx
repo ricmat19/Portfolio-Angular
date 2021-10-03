@@ -44,8 +44,8 @@ const PortfolioC = () => {
                             <img className="project-thumbnail" src="../../images/arcade-screen-shot.jpg"/>
                             <div className="thumbnail-overlay thumbnail-overlay--blur">
                                 <div className="tech-used">
-                                    <p className="tech">HTML</p>
-                                    <p className="tech">GITHUB</p>
+                                    <button>HTML</button>
+                                    <button>GITHUB</button>
                                 </div>
                             </div>
                         </div>
@@ -55,8 +55,8 @@ const PortfolioC = () => {
                             <img className="project-thumbnail" src="../../images/ecommerce-store-screen-shot.jpg"/>
                             <div className="thumbnail-overlay thumbnail-overlay--blur">
                                 <div className="tech-used">
-                                    <p className="tech">HTML</p>
-                                    <p className="tech">GITHUB</p>
+                                    <button>HTML</button>
+                                    <button>GITHUB</button>
                                 </div>
                             </div>
                         </div>
@@ -66,8 +66,8 @@ const PortfolioC = () => {
                             <img className="project-thumbnail" src="../../images/planner-screen-shot.jpg"/>
                             <div className="thumbnail-overlay thumbnail-overlay--blur">
                                 <div className="tech-used">
-                                    <p className="tech">HTML</p>
-                                    <p className="tech">GITHUB</p>
+                                    <button>HTML</button>
+                                    <button>GITHUB</button>
                                 </div>
                             </div>
                         </div>

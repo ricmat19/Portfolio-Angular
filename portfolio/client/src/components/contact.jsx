@@ -1,5 +1,5 @@
 import React, {useState, useRef} from 'react';
-import CollectionAPI from "../apis/portfolioAPI";
+import IndexAPI from "../apis/indexAPI";
 import HeaderC from './header';
 import FooterC from './footer';
 
@@ -18,7 +18,7 @@ const ContactC = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         try{
-            const response = await CollectionAPI.post("/contact", {
+            const response = await IndexAPI.post("/contact", {
                 name: name,
                 email: email,
                 subject: subject,
