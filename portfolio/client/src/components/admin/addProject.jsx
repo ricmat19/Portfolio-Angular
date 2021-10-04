@@ -5,11 +5,11 @@ const CreateC = (props) => {
 
     const [projects, setProjects] = useState([]);
     const [skills, setSkills] = useState([]);
-    const [title, setTitle] = useState("")
+    const [project, setProject] = useState("")
     const [thumbnail, setThumbnail] = useState("")
     const [projectTech, setProjectTech] = useState([]);
     const [newProject, setNewProject] = useState("")
-    const titleInput = useRef(null);
+    const projectInput = useRef(null);
 
     useEffect(() => {
         const fetchData = async (req, res) => {
@@ -27,8 +27,8 @@ const CreateC = (props) => {
                 let projectSet = []
                 function importAll(projects) {
                     let images = {};
-                    projects.keys().forEach((project) => { 
-                        images[project.replace('./', '')] = projects(project); 
+                    projects.keys().forEach((index) => { 
+                        images[index.replace('./', '')] = projects(index); 
                         Object.keys(images).forEach((key) => {
                             projectSet.push(key)
                             setProjects([...new Set(projectSet)]);
@@ -71,11 +71,11 @@ const CreateC = (props) => {
         try{
  
             const response = await IndexAPI.post("/projects/add-project",{
-                title,
+                project,
                 thumbnail,
                 projectTech,
             });
-            titleInput.current.value = "";
+            projectInput.current.value = "";
 
             props.setNewProject(newProject)
 
@@ -88,18 +88,19 @@ const CreateC = (props) => {
         <div className="grid add-project-modal">
             <div className="grid toDo-modal-grid">
                 <label>TITLE</label>
-                <input ref={titleInput} onChange={e => setTitle(e.target.value)} type="text" name="title"/>
+                <input ref={projectInput} onChange={e => setProject(e.target.value)} type="text" name="project_title"/>
             </div>
             <div className="grid toDo-modal-grid">
                 <label>THUMBNAIL</label>
-                <select onChange={e => setProjects(e.target.value)} name="project">
+                <select onChange={e => setThumbnail(e.target.value)} name="projectThumbnail">
                     {console.log(projects)}
                     <option disabled selected>Select a Project...</option>
                     {projects.map((project, index) => {
                         return(
-                            <option key={index}>{project}</option>
+                            <option key={index} value={project}>{project}</option>
+                            // <option>{projects[0]}</option>
                         )
-                    })}
+                    })} 
                 </select>
             </div>
             <div className="grid toDo-modal-grid">

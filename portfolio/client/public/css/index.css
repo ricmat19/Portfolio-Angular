@@ -272,6 +272,12 @@ input, select, textarea{
       text-align: right;
   }
 
+  .create-project-div{
+    margin-top: -30px;
+    margin-right: 40px;
+    text-align: right;
+}
+
   .create-skill-div button{
         margin-top: 0;
         margin-right: 0;

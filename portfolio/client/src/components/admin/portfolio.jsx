@@ -11,7 +11,7 @@ function importAll(projects) {
     });
     return images
 }
-const projects = importAll(require.context('../../images/projects'));
+const projectThumbnail = importAll(require.context('../../images/projects'));
 
 const PortfolioC = () => {
 
@@ -38,10 +38,12 @@ const PortfolioC = () => {
                     }
                 })
 
+
                 //Get all skills from DB
                 const projects = await IndexAPI.get(`/projects`);
                 const projectArray = [];
                 for(let i = 0; i < projects.data.results.length; i++){
+                    projects.data.results[i].thumbnail = projectThumbnail[projects.data.results[i].thumbnail]
                     projectArray.push(projects.data.results[i])
                 }
                 setProjects(projectArray);
@@ -53,8 +55,25 @@ const PortfolioC = () => {
         fetchData();
     }, []);
 
+    const updateProject = async (id) => {
+        try{
+
+        }catch(err){
+            console.log(err);
+        }
+    }
+
+    const deleteProject = async (id) => {
+        try{
+
+        }catch(err){
+            console.log(err);
+        }
+    }
+
     return(
         <div className="main">
+            {console.log(projects)}
             <HeaderC/>
 
             <div className={createModal}>
@@ -67,44 +86,26 @@ const PortfolioC = () => {
                 <div className="title-div">
                     <p className="title">portfolio</p>
                 </div>
-                <div>
+                <div className="create-project-div">
                     <button onClick={() => displayCreateModal()}>CREATE</button>
                 </div>
-                <div className="portfolio-thumbnail-div">
-                    <div className="portfolio-item-div">
-                        <div className="portfolio-project">
-                            <img className="project-thumbnail" src="../../images/arcade-screen-shot.jpg"/>
-                            <div className="thumbnail-overlay thumbnail-overlay--blur">
-                                <div className="tech-used">
-                                    <button>UPDATE</button>
-                                    <button>DELETE</button>
+                    <div className="portfolio-thumbnail-div" >
+                        {projects.map((project, index) => {
+                            return(
+                                <div className="portfolio-item-div" key={index}>
+                                    <div className="portfolio-project">
+                                        <img className="project-thumbnail" src={project.thumbnail.default}/>
+                                        <div className="thumbnail-overlay thumbnail-overlay--blur">
+                                            <div className="tech-used">
+                                                <button onClick={() => updateProject()}>UPDATE</button>
+                                                <button onClick={() => deleteProject()}>DELETE</button>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
+                            )
+                        })}
                     </div>
-                    <div className="portfolio-item-div">
-                        <div className="portfolio-project">
-                            <img className="project-thumbnail" src="../../images/ecommerce-store-screen-shot.jpg"/>
-                            <div className="thumbnail-overlay thumbnail-overlay--blur">
-                                <div className="tech-used">
-                                    <button>UPDATE</button>
-                                    <button>DELETE</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="portfolio-item-div">
-                        <div className="portfolio-project">
-                            <img className="project-thumbnail" src="../../images/planner-screen-shot.jpg"/>
-                            <div className="thumbnail-overlay thumbnail-overlay--blur">
-                                <div className="tech-used">
-                                    <button>UPDATE</button>
-                                    <button>DELETE</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
             <FooterC/>
         </div>
