@@ -19,6 +19,7 @@ const PortfolioC = () => {
     const [newProject, setNewProject] = useState("");
 
     const [projects, setProjects] = useState([]);
+    const [technology, setTechnology] = useState([]);
 
     const createRef = useRef();
 
@@ -41,12 +42,33 @@ const PortfolioC = () => {
 
                 //Get all skills from DB
                 const projects = await IndexAPI.get(`/projects`);
-                const projectArray = [];
-                for(let i = 0; i < projects.data.results.length; i++){
-                    projects.data.results[i].thumbnail = projectThumbnail[projects.data.results[i].thumbnail]
-                    projectArray.push(projects.data.results[i])
+                const projectThumbnailArray = [];
+                for(let i = 0; i < projects.data.results[0].length; i++){
+                    projects.data.results[0][i].thumbnail = projectThumbnail[projects.data.results[0][i].thumbnail]
+                    projectThumbnailArray.push(projects.data.results[0][i])
                 }
-                setProjects(projectArray);
+                setProjects(projectThumbnailArray);
+
+                console.log(projects.data.results[1])
+                const projectsArray = [];
+                const projectTechArray = [];
+                const numberofProjects = 0;
+                const projectName = "";
+                for(let i = 0; i < projects.data.results[1].length; i++){
+                    if(projectsArray.indexOf(projects.data.results[1][i].project) === -1){
+                        projectsArray.push(projects.data.results[1][i].project);
+                    }
+                }
+                for(let i = 0; i < projectsArray.length; i++){
+                    for(let j = 0; j < projects.data.results[1].length; j++){
+                        if(projects.data.results[1][j].project === projectsArray[i]){
+                            // projectsArray[i].tech = projects.data.results[1][j].technology
+                        }
+                    }
+                }
+
+                // setTechnology(projectArray);
+                console.log(projectsArray)
 
             }catch(err){
                 console.log(err);
@@ -73,9 +95,7 @@ const PortfolioC = () => {
 
     return(
         <div className="main">
-            {console.log(projects)}
             <HeaderC/>
-
             <div className={createModal}>
                 <div ref={createRef} className="modal-content">
                     <CreateC createModal={createModal} setNewProject={newProject => setNewProject(newProject)}/>
@@ -96,6 +116,13 @@ const PortfolioC = () => {
                                     <div className="portfolio-project">
                                         <img className="project-thumbnail" src={project.thumbnail.default}/>
                                         <div className="thumbnail-overlay thumbnail-overlay--blur">
+                                        {technology.map((tech, index) => {
+                                            return(
+                                                <div>
+
+                                                </div>
+                                            )
+                                        })}
                                             <div className="tech-used">
                                                 <button onClick={() => updateProject()}>UPDATE</button>
                                                 <button onClick={() => deleteProject()}>DELETE</button>

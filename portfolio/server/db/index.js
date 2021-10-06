@@ -7,6 +7,7 @@ if(process.env.NODE_ENV !== 'production'){
 }
 
 const db = mysql.createConnection({
+    multipleStatements: true,
     user: process.env.MSQLUSER,
     host: process.env.MSQLHOST,
     password: process.env.MSQLPASSWORD,

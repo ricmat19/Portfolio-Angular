@@ -21,7 +21,6 @@ const CreateC = (props) => {
                 for(let i = 0; i < skills.data.results.length; i++){
                     skillsArray.push(skills.data.results[i].skill)
                 }
-                // console.log(skillsArray)
                 setSkills(skillsArray);
 
                 let projectSet = []
@@ -93,7 +92,6 @@ const CreateC = (props) => {
             <div className="grid toDo-modal-grid">
                 <label>THUMBNAIL</label>
                 <select onChange={e => setThumbnail(e.target.value)} name="projectThumbnail">
-                    {console.log(projects)}
                     <option disabled selected>Select a Project...</option>
                     {projects.map((project, index) => {
                         return(
