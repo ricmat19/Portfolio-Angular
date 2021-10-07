@@ -49,26 +49,36 @@ const PortfolioC = () => {
                 }
                 setProjects(projectThumbnailArray);
 
-                console.log(projects.data.results[1])
+                //Array of projects in project_tech
                 const projectsArray = [];
-                const projectTechArray = [];
                 const numberofProjects = 0;
                 const projectName = "";
+
+                //Adds all the projects in the projectsArray
                 for(let i = 0; i < projects.data.results[1].length; i++){
                     if(projectsArray.indexOf(projects.data.results[1][i].project) === -1){
                         projectsArray.push(projects.data.results[1][i].project);
                     }
                 }
+
+                const projectTechArray = [];
+                //Loops through the projectArray
                 for(let i = 0; i < projectsArray.length; i++){
+                    const tempArray = [];
+                    //Loops through all data provided from project_tech
                     for(let j = 0; j < projects.data.results[1].length; j++){
+                        //Checks if the current item in project_tech pertains to the current project
                         if(projects.data.results[1][j].project === projectsArray[i]){
-                            // projectsArray[i].tech = projects.data.results[1][j].technology
+                            tempArray.push(projects.data.results[1][j].technology)
                         }
                     }
+                    const key = projectsArray[i];
+                    const tempObject = {};
+                    tempObject[key] = [tempArray];
+                    projectTechArray.push(tempObject)
                 }
 
-                // setTechnology(projectArray);
-                console.log(projectsArray)
+                setTechnology(projectTechArray);
 
             }catch(err){
                 console.log(err);
@@ -116,14 +126,23 @@ const PortfolioC = () => {
                                     <div className="portfolio-project">
                                         <img className="project-thumbnail" src={project.thumbnail.default}/>
                                         <div className="thumbnail-overlay thumbnail-overlay--blur">
-                                        {technology.map((tech, index) => {
-                                            return(
-                                                <div>
-
-                                                </div>
-                                            )
-                                        })}
                                             <div className="tech-used">
+                                                {technology.map((tech, index) => {
+                                                    if(tech[project.project] !== undefined){
+                                                        return(
+                                                            <div className="project-tech" key={index}>
+                                                                {console.log(tech[project.project][0].length)}
+                                                                {tech[project.project][0].map((t, index) => {
+                                                                    return(
+                                                                        <div key={index}>
+                                                                            {t}
+                                                                        </div>
+                                                                    )
+                                                                })}
+                                                            </div>
+                                                        )
+                                                    }
+                                                })}
                                                 <button onClick={() => updateProject()}>UPDATE</button>
                                                 <button onClick={() => deleteProject()}>DELETE</button>
                                             </div>

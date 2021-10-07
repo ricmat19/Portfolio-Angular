@@ -203,6 +203,10 @@ input, select, textarea{
     align-content: center;
 }
 
+.project-tech{
+    background: white;
+}
+
 .footer{
     background: black;
     grid-template-columns: repeat(2, 1fr);
