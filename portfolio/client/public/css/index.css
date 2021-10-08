@@ -196,15 +196,30 @@ input, select, textarea{
     backdrop-filter: blur(10px);
 }
 
+.buttons-div{
+    gap: 20px;
+}
+
 .tech-used{
-    display: block;
-    grid-template-columns: repeat(auto, minmax(1px, 1px));
+    display: grid;
     justify-content: center;
     align-content: center;
+    text-align: center;
+    padding: 0 20px;
+}
+
+.project-buttons{
+    display: block;
+    justify-content: center;
+    align-content: center;
+    text-align: center;
 }
 
 .project-tech{
-    background: white;
+    display: block;
+    grid-template-columns: repeat(auto-fit, minmax(50px, 100px));
+    justify-content: center;
+    align-content: center;
 }
 
 .footer{
@@ -255,7 +270,7 @@ input, select, textarea{
       background-color: black;
       color: white;
       border-radius: 0;
-      width: min-content;
+      width: auto;
       padding: 5px 10px;
       margin: 5px;
 

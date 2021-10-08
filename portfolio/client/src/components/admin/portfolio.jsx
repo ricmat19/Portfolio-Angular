@@ -39,7 +39,6 @@ const PortfolioC = () => {
                     }
                 })
 
-
                 //Get all skills from DB
                 const projects = await IndexAPI.get(`/projects`);
                 const projectThumbnailArray = [];
@@ -51,8 +50,6 @@ const PortfolioC = () => {
 
                 //Array of projects in project_tech
                 const projectsArray = [];
-                const numberofProjects = 0;
-                const projectName = "";
 
                 //Adds all the projects in the projectsArray
                 for(let i = 0; i < projects.data.results[1].length; i++){
@@ -86,6 +83,34 @@ const PortfolioC = () => {
         }
         fetchData();
     }, []);
+
+    const filterProjects = async (tech) => {
+        try{
+                //Get all skills from DB
+                const projects = await IndexAPI.get(`/projects`);
+
+                const techProjects = []
+                //Get projects that have the specified project_tech
+                for(let i = 0; i < projects.data.results[1].length; i++){
+                    if(projects.data.results[1][i].technology === tech){
+                        techProjects.push(projects.data.results[1][i].project)
+                    }
+                }
+
+                const projectThumbnailArray = [];
+                for(let i = 0; i < projects.data.results[0].length; i++){
+                    if(techProjects.includes(projects.data.results[0][i].project)){
+                        projects.data.results[0][i].thumbnail = projectThumbnail[projects.data.results[0][i].thumbnail]
+                        projectThumbnailArray.push(projects.data.results[0][i])
+                    }
+                    // console.log(projects.data.results[0][i].project)
+                }
+                setProjects(projectThumbnailArray);
+
+        }catch(err){
+            console.log(err);
+        }
+    }
 
     const updateProject = async (id) => {
         try{
@@ -126,25 +151,28 @@ const PortfolioC = () => {
                                     <div className="portfolio-project">
                                         <img className="project-thumbnail" src={project.thumbnail.default}/>
                                         <div className="thumbnail-overlay thumbnail-overlay--blur">
-                                            <div className="tech-used">
-                                                {technology.map((tech, index) => {
-                                                    if(tech[project.project] !== undefined){
-                                                        return(
-                                                            <div className="project-tech" key={index}>
-                                                                {console.log(tech[project.project][0].length)}
-                                                                {tech[project.project][0].map((t, index) => {
-                                                                    return(
-                                                                        <div key={index}>
-                                                                            {t}
-                                                                        </div>
-                                                                    )
-                                                                })}
-                                                            </div>
-                                                        )
-                                                    }
-                                                })}
-                                                <button onClick={() => updateProject()}>UPDATE</button>
-                                                <button onClick={() => deleteProject()}>DELETE</button>
+                                            <div className="grid buttons-div">
+                                                <div className="tech-used">
+                                                    {technology.map((tech, index) => {
+                                                        if(tech[project.project] !== undefined){
+                                                            return(
+                                                                <div className="grid project-tech" key={index}>
+                                                                    {tech[project.project][0].map((t, index) => {
+                                                                        return(
+                                                                            <button key={index} onClick={() => filterProjects(t)}>
+                                                                                {t}
+                                                                            </button>
+                                                                        )
+                                                                    })}
+                                                                </div>
+                                                            )
+                                                        }
+                                                    })}
+                                                </div>
+                                                <div className="project-buttons">
+                                                    <button onClick={() => updateProject()}>UPDATE</button>
+                                                    <button onClick={() => deleteProject()}>DELETE</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
