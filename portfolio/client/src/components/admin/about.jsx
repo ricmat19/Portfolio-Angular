@@ -15,11 +15,8 @@ const skillIcons = importAll(require.context('../../images/skills'));
 
 const AboutC = () => {
 
-    const [icons, setIcons] = useState([]);
     const [skillModal, setSkillModal] = useState("modal");
     const [newSkill, setNewSkill] = useState("");
-
-    const [categories, setCategories] = useState([]);
     const [skills, setSkills] = useState([]);
 
     const skillRef = useRef();
@@ -46,7 +43,6 @@ const AboutC = () => {
                     skillArray.push(skills.data.results[i])
                 }
                 skillArray.sort(function(a, b){return a.ranking - b.ranking})
-                // console.log(skillArray)
                 setSkills(skillArray);
 
             }catch(err){

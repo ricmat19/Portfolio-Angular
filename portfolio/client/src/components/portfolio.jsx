@@ -1,31 +1,94 @@
-import React, { useContext, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import IndexAPI from '../apis/indexAPI';
 import HeaderC from './header';
 import FooterC from './footer';
-import {useHistory} from "react-router-dom";
 
+function importAll(projects) {
+    let images = {};
+    projects.keys().forEach((index) => { 
+        images[index.replace('./', '')] = projects(index); 
+    });
+    return images
+}
+const projectThumbnail = importAll(require.context('../images/projects'));
 
 const PortfolioC = () => {
 
-    const [pageNumber, setPageNumber] = useState(0);
+    const [projects, setProjects] = useState([]);
+    const [technology, setTechnology] = useState([]);
 
-    let history = useHistory();
+    useEffect(() => {
+        const fetchData = async (req, res) => {
+            try{
 
-    const itemsPerPage = 9;
-    const pagesVisted = pageNumber * itemsPerPage;
+                //Get all skills from DB
+                const projects = await IndexAPI.get(`/projects`);
+                const projectThumbnailArray = [];
+                for(let i = 0; i < projects.data.results[0].length; i++){
+                    projects.data.results[0][i].thumbnail = projectThumbnail[projects.data.results[0][i].thumbnail]
+                    projectThumbnailArray.push(projects.data.results[0][i])
+                }
+                setProjects(projectThumbnailArray);
 
-    // const portfolioThumbnails = portfolio.slice(pagesVisted, pagesVisted + itemsPerPage).map((project) => {
-    //     return(
-    //         <div className="portfolio-item-div" key={project.id} onClick={() => displayProject(project.product, project.id)}>
-    //             <div className="portfolio-project">
-    //                 <img className="project-thumbnail" src={project.imageBuffer}/>
-    //             </div>
-    //         </div>
-    //     );
-    // });
+                //Array of projects in project_tech
+                const projectsArray = [];
 
-    const displayProject = async (product, id) => {
+                //Adds all the projects in the projectsArray
+                for(let i = 0; i < projects.data.results[1].length; i++){
+                    if(projectsArray.indexOf(projects.data.results[1][i].project) === -1){
+                        projectsArray.push(projects.data.results[1][i].project);
+                    }
+                }
+
+                const projectTechArray = [];
+                //Loops through the projectArray
+                for(let i = 0; i < projectsArray.length; i++){
+                    const tempArray = [];
+                    //Loops through all data provided from project_tech
+                    for(let j = 0; j < projects.data.results[1].length; j++){
+                        //Checks if the current item in project_tech pertains to the current project
+                        if(projects.data.results[1][j].project === projectsArray[i]){
+                            tempArray.push(projects.data.results[1][j].technology)
+                        }
+                    }
+                    const key = projectsArray[i];
+                    const tempObject = {};
+                    tempObject[key] = [tempArray];
+                    projectTechArray.push(tempObject)
+                }
+
+                setTechnology(projectTechArray);
+
+            }catch(err){
+                console.log(err);
+            }
+        }
+        fetchData();
+    }, []);
+
+    const filterProjects = async (tech) => {
         try{
-            history.push(`/collection/${product}/${id}`)
+                //Get all skills from DB
+                const projects = await IndexAPI.get(`/projects`);
+
+                const techProjects = []
+                //Get projects that have the specified project_tech
+                for(let i = 0; i < projects.data.results[1].length; i++){
+                    if(projects.data.results[1][i].technology === tech){
+                        techProjects.push(projects.data.results[1][i].project)
+                    }
+                }
+
+                const projectThumbnailArray = [];
+                for(let i = 0; i < projects.data.results[0].length; i++){
+                    if(techProjects.includes(projects.data.results[0][i].project)){
+                        projects.data.results[0][i].thumbnail = projectThumbnail[projects.data.results[0][i].thumbnail]
+                        projectThumbnailArray.push(projects.data.results[0][i])
+                    }
+                    // console.log(projects.data.results[0][i].project)
+                }
+                setProjects(projectThumbnailArray);
+
         }catch(err){
             console.log(err);
         }
@@ -34,45 +97,43 @@ const PortfolioC = () => {
     return(
         <div className="main">
             <HeaderC/>
+
             <div className="container">
                 <div className="title-div">
                     <p className="title">portfolio</p>
                 </div>
-                <div className="portfolio-thumbnail-div">
-                    <div className="portfolio-item-div">
-                        <div className="portfolio-project">
-                            <img className="project-thumbnail" src="../../images/arcade-screen-shot.jpg"/>
-                            <div className="thumbnail-overlay thumbnail-overlay--blur">
-                                <div className="tech-used">
-                                    <button>HTML</button>
-                                    <button>GITHUB</button>
+                    <div className="portfolio-thumbnail-div" >
+                        {projects.map((project, index) => {
+                            return(
+                                <div className="portfolio-item-div" key={index}>
+                                    <div className="portfolio-project">
+                                        <img className="project-thumbnail" src={project.thumbnail.default}/>
+                                        <div className="thumbnail-overlay thumbnail-overlay--blur">
+                                            <div className="grid buttons-div">
+                                                <div className="tech-used">
+                                                    {technology.map((tech, index) => {
+                                                        if(tech[project.project] !== undefined){
+                                                            return(
+                                                                <div className="grid project-tech" key={index}>
+                                                                    {tech[project.project][0].map((t, index) => {
+                                                                        return(
+                                                                            <button key={index} onClick={() => filterProjects(t)}>
+                                                                                {t}
+                                                                            </button>
+                                                                        )
+                                                                    })}
+                                                                </div>
+                                                            )
+                                                        }
+                                                    })}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
+                            )
+                        })}
                     </div>
-                    <div className="portfolio-item-div">
-                        <div className="portfolio-project">
-                            <img className="project-thumbnail" src="../../images/ecommerce-store-screen-shot.jpg"/>
-                            <div className="thumbnail-overlay thumbnail-overlay--blur">
-                                <div className="tech-used">
-                                    <button>HTML</button>
-                                    <button>GITHUB</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="portfolio-item-div">
-                        <div className="portfolio-project">
-                            <img className="project-thumbnail" src="../../images/planner-screen-shot.jpg"/>
-                            <div className="thumbnail-overlay thumbnail-overlay--blur">
-                                <div className="tech-used">
-                                    <button>HTML</button>
-                                    <button>GITHUB</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
             <FooterC/>
         </div>
