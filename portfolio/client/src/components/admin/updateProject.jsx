@@ -1,22 +1,27 @@
 import React, { useEffect, useRef, useState } from 'react';
 import IndexAPI from '../../apis/indexAPI';
 
-const CreateC = (props) => {
+const UpdateC = (props) => {
 
-    const [projectImages, setProjectImages] = useState([]);
-    const [skills, setSkills] = useState([]);
+    console.log(props)
 
-    const [project, setProject] = useState("")
-    const [thumbnail, setThumbnail] = useState("")
-    const [projectTech, setProjectTech] = useState([]);
+    const [projectImages, setProjectImages] = useState([]);//All Project Image urls
+    const [skills, setSkills] = useState([]); //All Skills
 
-    const [newProject, setNewProject] = useState("") //Fix
-    
+    const [title, setTitle] = useState("") //Current Project Name (set initial value though prop)
+    const [thumbnail, setThumbnail] = useState("") //Current thumbnail URL (set initial value though prop)
+    const [projectTech, setProjectTech] = useState([]); //Current project tech (set initial value though prop)
+
+    const [updatedProject, setUpdatedProject] = useState("") //Fix
+
     const projectInput = useRef(null);
 
     useEffect(() => {
         const fetchData = async (req, res) => {
             try{
+
+                setTitle(props.title)
+                setProjectTech(props.tech)
 
                 //Get all skills from DB
                 const skills = await IndexAPI.get(`/skills`);
@@ -73,13 +78,13 @@ const CreateC = (props) => {
         try{
  
             const response = await IndexAPI.post("/projects/add-project",{
-                project,
+                title,
                 thumbnail,
                 projectTech,
             });
             projectInput.current.value = "";
 
-            props.setNewProject(newProject)
+            props.setUpdatedProject(updatedProject)
 
         }catch(err){
             console.log(err);
@@ -90,7 +95,7 @@ const CreateC = (props) => {
         <div className="grid add-project-modal">
             <div className="grid toDo-modal-grid">
                 <label>TITLE</label>
-                <input ref={projectInput} onChange={e => setProject(e.target.value)} type="text" name="project_title"/>
+                <input ref={projectInput} onChange={e => setTitle(e.target.value)} type="text" name="project_title" value={title}/>
             </div>
             <div className="grid toDo-modal-grid">
                 <label>THUMBNAIL</label>
@@ -121,4 +126,4 @@ const CreateC = (props) => {
     )
 }
 
-export default CreateC;
+export default UpdateC;

@@ -3,6 +3,7 @@ import IndexAPI from '../../apis/indexAPI';
 import HeaderC from '../header';
 import FooterC from '../footer';
 import CreateC from './addProject';
+import UpdateC from './updateProject';
 
 function importAll(projects) {
     let images = {};
@@ -16,15 +17,34 @@ const projectThumbnail = importAll(require.context('../../images/projects'));
 const PortfolioC = () => {
 
     const [createModal, setCreateModal] = useState("modal");
+    const [updateModal, setUpdateModal] = useState("modal");
     const [newProject, setNewProject] = useState("");
+    const [updatedProject, setUpdatedProject] = useState("");
 
     const [projects, setProjects] = useState([]);
     const [technology, setTechnology] = useState([]);
 
+    const [currentTitle, setCurrentTitle] = useState("");
+    const [currentTech, setCurrentTech] = useState([]);
+
     const createRef = useRef();
+    const updateRef = useRef();
 
     const displayCreateModal = () => {
         setCreateModal("modal modal-active");
+    }
+
+    const displayUpdateModal = (currentTitle) => {
+
+        for(let i=0; i< technology.length; i++){
+            if(technology[i][currentTitle] !== undefined){
+                setCurrentTech(technology[i][currentTitle]) 
+            }
+        }
+
+        setCurrentTitle(currentTitle);
+
+        setUpdateModal("modal modal-active");
     }
 
     useEffect(() => {
@@ -32,9 +52,12 @@ const PortfolioC = () => {
             try{
 
                 document.addEventListener("mousedown", (event) => {
-                    if(createRef.current !== null){
+                    if(createRef.current !== null && updateRef.current !== null){
                         if(!createRef.current.contains(event.target)){
                             setCreateModal("modal");
+                        }
+                        if(!updateRef.current.contains(event.target)){
+                            setUpdateModal("modal");
                         }
                     }
                 })
@@ -137,6 +160,13 @@ const PortfolioC = () => {
                 </div>
             </div>
 
+            <div className={updateModal}>
+                <div ref={updateRef} className="modal-content">
+                    <UpdateC updateModal={updateModal} setUpdatedProject={updateProject => setUpdatedProject(updateProject)} title={currentTitle} tech={currentTech}/>
+                </div>
+            </div>
+
+
             <div className="container">
                 <div className="title-div">
                     <p className="title">portfolio</p>
@@ -170,7 +200,7 @@ const PortfolioC = () => {
                                                     })}
                                                 </div>
                                                 <div className="project-buttons">
-                                                    <button onClick={() => updateProject()}>UPDATE</button>
+                                                    <button onClick={() => displayUpdateModal(project.project)}>UPDATE</button>
                                                     <button onClick={() => deleteProject()}>DELETE</button>
                                                 </div>
                                             </div>
