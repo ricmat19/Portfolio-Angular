@@ -36,9 +36,12 @@ const PortfolioC = () => {
 
     const displayUpdateModal = (currentTitle) => {
 
-        for(let i=0; i< technology.length; i++){
+        for(let i=0; i < technology.length; i++){
             if(technology[i][currentTitle] !== undefined){
-                setCurrentTech(technology[i][currentTitle]) 
+                setCurrentTech(technology[i][currentTitle])
+                break;
+            }else{
+                setCurrentTech([]);
             }
         }
 
@@ -126,7 +129,6 @@ const PortfolioC = () => {
                         projects.data.results[0][i].thumbnail = projectThumbnail[projects.data.results[0][i].thumbnail]
                         projectThumbnailArray.push(projects.data.results[0][i])
                     }
-                    // console.log(projects.data.results[0][i].project)
                 }
                 setProjects(projectThumbnailArray);
 

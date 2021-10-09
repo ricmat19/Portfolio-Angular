@@ -3,14 +3,13 @@ import IndexAPI from '../../apis/indexAPI';
 
 const UpdateC = (props) => {
 
-    console.log(props)
-
     const [projectImages, setProjectImages] = useState([]);//All Project Image urls
     const [skills, setSkills] = useState([]); //All Skills
 
     const [title, setTitle] = useState("") //Current Project Name (set initial value though prop)
     const [thumbnail, setThumbnail] = useState("") //Current thumbnail URL (set initial value though prop)
     const [projectTech, setProjectTech] = useState([]); //Current project tech (set initial value though prop)
+    const [oldTitle, setOldTitle] = useState("");
 
     const [updatedProject, setUpdatedProject] = useState("") //Fix
 
@@ -19,9 +18,14 @@ const UpdateC = (props) => {
     useEffect(() => {
         const fetchData = async (req, res) => {
             try{
-
                 setTitle(props.title)
-                setProjectTech(props.tech)
+                if(props.tech === []){
+                    setProjectTech([])
+                }else{
+                    setProjectTech(props.tech[0])
+                }
+
+                setOldTitle(props.title)
 
                 //Get all skills from DB
                 const skills = await IndexAPI.get(`/skills`);
@@ -49,20 +53,19 @@ const UpdateC = (props) => {
             }
         }
         fetchData();
-    }, []);
+    }, [props]);
 
     const createTechList = async (value, checked) =>{
         try{
-
-            if(projectTech === null){
+            const currentValues = [];
+            if(projectTech === null || projectTech === undefined){
                 if(checked){
-                    setProjectTech(value);
+                    currentValues.push(value);
                 }
             }else{
-                if(checked){
-                    setProjectTech(projectTech => [...projectTech, value]);
-                }  
+                currentValues.push(...projectTech, value)
             }
+            setProjectTech(currentValues)
 
             if(!checked){
                 setProjectTech(projectTech.filter(projectTech => projectTech !== value))
@@ -73,15 +76,17 @@ const UpdateC = (props) => {
         }
     }
 
-    const createProject = async (e) =>{
-        e.preventDefault()
+    const updateProject = async (e) =>{
+        e.preventDefault();
         try{
- 
-            const response = await IndexAPI.post("/projects/add-project",{
+
+            const response = await IndexAPI.put("/projects/update-project",{
                 title,
                 thumbnail,
                 projectTech,
+                oldTitle,
             });
+
             projectInput.current.value = "";
 
             props.setUpdatedProject(updatedProject)
@@ -111,16 +116,34 @@ const UpdateC = (props) => {
             <div className="grid toDo-modal-grid">
                 <label>TECH</label>
                 {skills.map((skill, index) => {
-                    return(
-                        <div key={index} className="grid tech-checkbox-list">
-                            <label className="tech-checkbox-label">{skill}</label>
-                            <input type="checkbox" name="skill" value={skill} onChange={e => createTechList(e.target.value, e.target.checked)}/>
-                        </div>
-                    )
+                    if(projectTech !== undefined){
+                        if(projectTech.includes(skill)){
+                            return(
+                                <div key={index} className="grid tech-checkbox-list">
+                                    <label className="tech-checkbox-label">{skill}</label>
+                                    <input type="checkbox" name="skill" value={skill} onChange={e => createTechList(e.target.value, e.target.checked)} checked/>
+                                </div>
+                            )
+                        }else{
+                            return(
+                                <div key={index} className="grid tech-checkbox-list">
+                                    <label className="tech-checkbox-label">{skill}</label>
+                                    <input type="checkbox" name="skill" value={skill} onChange={e => createTechList(e.target.value, e.target.checked)}/>
+                                </div>
+                            )
+                        }
+                    }else{
+                        return(
+                            <div key={index} className="grid tech-checkbox-list">
+                                <label className="tech-checkbox-label">{skill}</label>
+                                <input type="checkbox" name="skill" value={skill} onChange={e => createTechList(e.target.value, e.target.checked)}/>
+                            </div>
+                        )
+                    }
                 })}
             </div>
             <div>
-                <button className="form-button" type="submit" onClick={createProject}>CREATE</button>
+                <button className="form-button" type="submit" onClick={updateProject}>UPDATE</button>
             </div>
         </div>
     )

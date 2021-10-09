@@ -53,6 +53,33 @@ router.post('/projects/add-project', async (req, res) => {
     }
 })
 
+router.put('/projects/update-project', async (req, res) => {
+    try{
+
+        let project = "";
+        if(req.body.thumbnail !== ""){
+            project = await db.query(`UPDATE projects SET project=?, thumbnail=? WHERE project=?`, [req.body.title, req.body.thumbnail, req.body.oldTitle]);
+        }else{
+            project = await db.query(`UPDATE projects SET project=? WHERE project=?`, 
+            [req.body.title, req.body.oldTitle]);
+        }
+
+        const deleteTech = await db.query(`DELETE FROM project_tech WHERE project=?`, [req.body.title]);
+
+        let newTech = "";
+        for(let i = 0; i < req.body.projectTech.length; i++){
+            newTech = await db.query(`INSERT INTO project_tech (project, technology) VALUES (?, ?)`, [req.body.title, req.body.projectTech[i]]);
+        }
+
+        res.status(201).json({
+            status: "success",
+        })
+
+    }catch(err){
+        console.log(err);
+    }
+})
+
 //Delete a collection item
 router.delete('/admin/delete', async(req, res) => {
     try{
