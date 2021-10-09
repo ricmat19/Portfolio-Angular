@@ -81,9 +81,10 @@ router.put('/projects/update-project', async (req, res) => {
 })
 
 //Delete a collection item
-router.delete('/admin/delete', async(req, res) => {
+router.delete('/admin/projects/:title/delete', async(req, res) => {
     try{
-        const deleteProject = await db.query("DELETE FROM projects WHERE project=? ", [req.params.book]);
+        console.log(req.params)
+        const deleteProject = await db.query("DELETE FROM projects WHERE project=?", [req.params.title]);
         res.status(204).json({
             status: "success"
         })

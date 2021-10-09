@@ -4,6 +4,7 @@ import HeaderC from '../header';
 import FooterC from '../footer';
 import CreateC from './addProject';
 import UpdateC from './updateProject';
+import DeleteC from './deleteProject';
 
 function importAll(projects) {
     let images = {};
@@ -18,8 +19,10 @@ const PortfolioC = () => {
 
     const [createModal, setCreateModal] = useState("modal");
     const [updateModal, setUpdateModal] = useState("modal");
+    const [deleteModal, setDeleteModal] = useState("modal");
     const [newProject, setNewProject] = useState("");
     const [updatedProject, setUpdatedProject] = useState("");
+    const [deletedProject, setDeletedProject] = useState("");
 
     const [projects, setProjects] = useState([]);
     const [technology, setTechnology] = useState([]);
@@ -29,25 +32,39 @@ const PortfolioC = () => {
 
     const createRef = useRef();
     const updateRef = useRef();
+    const deleteRef = useRef();
 
     const displayCreateModal = () => {
         setCreateModal("modal modal-active");
     }
 
     const displayUpdateModal = (currentTitle) => {
-
-        for(let i=0; i < technology.length; i++){
-            if(technology[i][currentTitle] !== undefined){
-                setCurrentTech(technology[i][currentTitle])
-                break;
-            }else{
-                setCurrentTech([]);
+        try{
+            for(let i=0; i < technology.length; i++){
+                if(technology[i][currentTitle] !== undefined){
+                    setCurrentTech(technology[i][currentTitle])
+                    break;
+                }else{
+                    setCurrentTech([]);
+                }
             }
+
+            setCurrentTitle(currentTitle);
+
+            setUpdateModal("modal modal-active");
+        }catch(err){
+            console.log(err);
         }
+    }
 
-        setCurrentTitle(currentTitle);
+    const displayDeleteModal = async (project) => {
+        try{
+            setDeletedProject(project);
+            setDeleteModal("modal modal-active");
 
-        setUpdateModal("modal modal-active");
+        }catch(err){
+            console.log(err);
+        }
     }
 
     useEffect(() => {
@@ -55,12 +72,15 @@ const PortfolioC = () => {
             try{
 
                 document.addEventListener("mousedown", (event) => {
-                    if(createRef.current !== null && updateRef.current !== null){
+                    if(createRef.current !== null && updateRef.current !== null && deleteRef !== null){
                         if(!createRef.current.contains(event.target)){
                             setCreateModal("modal");
                         }
                         if(!updateRef.current.contains(event.target)){
                             setUpdateModal("modal");
+                        }
+                        if(!deleteRef.current.contains(event.target)){
+                            setDeleteModal("modal");
                         }
                     }
                 })
@@ -137,22 +157,6 @@ const PortfolioC = () => {
         }
     }
 
-    const updateProject = async (id) => {
-        try{
-
-        }catch(err){
-            console.log(err);
-        }
-    }
-
-    const deleteProject = async (id) => {
-        try{
-
-        }catch(err){
-            console.log(err);
-        }
-    }
-
     return(
         <div className="main">
             <HeaderC/>
@@ -165,6 +169,12 @@ const PortfolioC = () => {
             <div className={updateModal}>
                 <div ref={updateRef} className="modal-content">
                     <UpdateC updateModal={updateModal} setUpdatedProject={updateProject => setUpdatedProject(updateProject)} title={currentTitle} tech={currentTech}/>
+                </div>
+            </div>
+
+            <div className={deleteModal}>
+                <div ref={deleteRef} className="modal-content">
+                    <DeleteC deleteModal={deleteModal} setDeletedProject={deleteProject => setDeletedProject(deletedProject)} title={deletedProject}/>
                 </div>
             </div>
 
@@ -203,7 +213,7 @@ const PortfolioC = () => {
                                                 </div>
                                                 <div className="project-buttons">
                                                     <button onClick={() => displayUpdateModal(project.project)}>UPDATE</button>
-                                                    <button onClick={() => deleteProject()}>DELETE</button>
+                                                    <button onClick={() => displayDeleteModal(project.project)}>DELETE</button>
                                                 </div>
                                             </div>
                                         </div>
