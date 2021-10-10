@@ -149,6 +149,7 @@ input, select, textarea{
     margin: 0;
     padding: 0;
     cursor: pointer;
+    z-index: 0;
 }
 
 .portfolio-project::after{
@@ -214,6 +215,7 @@ input, select, textarea{
     justify-content: center;
     align-content: center;
     text-align: center;
+    z-index: 2;
 }
 
 .project-tech{
@@ -247,7 +249,7 @@ input, select, textarea{
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 2;
+    z-index: 3;
     height: 100vh;
     width: 100%;
     overflow: auto;

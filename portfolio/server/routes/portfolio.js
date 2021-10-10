@@ -71,8 +71,8 @@ router.put('/projects/update-project', async (req, res) => {
 
         const deleteTech = await db.query(`DELETE FROM project_tech WHERE project=?`, [req.body.title]);
         let newTech = "";
-        for(let i = 0; i < req.body.projectTech.length; i++){
-            newTech = await db.query(`INSERT INTO project_tech (project, technology) VALUES (?, ?)`, [req.body.title, req.body.projectTech[i]]);
+        for(let i = 0; i < req.body.tech.length; i++){
+            newTech = await db.query(`INSERT INTO project_tech (project, technology) VALUES (?, ?)`, [req.body.title, req.body.tech[i]]);
         }
 
         res.status(201).json({

@@ -14,7 +14,7 @@ function importAll(projects) {
     });
     return images
 }
-const projectThumbnail = importAll(require.context('../../images/projects'));
+const projectThumbnails = importAll(require.context('../../images/projects'));
 
 const PortfolioC = () => {
 
@@ -27,8 +27,9 @@ const PortfolioC = () => {
     const [updatedProject, setUpdatedProject] = useState("");
     const [deletedProject, setDeletedProject] = useState("");
 
-    const [projects, setProjects] = useState([]);
-    const [thumbnail, setThumbnail] = useState([]);
+    const [titles, setTitles] = useState([])
+    const [projects, setProjectTech] = useState([]);
+    const [thumbnails, setThumbnails] = useState([]);
     const [technology, setTechnology] = useState([]);
 
     const [currentTitle, setCurrentTitle] = useState("");
@@ -46,9 +47,11 @@ const PortfolioC = () => {
     const displayUpdateModal = (currentTitle) => {
         try{
 
-            for(let i=0; i < thumbnail.length; i++){
-                if(thumbnail[i][currentTitle] !== undefined){
-                    setCurrentThumbnails(thumbnail[i][currentTitle])
+            console.log(currentTitle)
+
+            for(let i=0; i < thumbnails.length; i++){
+                if(thumbnails[i][currentTitle] !== undefined){
+                    setCurrentThumbnails(thumbnails[i][currentTitle])
                     break;
                 }else{
                     setCurrentThumbnails([]);
@@ -100,14 +103,38 @@ const PortfolioC = () => {
                     }
                 })
 
-                //Get all skills from DB
+                //Get all project thumbnails and images from DB
                 const projects = await IndexAPI.get(`/projects`);
+
+                //Adds all the projects in project_images to the projectThumbnailArray
                 const projectThumbnailArray = [];
                 for(let i = 0; i < projects.data.results[0].length; i++){
-                    projects.data.results[0][i].thumbnail = projectThumbnail[projects.data.results[0][i].thumbnail]
-                    projectThumbnailArray.push(projects.data.results[0][i])
+                    if(projectThumbnailArray.indexOf(projects.data.results[0][i].thumbnail) === -1){
+                        projects.data.results[0][i].thumbnail = projectThumbnails[projects.data.results[0][i].thumbnail]
+                        projectThumbnailArray.push(projects.data.results[0][i]);
+                    }
                 }
-                setProjects(projectThumbnailArray);
+
+                //Loops through the projectThumbnailArray
+                const projectTitles = [];
+                const currentProjectThumbnailArray = [];
+                for(let i = 0; i < projectThumbnailArray.length; i++){
+                    const tempArray = [];
+                    //Loops through all data provided from project_tech
+                    for(let j = 0; j < projects.data.results[0].length; j++){
+                        //Checks if the current item in project_tech pertains to the current project
+                        if(projects.data.results[0][j].thumbnail === projectThumbnailArray[i].thumbnail){
+                            tempArray.push(projects.data.results[0][j].thumbnail)
+                        }
+                    }
+                    const key = projectThumbnailArray[i].project;
+                    const tempObject = {};
+                    tempObject[key] = [tempArray];
+                    projectTitles.push(projectThumbnailArray[i].project);
+                    currentProjectThumbnailArray.push(tempObject)
+                }
+                setTitles(projectTitles)
+                setThumbnails(currentProjectThumbnailArray);
 
                 //Adds all the projects in project_tech to the projectTechArray
                 const projectTechArray = [];
@@ -118,7 +145,7 @@ const PortfolioC = () => {
                 }
 
                 //Loops through the projectArray
-                const currentProjectArray = [];
+                const currentProjectTechArray = [];
                 for(let i = 0; i < projectTechArray.length; i++){
                     const tempArray = [];
                     //Loops through all data provided from project_tech
@@ -131,10 +158,10 @@ const PortfolioC = () => {
                     const key = projectTechArray[i];
                     const tempObject = {};
                     tempObject[key] = [tempArray];
-                    currentProjectArray.push(tempObject)
+                    currentProjectTechArray.push(tempObject)
                 }
 
-                setTechnology(currentProjectArray);
+                setTechnology(currentProjectTechArray);
 
             }catch(err){
                 console.log(err);
@@ -156,7 +183,7 @@ const PortfolioC = () => {
                     }
                 }
 
-                setProjects(projectTech);
+                setProjectTech(projectTech);
 
         }catch(err){
             console.log(err);
@@ -174,13 +201,13 @@ const PortfolioC = () => {
 
             <div className={updateModal}>
                 <div ref={updateRef} className="modal-content">
-                    <UpdateC updateModal={updateModal} setUpdatedProject={updateProject => setUpdatedProject(updateProject)} title={currentTitle} tech={currentTech}/>
+                    <UpdateC updateModal={updateModal} setUpdatedProject={updateProject => setUpdatedProject(updateProject)} title={currentTitle} thumbnails={thumbnails} tech={technology}/>
                 </div>
             </div>
 
             <div className={deleteModal}>
                 <div ref={deleteRef} className="modal-content">
-                    <DeleteC deleteModal={deleteModal} setDeletedProject={deleteProject => setDeletedProject(deletedProject)} title={deletedProject}/>
+                    <DeleteC deleteModal={deleteModal} setDeletedProject={deletedProject => setDeletedProject(deletedProject)} title={deletedProject}/>
                 </div>
             </div>
 
@@ -193,19 +220,19 @@ const PortfolioC = () => {
                     <button onClick={() => displayCreateModal()}>CREATE</button>
                 </div>
                     <div className="portfolio-thumbnail-div" >
-                        {projects.map((project, index) => {
+                        {thumbnails.map((thumbnail, index) => {
                             return(
-                                <div className="portfolio-item-div" key={index} onClick={() => history.push(`/admin/portfolio/${project.project}`, { title: project.project })}>
+                                <div className="portfolio-item-div" key={index}>
+                                    {/* onClick={() => history.push(`/admin/portfolio/${project.project}`, { title: project.project })} */}
                                     <div className="portfolio-project">
-                                        <img className="project-thumbnail" src={project.thumbnail.default}/>
+                                        <img className="project-thumbnail" src={thumbnail[titles[index]][0][0].default}/>
                                         <div className="thumbnail-overlay thumbnail-overlay--blur">
                                             <div className="grid buttons-div">
                                                 <div className="tech-used">
                                                     {technology.map((tech, index) => {
-                                                        if(tech[project.project] !== undefined){
                                                             return(
                                                                 <div className="grid project-tech" key={index}>
-                                                                    {tech[project.project][0].map((t, index) => {
+                                                                    {tech[titles[index]][0].map((t, index) => {
                                                                         return(
                                                                             <button key={index} onClick={() => filterProjects(t)}>
                                                                                 {t}
@@ -214,12 +241,11 @@ const PortfolioC = () => {
                                                                     })}
                                                                 </div>
                                                             )
-                                                        }
                                                     })}
                                                 </div>
                                                 <div className="project-buttons">
-                                                    <button onClick={() => displayUpdateModal(project.project)}>UPDATE</button>
-                                                    <button onClick={() => displayDeleteModal(project.project)}>DELETE</button>
+                                                    <button onClick={() => displayUpdateModal(titles[index])}>UPDATE</button>
+                                                    <button onClick={() => displayDeleteModal(titles[index])}>DELETE</button>
                                                 </div>
                                             </div>
                                         </div>

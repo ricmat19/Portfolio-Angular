@@ -3,12 +3,14 @@ import IndexAPI from '../../apis/indexAPI';
 
 const UpdateC = (props) => {
 
+    console.log(props)
+
     const [projectImages, setProjectImages] = useState([]);//All Project Image urls
     const [skills, setSkills] = useState([]); //All Skills
 
     const [title, setTitle] = useState("") //Current Project Name (set initial value though prop)
     const [thumbnails, setThumbnails] = useState([]) //Current thumbnail URL (set initial value though prop)
-    const [projectTech, setProjectTech] = useState([]); //Current project tech (set initial value though prop)
+    const [tech, setTech] = useState([]); //Current project tech (set initial value though prop)
     const [oldTitle, setOldTitle] = useState("");
 
     const [updatedProject, setUpdatedProject] = useState("") //Fix
@@ -19,13 +21,19 @@ const UpdateC = (props) => {
         const fetchData = async (req, res) => {
             try{
                 setTitle(props.title)
-                if(props.tech === []){
-                    setProjectTech([])
+                setOldTitle(props.title)
+
+                if(props.thumbnails === []){
+                    setThumbnails([])
                 }else{
-                    setProjectTech(props.tech[0])
+                    setThumbnails(props.thumbnails[0])
                 }
 
-                setOldTitle(props.title)
+                if(props.tech === []){
+                    setTech([])
+                }else{
+                    setTech(props.tech[0])
+                }
 
                 //Get all skills from DB
                 const skills = await IndexAPI.get(`/skills`);
@@ -84,7 +92,7 @@ const UpdateC = (props) => {
             const response = await IndexAPI.put("/projects/update-project",{
                 title,
                 thumbnails,
-                projectTech,
+                tech,
                 oldTitle,
             });
 
@@ -103,67 +111,73 @@ const UpdateC = (props) => {
                 <label>TITLE</label>
                 <input ref={projectInput} onChange={e => setTitle(e.target.value)} type="text" name="project_title" value={title}/>
             </div>
-            <div className="grid toDo-modal-grid">
-                <label>THUMBNAIL</label>
-                {projectImages.map((image, index) => {
-                    if(projectImages !== undefined){
-                        if(projectImages.includes(image)){
-                            return(
-                                <div key={index} className="grid tech-checkbox-list">
-                                    <label className="tech-checkbox-label">{image}</label>
-                                    <input type="checkbox" name="image" value={image}onChange={e => createList(e.target.value, e.target.checked, setThumbnails, thumbnails)} checked/>
-                                </div>
-                            )
-                        }else{
-                            return(
-                                <div key={index} className="grid tech-checkbox-list">
-                                    <label className="tech-checkbox-label">{image}</label>
-                                    <input type="checkbox" name="image" value={image} onChange={e => createList(e.target.value, e.target.checked, setThumbnails, thumbnails)}/>
-                                </div>
-                            )
-                        }
-                    }else{
-                        return(
-                            <div key={index} className="grid tech-checkbox-list">
-                                <label className="tech-checkbox-label">{image}</label>
-                                <input type="checkbox" name="image" value={image} onChange={e => createList(e.target.value, e.target.checked, setThumbnails, thumbnails)}/>
-                            </div>
-                        )
-                    }
-                })}
+            <div className="grid project-creation-checkbox-div">
+                <div className="grid thumbnail-checkbox-div">
+                    <label>THUMBNAIL</label>
+                    <div>
+                        {projectImages.map((image, index) => {
+                            if(projectImages !== undefined){
+                                if(projectImages.includes(image)){
+                                    return(
+                                        <div key={index} className="grid tech-checkbox-list">
+                                            <label className="tech-checkbox-label">{image}</label>
+                                            <input type="checkbox" name="image" value={image}onChange={e => createList(e.target.value, e.target.checked, setThumbnails, thumbnails)} checked/>
+                                        </div>
+                                    )
+                                }else{
+                                    return(
+                                        <div key={index} className="grid tech-checkbox-list">
+                                            <label className="tech-checkbox-label">{image}</label>
+                                            <input type="checkbox" name="image" value={image} onChange={e => createList(e.target.value, e.target.checked, setThumbnails, thumbnails)}/>
+                                        </div>
+                                    )
+                                }
+                            }else{
+                                return(
+                                    <div key={index} className="grid tech-checkbox-list">
+                                        <label className="tech-checkbox-label">{image}</label>
+                                        <input type="checkbox" name="image" value={image} onChange={e => createList(e.target.value, e.target.checked, setThumbnails, thumbnails)}/>
+                                    </div>
+                                )
+                            }
+                        })}
+                    </div>
+                </div>
+                <div className="grid tech-grid">
+                    <label>TECH</label>
+                    <div>
+                        {skills.map((skill, index) => {
+                            // if(tech[props.title] !== undefined){
+                            //     if(tech[props.title].includes(skill)){
+                            //         return(
+                            //             <div key={index} className="grid tech-checkbox-list">
+                            //                 <label className="tech-checkbox-label">{skill}</label>
+                            //                 <input type="checkbox" name="skill" value={skill} onChange={e => createList(e.target.value, e.target.checked, setTech, tech)} checked/>
+                            //             </div>
+                            //         )
+                            //     }else{
+                            //         return(
+                            //             <div key={index} className="grid tech-checkbox-list">
+                            //                 <label className="tech-checkbox-label">{skill}</label>
+                            //                 <input type="checkbox" name="skill" value={skill} onChange={e => createList(e.target.value, e.target.checked, setTech, tech)}/>
+                            //             </div>
+                            //         )
+                            //     }
+                            // }else{
+                            //     return(
+                            //         <div key={index} className="grid tech-checkbox-list">
+                            //             <label className="tech-checkbox-label">{skill}</label>
+                            //             <input type="checkbox" name="skill" value={skill} onChange={e => createList(e.target.value, e.target.checked, setTech, tech)}/>
+                            //         </div>
+                            //     )
+                            // }
+                        })}
+                    </div>
+                </div>
             </div>
-            <div className="grid toDo-modal-grid">
-                <label>TECH</label>
-                {skills.map((skill, index) => {
-                    if(projectTech !== undefined){
-                        if(projectTech.includes(skill)){
-                            return(
-                                <div key={index} className="grid tech-checkbox-list">
-                                    <label className="tech-checkbox-label">{skill}</label>
-                                    <input type="checkbox" name="skill" value={skill} onChange={e => createList(e.target.value, e.target.checked, setProjectTech, projectTech)} checked/>
-                                </div>
-                            )
-                        }else{
-                            return(
-                                <div key={index} className="grid tech-checkbox-list">
-                                    <label className="tech-checkbox-label">{skill}</label>
-                                    <input type="checkbox" name="skill" value={skill} onChange={e => createList(e.target.value, e.target.checked, setProjectTech, projectTech)}/>
-                                </div>
-                            )
-                        }
-                    }else{
-                        return(
-                            <div key={index} className="grid tech-checkbox-list">
-                                <label className="tech-checkbox-label">{skill}</label>
-                                <input type="checkbox" name="skill" value={skill} onChange={e => createList(e.target.value, e.target.checked, setProjectTech, projectTech)}/>
-                            </div>
-                        )
-                    }
-                })}
-            </div>
-            <div>
-                <button className="form-button" type="submit" onClick={updateProject}>UPDATE</button>
-            </div>
+                <div>
+                    <button className="form-button" type="submit" onClick={updateProject}>UPDATE</button>
+                </div>
         </div>
     )
 }
