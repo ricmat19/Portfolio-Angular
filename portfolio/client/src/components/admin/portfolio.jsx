@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import {useHistory} from "react-router-dom";
 import IndexAPI from '../../apis/indexAPI';
 import HeaderC from '../header';
 import FooterC from '../footer';
@@ -16,6 +17,8 @@ function importAll(projects) {
 const projectThumbnail = importAll(require.context('../../images/projects'));
 
 const PortfolioC = () => {
+
+    let history = useHistory();
 
     const [createModal, setCreateModal] = useState("modal");
     const [updateModal, setUpdateModal] = useState("modal");
@@ -189,7 +192,7 @@ const PortfolioC = () => {
                     <div className="portfolio-thumbnail-div" >
                         {projects.map((project, index) => {
                             return(
-                                <div className="portfolio-item-div" key={index}>
+                                <div className="portfolio-item-div" key={index} onClick={() => history.push(`/admin/portfolio/${project.project}`, { title: project.project })}>
                                     <div className="portfolio-project">
                                         <img className="project-thumbnail" src={project.thumbnail.default}/>
                                         <div className="thumbnail-overlay thumbnail-overlay--blur">

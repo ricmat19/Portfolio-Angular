@@ -148,6 +148,7 @@ input, select, textarea{
 .portfolio-item-div{
     margin: 0;
     padding: 0;
+    cursor: pointer;
 }
 
 .portfolio-project::after{

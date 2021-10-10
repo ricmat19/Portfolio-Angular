@@ -6,6 +6,7 @@ import Portfolio from "./routes/portfolio";
 import ProjectDetails from "./routes/projectDetails";
 import Contact from "./routes/contact";
 import AdminPortfolio from "./routes/admin/portfolio";
+import AdminProjectDetails from "./routes/admin/projectDetails"
 import AdminAbout from "./routes/admin/about.jsx";
 import { PortfolioContextProvider } from './context/portfolio';
 
@@ -20,6 +21,7 @@ const App = () =>{
                     <Route exact path="/project/id" component={ProjectDetails}/>
                     <Route exact path="/contact" component={Contact}/>
                     <Route exact path="/admin/portfolio" component={AdminPortfolio}/>
+                    <Route exact path="/admin/portfolio/:project" component={AdminProjectDetails}/>
                     <Route exact path="/admin/about" component={AdminAbout}/>
                 </Router>
             </div>
