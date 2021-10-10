@@ -7,10 +7,10 @@ const CreateC = (props) => {
     const [skills, setSkills] = useState([]);
 
     const [project, setProject] = useState("")
-    const [thumbnail, setThumbnail] = useState("")
+    const [thumbnails, setThumbnails] = useState([])
     const [projectTech, setProjectTech] = useState([]);
 
-    const [newProject, setNewProject] = useState("") //Fix
+    const [createdProject, setCreatedProject] = useState("") //Fix
     
     const projectInput = useRef(null);
 
@@ -46,21 +46,21 @@ const CreateC = (props) => {
         fetchData();
     }, []);
 
-    const createTechList = async (value, checked) =>{
+    const createList = async (value, checked, setList, list) =>{
         try{
 
-            if(projectTech === null){
+            if(list === null){
                 if(checked){
-                    setProjectTech(value);
+                    setList(value);
                 }
             }else{
                 if(checked){
-                    setProjectTech(projectTech => [...projectTech, value]);
+                    setList(list => [...list, value]);
                 }  
             }
 
             if(!checked){
-                setProjectTech(projectTech.filter(projectTech => projectTech !== value))
+                setList(list.filter(list => list !== value))
             }
 
         }catch(err){
@@ -71,15 +71,19 @@ const CreateC = (props) => {
     const createProject = async (e) =>{
         e.preventDefault()
         try{
+
+            console.log(project)
+            console.log(thumbnails)
+            console.log(projectTech)
  
             const response = await IndexAPI.post("/projects/add-project",{
                 project,
-                thumbnail,
+                thumbnails,
                 projectTech,
             });
             projectInput.current.value = "";
 
-            props.setNewProject(newProject)
+            // props.setCreatedProject(createdProject)
 
         }catch(err){
             console.log(err);
@@ -92,27 +96,33 @@ const CreateC = (props) => {
                 <label>TITLE</label>
                 <input ref={projectInput} onChange={e => setProject(e.target.value)} type="text" name="project_title"/>
             </div>
-            <div className="grid toDo-modal-grid">
-                <label>THUMBNAIL</label>
-                <select onChange={e => setThumbnail(e.target.value)} name="projectThumbnail">
-                    <option disabled selected>Select a Project...</option>
-                    {projectImages.map((image, index) => {
-                        return(
-                            <option key={index} value={image}>{image}</option>
-                        )
-                    })} 
-                </select>
-            </div>
-            <div className="grid toDo-modal-grid">
-                <label>TECH</label>
-                {skills.map((skill, index) => {
-                    return(
-                        <div key={index} className="grid tech-checkbox-list">
-                            <label className="tech-checkbox-label">{skill}</label>
-                            <input type="checkbox" name="skill" value={skill} onChange={e => createTechList(e.target.value, e.target.checked)}/>
-                        </div>
-                    )
-                })}
+            <div className="grid project-creation-checkbox-div">
+                <div className="grid thumbnail-checkbox-div">
+                    <label>THUMBNAIL</label>
+                    <div>
+                        {projectImages.map((image, index) => {
+                            return(
+                                <div key={index} className="grid tech-checkbox-list">
+                                    <label className="tech-checkbox-label">{image}</label>
+                                    <input type="checkbox" name="image" value={image} onChange={e => createList(e.target.value, e.target.checked, setThumbnails, thumbnails)}/>
+                                </div>
+                            )
+                        })}
+                    </div>
+                </div>
+                <div className="grid tech-grid">
+                    <label>TECH</label>
+                    <div>
+                        {skills.map((skill, index) => {
+                            return(
+                                <div key={index} className="grid tech-checkbox-list">
+                                    <label className="tech-checkbox-label">{skill}</label>
+                                    <input type="checkbox" name="skill" value={skill} onChange={e => createList(e.target.value, e.target.checked, setProjectTech, projectTech)}/>
+                                </div>
+                            )
+                        })}
+                    </div>
+                </div>
             </div>
             <div>
                 <button className="form-button" type="submit" onClick={createProject}>CREATE</button>

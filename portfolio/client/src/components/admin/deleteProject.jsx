@@ -20,7 +20,7 @@ const DeleteC = (props) => {
 
     const deleteProject = async (title) =>{
         try{
-            const response = await IndexAPI.delete(`/admin/projects/${title}/delete`);
+            const response = await IndexAPI.delete(`/admin/portfolio/${title}/delete`);
         }catch(err){
             console.log(err);
         }

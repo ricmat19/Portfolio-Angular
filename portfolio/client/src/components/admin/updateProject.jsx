@@ -7,7 +7,7 @@ const UpdateC = (props) => {
     const [skills, setSkills] = useState([]); //All Skills
 
     const [title, setTitle] = useState("") //Current Project Name (set initial value though prop)
-    const [thumbnail, setThumbnail] = useState("") //Current thumbnail URL (set initial value though prop)
+    const [thumbnails, setThumbnails] = useState([]) //Current thumbnail URL (set initial value though prop)
     const [projectTech, setProjectTech] = useState([]); //Current project tech (set initial value though prop)
     const [oldTitle, setOldTitle] = useState("");
 
@@ -55,20 +55,21 @@ const UpdateC = (props) => {
         fetchData();
     }, [props]);
 
-    const createTechList = async (value, checked) =>{
+    const createList = async (value, checked, setList, list) =>{
         try{
-            const currentValues = [];
-            if(projectTech === null || projectTech === undefined){
+
+            if(list === null){
                 if(checked){
-                    currentValues.push(value);
+                    setList(value);
                 }
             }else{
-                currentValues.push(...projectTech, value)
+                if(checked){
+                    setList(list => [...list, value]);
+                }  
             }
-            setProjectTech(currentValues)
 
             if(!checked){
-                setProjectTech(projectTech.filter(projectTech => projectTech !== value))
+                setList(list.filter(list => list !== value))
             }
 
         }catch(err){
@@ -82,14 +83,14 @@ const UpdateC = (props) => {
 
             const response = await IndexAPI.put("/projects/update-project",{
                 title,
-                thumbnail,
+                thumbnails,
                 projectTech,
                 oldTitle,
             });
 
             projectInput.current.value = "";
 
-            props.setUpdatedProject(updatedProject)
+            // props.setUpdatedProject(updatedProject)
 
         }catch(err){
             console.log(err);
@@ -104,14 +105,32 @@ const UpdateC = (props) => {
             </div>
             <div className="grid toDo-modal-grid">
                 <label>THUMBNAIL</label>
-                <select onChange={e => setThumbnail(e.target.value)} name="projectThumbnail">
-                    <option disabled selected>Select a Project...</option>
-                    {projectImages.map((image, index) => {
+                {projectImages.map((image, index) => {
+                    if(projectImages !== undefined){
+                        if(projectImages.includes(image)){
+                            return(
+                                <div key={index} className="grid tech-checkbox-list">
+                                    <label className="tech-checkbox-label">{image}</label>
+                                    <input type="checkbox" name="image" value={image}onChange={e => createList(e.target.value, e.target.checked, setThumbnails, thumbnails)} checked/>
+                                </div>
+                            )
+                        }else{
+                            return(
+                                <div key={index} className="grid tech-checkbox-list">
+                                    <label className="tech-checkbox-label">{image}</label>
+                                    <input type="checkbox" name="image" value={image} onChange={e => createList(e.target.value, e.target.checked, setThumbnails, thumbnails)}/>
+                                </div>
+                            )
+                        }
+                    }else{
                         return(
-                            <option key={index} value={image}>{image}</option>
+                            <div key={index} className="grid tech-checkbox-list">
+                                <label className="tech-checkbox-label">{image}</label>
+                                <input type="checkbox" name="image" value={image} onChange={e => createList(e.target.value, e.target.checked, setThumbnails, thumbnails)}/>
+                            </div>
                         )
-                    })} 
-                </select>
+                    }
+                })}
             </div>
             <div className="grid toDo-modal-grid">
                 <label>TECH</label>
@@ -121,14 +140,14 @@ const UpdateC = (props) => {
                             return(
                                 <div key={index} className="grid tech-checkbox-list">
                                     <label className="tech-checkbox-label">{skill}</label>
-                                    <input type="checkbox" name="skill" value={skill} onChange={e => createTechList(e.target.value, e.target.checked)} checked/>
+                                    <input type="checkbox" name="skill" value={skill} onChange={e => createList(e.target.value, e.target.checked, setProjectTech, projectTech)} checked/>
                                 </div>
                             )
                         }else{
                             return(
                                 <div key={index} className="grid tech-checkbox-list">
                                     <label className="tech-checkbox-label">{skill}</label>
-                                    <input type="checkbox" name="skill" value={skill} onChange={e => createTechList(e.target.value, e.target.checked)}/>
+                                    <input type="checkbox" name="skill" value={skill} onChange={e => createList(e.target.value, e.target.checked, setProjectTech, projectTech)}/>
                                 </div>
                             )
                         }
@@ -136,7 +155,7 @@ const UpdateC = (props) => {
                         return(
                             <div key={index} className="grid tech-checkbox-list">
                                 <label className="tech-checkbox-label">{skill}</label>
-                                <input type="checkbox" name="skill" value={skill} onChange={e => createTechList(e.target.value, e.target.checked)}/>
+                                <input type="checkbox" name="skill" value={skill} onChange={e => createList(e.target.value, e.target.checked, setProjectTech, projectTech)}/>
                             </div>
                         )
                     }

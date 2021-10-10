@@ -19,7 +19,7 @@ const ProjectDetailsC = () => {
     let parameters = useParams();
 
     const [title, setTitle] = useState("");
-    const [project, setProject] = useState("");
+    const [thumbnailArray, setThumbnailArray] = useState("");
 
     useEffect(() => {
         const fetchData = async (req, res) => {
@@ -28,14 +28,14 @@ const ProjectDetailsC = () => {
                 setTitle(parameters.project.toLowerCase())
 
                 //Get project from DB
-                const project = await IndexAPI.get(`/project`);
-                console.log(project)
+                const project = await IndexAPI.get(`/admin/portfolio/${parameters.project}`);
                 const projectThumbnailArray = [];
                 for(let i = 0; i < project.data.results[0].length; i++){
                     project.data.results[0][i].thumbnail = projectThumbnail[project.data.results[0][i].thumbnail]
                     projectThumbnailArray.push(project.data.results[0][i])
                 }
-                setProject(projectThumbnailArray);
+                setThumbnailArray(projectThumbnailArray);
+                console.log()
 
                 //Get Project skills from DB
 
@@ -54,8 +54,12 @@ const ProjectDetailsC = () => {
                 <div className="title-div">
                     <p className="title">{title}</p>
                 </div>
-                <div className="project-slide-div">
-
+                <div className="grid project-slide-div">
+                    {thumbnailArray[0] !== undefined ? 
+                        <img className="grid project-details-image"src={thumbnailArray[0].thumbnail.default}/>
+                    :
+                        ""
+                    }
                 </div>
             </div>
 

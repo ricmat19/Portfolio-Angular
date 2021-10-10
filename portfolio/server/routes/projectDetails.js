@@ -5,23 +5,9 @@ const db = require("../db/index");
 router.get('/admin/portfolio/:project', async (req, res) => {
 
     try{
-        res.status(201).json({
-            status: "success",
-            results: product.rows.length,
-            data:{
-                product: product.rows[0]
-            }
-        })
-    }catch(err){
-        console.log(err);
-    }
-})
-
-router.get('/project', async (req, res) => {
-
-    try{
-        const portfolio = await db.query("SELECT * FROM projects WHERE project=?; SELECT * FROM project_tech WHERE project=?;", [req.body.title, req.body.title], function (err, result, fields) {
-        if (err) throw err;
+        const portfolio = await db.query("SELECT * FROM project_tech WHERE project=?; SELECT * FROM project_images WHERE project=?", [req.params.project, req.params.project], function (err, result, fields) {
+            
+            if (err) throw err;
             res.status(200).json({
                 status: "success",
                 results: result,

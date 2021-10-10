@@ -72,7 +72,7 @@ const AboutC = () => {
                                     if(skill.category === 'MARKUP'){
                                         return(
                                             <div key={index} >
-                                                <img src={skill.iconImage.default}/>
+                                                <img className="icon" src={skill.iconImage.default}/>
                                                 <div className="icon-label">{skill.skill}</div>
                                             </div>
                                         )
@@ -87,7 +87,7 @@ const AboutC = () => {
                                     if(skill.category === 'STYLE'){
                                         return(
                                             <div key={index} >
-                                                <img src={skill.iconImage.default}/>
+                                                <img className="icon" src={skill.iconImage.default}/>
                                                 <div className="icon-label">{skill.skill}</div>
                                             </div>
                                         )
@@ -102,7 +102,7 @@ const AboutC = () => {
                                     if(skill.category === 'FRONTEND'){
                                         return(
                                             <div key={index} >
-                                                <img src={skill.iconImage.default}/>
+                                                <img className="icon" src={skill.iconImage.default}/>
                                                 <div className="icon-label">{skill.skill}</div>
                                             </div>
                                         )
@@ -117,7 +117,7 @@ const AboutC = () => {
                                     if(skill.category === 'BACKEND'){
                                         return(
                                             <div key={index} >
-                                                <img src={skill.iconImage.default}/>
+                                                <img className="icon" src={skill.iconImage.default}/>
                                                 <div className="icon-label">{skill.skill}</div>
                                             </div>
                                         )
@@ -132,7 +132,7 @@ const AboutC = () => {
                                     if(skill.category === 'DATABASE'){
                                         return(
                                             <div key={index} >
-                                                <img src={skill.iconImage.default}/>
+                                                <img className="icon" src={skill.iconImage.default}/>
                                                 <div className="icon-label">{skill.skill}</div>
                                             </div>
                                         )
@@ -147,7 +147,7 @@ const AboutC = () => {
                                     if(skill.category === 'OTHER'){
                                         return(
                                             <div  key={index}>
-                                                <img src={skill.iconImage.default}/>
+                                                <img className="icon" src={skill.iconImage.default}/>
                                                 <div className="icon-label">{skill.skill}</div>
                                             </div>
                                         )

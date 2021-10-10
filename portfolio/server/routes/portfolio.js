@@ -5,7 +5,7 @@ const db = require("../db/index");
 router.get('/projects', async (req, res) => {
 
     try{
-        const portfolio = await db.query("SELECT * FROM projects; SELECT * FROM project_tech;", function (err, result, fields) {
+        const portfolio = await db.query("SELECT * FROM project_images; SELECT * FROM project_tech;", function (err, result, fields) {
         if (err) throw err;
             res.status(200).json({
                 status: "success",
@@ -32,22 +32,26 @@ router.post('/projects/add-project', async (req, res) => {
             }
         }
 
-        let project = 0;
+        let newProject = "";
+        let newTech = "";
+        let newThumbnail = "";
         if(uniqueProject === true){
-            project = await db.query(`INSERT INTO projects (project, thumbnail) VALUES (?, ?)`, [req.body.project, req.body.thumbnail]);
+
+            newProject = await db.query(`INSERT INTO projects (project) VALUES (?)`, [req.body.project]);
+
+            for(let i = 0; i < req.body.thumbnails.length; i++){
+                newTech = await db.query(`INSERT INTO project_images (project, thumbnail) VALUES (?, ?)`, [req.body.project, req.body.thumbnails[i]]);
+            }
 
             for(let i = 0; i < req.body.projectTech.length; i++){
-                project = await db.query(`INSERT INTO project_tech (project, technology) VALUES (?, ?)`, [req.body.project, req.body.projectTech[i]]);
+                newThumbnail = await db.query(`INSERT INTO project_tech (project, technology) VALUES (?, ?)`, [req.body.project, req.body.projectTech[i]]);
             }
 
             res.status(201).json({
                 status: "success",
-                results: project.rows,
-                data:{
-                    skill: project.rows,
-                }
             })
         }
+
     }catch(err){
         console.log(err);
     }
@@ -57,15 +61,15 @@ router.put('/projects/update-project', async (req, res) => {
     try{
 
         let project = "";
-        if(req.body.thumbnail !== ""){
-            project = await db.query(`UPDATE projects SET project=?, thumbnail=? WHERE project=?`, [req.body.title, req.body.thumbnail, req.body.oldTitle]);
-        }else{
-            project = await db.query(`UPDATE projects SET project=? WHERE project=?`, 
-            [req.body.title, req.body.oldTitle]);
+        project = await db.query(`UPDATE projects SET project=? WHERE project=?`, [req.body.title, req.body.thumbnails, req.body.oldTitle]);
+
+        const deleteImages = await db.query(`DELETE FROM project_images WHERE project=?`, [req.body.title]);
+        let newImages = "";
+        for(let i = 0; i < req.body.thumbnails.length; i++){
+            newImages = await db.query(`INSERT INTO project_images (project, thumbnail) VALUES (?, ?)`, [req.body.title, req.body.thumbnails[i]]);
         }
 
         const deleteTech = await db.query(`DELETE FROM project_tech WHERE project=?`, [req.body.title]);
-
         let newTech = "";
         for(let i = 0; i < req.body.projectTech.length; i++){
             newTech = await db.query(`INSERT INTO project_tech (project, technology) VALUES (?, ?)`, [req.body.title, req.body.projectTech[i]]);
@@ -81,9 +85,8 @@ router.put('/projects/update-project', async (req, res) => {
 })
 
 //Delete a collection item
-router.delete('/admin/projects/:title/delete', async(req, res) => {
+router.delete('/admin/portfolio/:title/delete', async(req, res) => {
     try{
-        console.log(req.params)
         const deleteProject = await db.query("DELETE FROM projects WHERE project=?", [req.params.title]);
         res.status(204).json({
             status: "success"

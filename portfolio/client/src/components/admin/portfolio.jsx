@@ -23,14 +23,16 @@ const PortfolioC = () => {
     const [createModal, setCreateModal] = useState("modal");
     const [updateModal, setUpdateModal] = useState("modal");
     const [deleteModal, setDeleteModal] = useState("modal");
-    const [newProject, setNewProject] = useState("");
+    const [createdProject, setCreatedProject] = useState("");
     const [updatedProject, setUpdatedProject] = useState("");
     const [deletedProject, setDeletedProject] = useState("");
 
     const [projects, setProjects] = useState([]);
+    const [thumbnail, setThumbnail] = useState([]);
     const [technology, setTechnology] = useState([]);
 
     const [currentTitle, setCurrentTitle] = useState("");
+    const [currentThumbnails, setCurrentThumbnails] = useState([]);
     const [currentTech, setCurrentTech] = useState([]);
 
     const createRef = useRef();
@@ -43,6 +45,16 @@ const PortfolioC = () => {
 
     const displayUpdateModal = (currentTitle) => {
         try{
+
+            for(let i=0; i < thumbnail.length; i++){
+                if(thumbnail[i][currentTitle] !== undefined){
+                    setCurrentThumbnails(thumbnail[i][currentTitle])
+                    break;
+                }else{
+                    setCurrentThumbnails([]);
+                }
+            }
+
             for(let i=0; i < technology.length; i++){
                 if(technology[i][currentTitle] !== undefined){
                     setCurrentTech(technology[i][currentTitle])
@@ -97,34 +109,32 @@ const PortfolioC = () => {
                 }
                 setProjects(projectThumbnailArray);
 
-                //Array of projects in project_tech
-                const projectsArray = [];
-
-                //Adds all the projects in the projectsArray
+                //Adds all the projects in project_tech to the projectTechArray
+                const projectTechArray = [];
                 for(let i = 0; i < projects.data.results[1].length; i++){
-                    if(projectsArray.indexOf(projects.data.results[1][i].project) === -1){
-                        projectsArray.push(projects.data.results[1][i].project);
+                    if(projectTechArray.indexOf(projects.data.results[1][i].project) === -1){
+                        projectTechArray.push(projects.data.results[1][i].project);
                     }
                 }
 
-                const projectTechArray = [];
                 //Loops through the projectArray
-                for(let i = 0; i < projectsArray.length; i++){
+                const currentProjectArray = [];
+                for(let i = 0; i < projectTechArray.length; i++){
                     const tempArray = [];
                     //Loops through all data provided from project_tech
                     for(let j = 0; j < projects.data.results[1].length; j++){
                         //Checks if the current item in project_tech pertains to the current project
-                        if(projects.data.results[1][j].project === projectsArray[i]){
+                        if(projects.data.results[1][j].project === projectTechArray[i]){
                             tempArray.push(projects.data.results[1][j].technology)
                         }
                     }
-                    const key = projectsArray[i];
+                    const key = projectTechArray[i];
                     const tempObject = {};
                     tempObject[key] = [tempArray];
-                    projectTechArray.push(tempObject)
+                    currentProjectArray.push(tempObject)
                 }
 
-                setTechnology(projectTechArray);
+                setTechnology(currentProjectArray);
 
             }catch(err){
                 console.log(err);
@@ -135,25 +145,18 @@ const PortfolioC = () => {
 
     const filterProjects = async (tech) => {
         try{
-                //Get all skills from DB
+                //Get all project_tech and project_images from the DB
                 const projects = await IndexAPI.get(`/projects`);
 
-                const techProjects = []
                 //Get projects that have the specified project_tech
+                const projectTech = []
                 for(let i = 0; i < projects.data.results[1].length; i++){
                     if(projects.data.results[1][i].technology === tech){
-                        techProjects.push(projects.data.results[1][i].project)
+                        projectTech.push(projects.data.results[1][i].project)
                     }
                 }
 
-                const projectThumbnailArray = [];
-                for(let i = 0; i < projects.data.results[0].length; i++){
-                    if(techProjects.includes(projects.data.results[0][i].project)){
-                        projects.data.results[0][i].thumbnail = projectThumbnail[projects.data.results[0][i].thumbnail]
-                        projectThumbnailArray.push(projects.data.results[0][i])
-                    }
-                }
-                setProjects(projectThumbnailArray);
+                setProjects(projectTech);
 
         }catch(err){
             console.log(err);
@@ -165,7 +168,7 @@ const PortfolioC = () => {
             <HeaderC/>
             <div className={createModal}>
                 <div ref={createRef} className="modal-content">
-                    <CreateC createModal={createModal} setNewProject={newProject => setNewProject(newProject)}/>
+                    <CreateC createModal={createModal} createdProject={createdProject => setCreatedProject(createdProject)}/>
                 </div>
             </div>
 
