@@ -47,8 +47,6 @@ const PortfolioC = () => {
     const displayUpdateModal = (currentTitle) => {
         try{
 
-            console.log(currentTitle)
-
             for(let i=0; i < thumbnails.length; i++){
                 if(thumbnails[i][currentTitle] !== undefined){
                     setCurrentThumbnails(thumbnails[i][currentTitle])
@@ -108,8 +106,10 @@ const PortfolioC = () => {
 
                 //Adds all the projects in project_images to the projectThumbnailArray
                 const projectThumbnailArray = [];
+                const thumbnailFiles = Object.keys(projectThumbnails);
                 for(let i = 0; i < projects.data.results[0].length; i++){
                     if(projectThumbnailArray.indexOf(projects.data.results[0][i].thumbnail) === -1){
+                        projects.data.results[0][i].file = thumbnailFiles[i]
                         projects.data.results[0][i].thumbnail = projectThumbnails[projects.data.results[0][i].thumbnail]
                         projectThumbnailArray.push(projects.data.results[0][i]);
                     }
@@ -120,11 +120,15 @@ const PortfolioC = () => {
                 const currentProjectThumbnailArray = [];
                 for(let i = 0; i < projectThumbnailArray.length; i++){
                     const tempArray = [];
-                    //Loops through all data provided from project_tech
+                    //Loops through all data provided from project_images
                     for(let j = 0; j < projects.data.results[0].length; j++){
-                        //Checks if the current item in project_tech pertains to the current project
-                        if(projects.data.results[0][j].thumbnail === projectThumbnailArray[i].thumbnail){
-                            tempArray.push(projects.data.results[0][j].thumbnail)
+                        //Checks if the current item in project_images pertains to the current project
+                        if(projects.data.results[0][j].project === projectThumbnailArray[i].project){
+                            const tempThumbnailObject = {
+                                thumbnail: projects.data.results[0][j].thumbnail,
+                                file: projects.data.results[0][j].file
+                            }
+                            tempArray.push(tempThumbnailObject)
                         }
                     }
                     const key = projectThumbnailArray[i].project;
@@ -160,7 +164,6 @@ const PortfolioC = () => {
                     tempObject[key] = [tempArray];
                     currentProjectTechArray.push(tempObject)
                 }
-
                 setTechnology(currentProjectTechArray);
 
             }catch(err){
@@ -192,6 +195,7 @@ const PortfolioC = () => {
 
     return(
         <div className="main">
+            {console.log(thumbnails)}
             <HeaderC/>
             <div className={createModal}>
                 <div ref={createRef} className="modal-content">
@@ -219,41 +223,43 @@ const PortfolioC = () => {
                 <div className="create-project-div">
                     <button onClick={() => displayCreateModal()}>CREATE</button>
                 </div>
-                    <div className="portfolio-thumbnail-div" >
-                        {thumbnails.map((thumbnail, index) => {
-                            return(
-                                <div className="portfolio-item-div" key={index}>
-                                    {/* onClick={() => history.push(`/admin/portfolio/${project.project}`, { title: project.project })} */}
-                                    <div className="portfolio-project">
-                                        <img className="project-thumbnail" src={thumbnail[titles[index]][0][0].default}/>
-                                        <div className="thumbnail-overlay thumbnail-overlay--blur">
-                                            <div className="grid buttons-div">
-                                                <div className="tech-used">
-                                                    {technology.map((tech, index) => {
-                                                            return(
-                                                                <div className="grid project-tech" key={index}>
-                                                                    {tech[titles[index]][0].map((t, index) => {
-                                                                        return(
-                                                                            <button key={index} onClick={() => filterProjects(t)}>
-                                                                                {t}
-                                                                            </button>
-                                                                        )
-                                                                    })}
-                                                                </div>
-                                                            )
-                                                    })}
-                                                </div>
-                                                <div className="project-buttons">
-                                                    <button onClick={() => displayUpdateModal(titles[index])}>UPDATE</button>
-                                                    <button onClick={() => displayDeleteModal(titles[index])}>DELETE</button>
-                                                </div>
+                <div className="portfolio-thumbnail-div" >
+                    {thumbnails.map((thumbnail, thumbnailIndex) => {
+                        return(
+                            <div className="portfolio-item-div" key={thumbnailIndex}>
+                                {/* onClick={() => history.push(`/admin/portfolio/${project.project}`, { title: project.project })} */}
+                                <div className="portfolio-project">
+                                    <img className="project-thumbnail" src={thumbnail[titles[thumbnailIndex]][0][0]['thumbnail'].default}/>
+                                    <div className="thumbnail-overlay thumbnail-overlay--blur">
+                                        <div className="grid buttons-div">
+                                            <div className="tech-used">
+                                                {technology.map((tech, techIndex) => {
+                                                    if(thumbnailIndex === techIndex){
+                                                        return(
+                                                            <div className="grid project-tech" key={techIndex}>
+                                                                {tech[titles[techIndex]][0].map((t, index) => {
+                                                                    return(
+                                                                        <button key={index} onClick={() => filterProjects(t)}>
+                                                                            {t}
+                                                                        </button>
+                                                                    )
+                                                                })}
+                                                            </div>
+                                                        )
+                                                    }
+                                                })}
+                                            </div>
+                                            <div className="project-buttons">
+                                                <button onClick={() => displayUpdateModal(titles[thumbnailIndex])}>UPDATE</button>
+                                                <button onClick={() => displayDeleteModal(titles[thumbnailIndex])}>DELETE</button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            )
-                        })}
-                    </div>
+                            </div>
+                        )
+                    })}
+                </div>
             </div>
             <FooterC/>
         </div>

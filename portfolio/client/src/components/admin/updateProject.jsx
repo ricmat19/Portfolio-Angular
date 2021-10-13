@@ -3,9 +3,7 @@ import IndexAPI from '../../apis/indexAPI';
 
 const UpdateC = (props) => {
 
-    console.log(props)
-
-    const [projectImages, setProjectImages] = useState([]);//All Project Image urls
+    const [projectFile, setProjectFile] = useState([]);//All Project Image urls
     const [skills, setSkills] = useState([]); //All Skills
 
     const [title, setTitle] = useState("") //Current Project Name (set initial value though prop)
@@ -22,6 +20,8 @@ const UpdateC = (props) => {
             try{
                 setTitle(props.title)
                 setOldTitle(props.title)
+                console.log(props)
+                setProjectFile(props.thumbnails[0][props.title][0][0]['file'])
 
                 if(props.thumbnails === []){
                     setThumbnails([])
@@ -42,19 +42,6 @@ const UpdateC = (props) => {
                     skillsArray.push(skills.data.results[i].skill)
                 }
                 setSkills(skillsArray);
-
-                let projectSet = []
-                function importAll(projects) {
-                    let images = {};
-                    projects.keys().forEach((index) => { 
-                        images[index.replace('./', '')] = projects(index); 
-                        Object.keys(images).forEach((key) => {
-                            projectSet.push(key)
-                            setProjectImages([...new Set(projectSet)]);
-                        })
-                    });
-                }
-                const projectsThumbnails = importAll(require.context('../../images/projects'));
 
             }catch(err){
                 console.log(err);
@@ -115,28 +102,28 @@ const UpdateC = (props) => {
                 <div className="grid thumbnail-checkbox-div">
                     <label>THUMBNAIL</label>
                     <div>
-                        {projectImages.map((image, index) => {
-                            if(projectImages !== undefined){
-                                if(projectImages.includes(image)){
+                        {projectFile.map((file, index) => {
+                            if(projectFile !== undefined){
+                                if(projectFile.includes(file)){
                                     return(
                                         <div key={index} className="grid tech-checkbox-list">
-                                            <label className="tech-checkbox-label">{image}</label>
-                                            <input type="checkbox" name="image" value={image}onChange={e => createList(e.target.value, e.target.checked, setThumbnails, thumbnails)} checked/>
+                                            <label className="tech-checkbox-label">{file}</label>
+                                            <input type="checkbox" name="image" value={file} onChange={e => createList(e.target.value, e.target.checked, setThumbnails, thumbnails)} checked/>
                                         </div>
                                     )
                                 }else{
                                     return(
                                         <div key={index} className="grid tech-checkbox-list">
-                                            <label className="tech-checkbox-label">{image}</label>
-                                            <input type="checkbox" name="image" value={image} onChange={e => createList(e.target.value, e.target.checked, setThumbnails, thumbnails)}/>
+                                            <label className="tech-checkbox-label">{file}</label>
+                                            <input type="checkbox" name="image" value={file} onChange={e => createList(e.target.value, e.target.checked, setThumbnails, thumbnails)}/>
                                         </div>
                                     )
                                 }
                             }else{
                                 return(
                                     <div key={index} className="grid tech-checkbox-list">
-                                        <label className="tech-checkbox-label">{image}</label>
-                                        <input type="checkbox" name="image" value={image} onChange={e => createList(e.target.value, e.target.checked, setThumbnails, thumbnails)}/>
+                                        <label className="tech-checkbox-label">{file}</label>
+                                        <input type="checkbox" name="image" value={file} onChange={e => createList(e.target.value, e.target.checked, setThumbnails, thumbnails)}/>
                                     </div>
                                 )
                             }
