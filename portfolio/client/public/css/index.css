@@ -61,6 +61,10 @@ input, select, textarea{
     min-height: 100px;
 }
 
+.icon:hover{
+    filter: drop-shadow(1px 1px 1px black)
+}
+
 .profile-div{
     width: fit-content;
 }
