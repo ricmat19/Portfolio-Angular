@@ -3,9 +3,12 @@ import IndexAPI from '../../apis/indexAPI';
 
 const UpdateC = (props) => {
 
-    const [projectFile, setProjectFile] = useState([]);//All Project Image urls
+    const [files, setFiles] = useState([])
+    const [projectFiles, setProjectFiles] = useState([]);//All Project Image urls
     const [skills, setSkills] = useState([]); //All Skills
+    const [projectSkills, setProjectSkills] = useState([]);
 
+    const [titles, setTitles] = useState([]);
     const [title, setTitle] = useState("") //Current Project Name (set initial value though prop)
     const [thumbnails, setThumbnails] = useState([]) //Current thumbnail URL (set initial value though prop)
     const [tech, setTech] = useState([]); //Current project tech (set initial value though prop)
@@ -20,8 +23,51 @@ const UpdateC = (props) => {
             try{
                 setTitle(props.title)
                 setOldTitle(props.title)
-                console.log(props)
-                setProjectFile(props.thumbnails[0][props.title][0][0]['file'])
+
+                const titlesArray = [];
+                for(let i = 0; i < props.thumbnails.length; i++){
+                    titlesArray.push(Object.keys(props.thumbnails[i])[0]);
+                }
+                setTitles(titlesArray)
+
+                //Sets the full list of files
+                const filesArray = [];
+                for(let i = 0; i < props.thumbnails.length; i++){
+                    filesArray.push(props.thumbnails[i][titles[i]][0][0]['file'])
+                }
+                setFiles(filesArray)
+
+                //Sets list of all of the files pertaining to this project
+                const projectFilesArray = [];
+                for(let i = 0; i < props.thumbnails.length; i++){
+
+                    if(Object.keys(props.thumbnails[i]).toString() === props.title){
+                        for(let j = 0; j < props.thumbnails[i][props.title][0].length; j++){
+                            projectFilesArray.push(props.thumbnails[i][props.title][0][j]['file'])
+                        }
+                    }
+                }
+                setProjectFiles(projectFilesArray)
+
+                //Get all skills from DB
+                const skills = await IndexAPI.get(`/skills`);
+                const skillsArray = [];
+                for(let i = 0; i < skills.data.results.length; i++){
+                    skillsArray.push(skills.data.results[i].skill)
+                }
+                setSkills(skillsArray);
+
+                //Sets list of all of the files pertaining to this project
+                const projectTechArray = [];
+                for(let i = 0; i < props.tech.length; i++){
+                    if(Object.keys(props.tech[i]).toString() === props.title){
+                        for(let j = 0; j < props.tech[i][props.title][0].length; j++){
+                            projectTechArray.push(props.tech[i][props.title][0][j])
+                        }
+                    }
+                }
+                setProjectSkills(projectTechArray)
+                console.log(projectTechArray)
 
                 if(props.thumbnails === []){
                     setThumbnails([])
@@ -35,14 +81,6 @@ const UpdateC = (props) => {
                     setTech(props.tech[0])
                 }
 
-                //Get all skills from DB
-                const skills = await IndexAPI.get(`/skills`);
-                const skillsArray = [];
-                for(let i = 0; i < skills.data.results.length; i++){
-                    skillsArray.push(skills.data.results[i].skill)
-                }
-                setSkills(skillsArray);
-
             }catch(err){
                 console.log(err);
             }
@@ -52,6 +90,9 @@ const UpdateC = (props) => {
 
     const createList = async (value, checked, setList, list) =>{
         try{
+
+            console.log(value)
+            console.log(list)
 
             if(list === null){
                 if(checked){
@@ -78,8 +119,8 @@ const UpdateC = (props) => {
 
             const response = await IndexAPI.put("/projects/update-project",{
                 title,
-                thumbnails,
-                tech,
+                projectFiles,
+                projectSkills,
                 oldTitle,
             });
 
@@ -102,31 +143,31 @@ const UpdateC = (props) => {
                 <div className="grid thumbnail-checkbox-div">
                     <label>THUMBNAIL</label>
                     <div>
-                        {projectFile.map((file, index) => {
-                            if(projectFile !== undefined){
-                                if(projectFile.includes(file)){
+                        {files.map((file, index) => {
+                            // if(projectFiles !== undefined){
+                                if(projectFiles.includes(file)){
                                     return(
                                         <div key={index} className="grid tech-checkbox-list">
                                             <label className="tech-checkbox-label">{file}</label>
-                                            <input type="checkbox" name="image" value={file} onChange={e => createList(e.target.value, e.target.checked, setThumbnails, thumbnails)} checked/>
+                                            <input type="checkbox" name="image" value={file} onChange={e => createList(e.target.value, e.target.checked, setProjectFiles, projectFiles)} checked/>
                                         </div>
                                     )
                                 }else{
                                     return(
                                         <div key={index} className="grid tech-checkbox-list">
                                             <label className="tech-checkbox-label">{file}</label>
-                                            <input type="checkbox" name="image" value={file} onChange={e => createList(e.target.value, e.target.checked, setThumbnails, thumbnails)}/>
+                                            <input type="checkbox" name="image" value={file} onChange={e => createList(e.target.value, e.target.checked, setProjectFiles, projectFiles)}/>
                                         </div>
                                     )
                                 }
-                            }else{
-                                return(
-                                    <div key={index} className="grid tech-checkbox-list">
-                                        <label className="tech-checkbox-label">{file}</label>
-                                        <input type="checkbox" name="image" value={file} onChange={e => createList(e.target.value, e.target.checked, setThumbnails, thumbnails)}/>
-                                    </div>
-                                )
-                            }
+                            // }else{
+                            //     return(
+                            //         <div key={index} className="grid tech-checkbox-list">
+                            //             <label className="tech-checkbox-label">{file}</label>
+                            //             <input type="checkbox" name="image" value={file} onChange={e => createList(e.target.value, e.target.checked, setThumbnails, thumbnails)}/>
+                            //         </div>
+                            //     )
+                            // }
                         })}
                     </div>
                 </div>
@@ -134,22 +175,22 @@ const UpdateC = (props) => {
                     <label>TECH</label>
                     <div>
                         {skills.map((skill, index) => {
-                            // if(tech[props.title] !== undefined){
-                            //     if(tech[props.title].includes(skill)){
-                            //         return(
-                            //             <div key={index} className="grid tech-checkbox-list">
-                            //                 <label className="tech-checkbox-label">{skill}</label>
-                            //                 <input type="checkbox" name="skill" value={skill} onChange={e => createList(e.target.value, e.target.checked, setTech, tech)} checked/>
-                            //             </div>
-                            //         )
-                            //     }else{
-                            //         return(
-                            //             <div key={index} className="grid tech-checkbox-list">
-                            //                 <label className="tech-checkbox-label">{skill}</label>
-                            //                 <input type="checkbox" name="skill" value={skill} onChange={e => createList(e.target.value, e.target.checked, setTech, tech)}/>
-                            //             </div>
-                            //         )
-                            //     }
+                            // if(projectSkills !== undefined){
+                                if(projectSkills.includes(skill)){
+                                    return(
+                                        <div key={index} className="grid tech-checkbox-list">
+                                            <label className="tech-checkbox-label">{skill}</label>
+                                            <input type="checkbox" name="skill" value={skill} onChange={e => createList(e.target.value, e.target.checked, setProjectSkills, projectSkills)} checked/>
+                                        </div>
+                                    )
+                                }else{
+                                    return(
+                                        <div key={index} className="grid tech-checkbox-list">
+                                            <label className="tech-checkbox-label">{skill}</label>
+                                            <input type="checkbox" name="skill" value={skill} onChange={e => createList(e.target.value, e.target.checked, setProjectSkills, projectSkills)}/>
+                                        </div>
+                                    )
+                                }
                             // }else{
                             //     return(
                             //         <div key={index} className="grid tech-checkbox-list">

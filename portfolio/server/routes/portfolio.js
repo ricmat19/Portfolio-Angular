@@ -61,18 +61,18 @@ router.put('/projects/update-project', async (req, res) => {
     try{
 
         let project = "";
-        project = await db.query(`UPDATE projects SET project=? WHERE project=?`, [req.body.title, req.body.thumbnails, req.body.oldTitle]);
+        project = await db.query(`UPDATE projects SET project=? WHERE project=?`, [req.body.title, req.body.projectFiles, req.body.oldTitle]);
 
         const deleteImages = await db.query(`DELETE FROM project_images WHERE project=?`, [req.body.title]);
         let newImages = "";
-        for(let i = 0; i < req.body.thumbnails.length; i++){
-            newImages = await db.query(`INSERT INTO project_images (project, thumbnail) VALUES (?, ?)`, [req.body.title, req.body.thumbnails[i]]);
+        for(let i = 0; i < req.body.projectFiles.length; i++){
+            newImages = await db.query(`INSERT INTO project_images (project, thumbnail) VALUES (?, ?)`, [req.body.title, req.body.projectFiles[i]]);
         }
 
         const deleteTech = await db.query(`DELETE FROM project_tech WHERE project=?`, [req.body.title]);
         let newTech = "";
-        for(let i = 0; i < req.body.tech.length; i++){
-            newTech = await db.query(`INSERT INTO project_tech (project, technology) VALUES (?, ?)`, [req.body.title, req.body.tech[i]]);
+        for(let i = 0; i < req.body.projectSkills.length; i++){
+            newTech = await db.query(`INSERT INTO project_tech (project, technology) VALUES (?, ?)`, [req.body.title, req.body.projectSkills[i]]);
         }
 
         res.status(201).json({
