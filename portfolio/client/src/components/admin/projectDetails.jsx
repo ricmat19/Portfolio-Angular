@@ -11,7 +11,7 @@ function importAll(projects) {
     });
     return images
 }
-const projectThumbnail = importAll(require.context('../../images/projects'));
+const projectThumbnails = importAll(require.context('../../images/projects'));
 
 const ProjectDetailsC = () => {
 
@@ -19,7 +19,7 @@ const ProjectDetailsC = () => {
     let parameters = useParams();
 
     const [title, setTitle] = useState("");
-    const [thumbnailArray, setThumbnailArray] = useState("");
+    const [thumbnails, setThumbnails] = useState([]);
 
     useEffect(() => {
         const fetchData = async (req, res) => {
@@ -29,13 +29,27 @@ const ProjectDetailsC = () => {
 
                 //Get project from DB
                 const project = await IndexAPI.get(`/admin/portfolio/${parameters.project}`);
-                const projectThumbnailArray = [];
-                for(let i = 0; i < project.data.results[0].length; i++){
-                    project.data.results[0][i].thumbnail = projectThumbnail[project.data.results[0][i].thumbnail]
-                    projectThumbnailArray.push(project.data.results[0][i])
+                console.log(project)
+
+                const projectThumbnailsArray = [];
+                //Loops through the array of images associated with this project
+                for(let i = 0; i < project.data.results[1].length; i++){
+
+                    //Gets the file name of the current project image
+                    const projectFile = project.data.results[1][i].thumbnail
+
+                    console.log(projectThumbnails)
+                    //Loops through the array of imported images
+                    for(let j = 0; j < Object.keys(projectThumbnails).length; j++){
+                        console.log(Object.keys(projectThumbnails)[j])
+                        console.log(projectFile)
+                        if(Object.keys(projectThumbnails)[j] === projectFile){
+                            projectThumbnailsArray.push(projectThumbnails[projectFile])
+                        }
+                    }
                 }
-                setThumbnailArray(projectThumbnailArray);
-                console.log()
+                setThumbnails(projectThumbnailsArray);
+                console.log(projectThumbnailsArray)
 
                 //Get Project skills from DB
 
@@ -55,8 +69,8 @@ const ProjectDetailsC = () => {
                     <p className="title">{title}</p>
                 </div>
                 <div className="grid project-slide-div">
-                    {thumbnailArray[0] !== undefined ? 
-                        <img className="grid project-details-image"src={thumbnailArray[0].thumbnail.default}/>
+                    {thumbnails[0] !== undefined ? 
+                        <img className="grid project-details-image" src={thumbnails[0].default}/>
                     :
                         ""
                     }

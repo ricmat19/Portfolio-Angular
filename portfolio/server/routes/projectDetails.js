@@ -12,7 +12,7 @@ router.get('/admin/portfolio/:project', async (req, res) => {
                 status: "success",
                 results: result,
                 data:{
-                    skills: result,
+                    project: result,
                 }
             })
         });

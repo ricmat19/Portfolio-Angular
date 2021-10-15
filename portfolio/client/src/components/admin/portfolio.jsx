@@ -195,7 +195,6 @@ const PortfolioC = () => {
 
     return(
         <div className="main">
-            {console.log(thumbnails)}
             <HeaderC/>
             <div className={createModal}>
                 <div ref={createRef} className="modal-content">
@@ -226,11 +225,14 @@ const PortfolioC = () => {
                 <div className="portfolio-thumbnail-div" >
                     {thumbnails.map((thumbnail, thumbnailIndex) => {
                         return(
-                            <div className="portfolio-item-div" key={thumbnailIndex}>
-                                {/* onClick={() => history.push(`/admin/portfolio/${project.project}`, { title: project.project })} */}
+                            // <div>
+                            <div className="portfolio-item-div" key={thumbnailIndex}  onClick={() => history.push(`/admin/portfolio/${Object.keys(thumbnail)[0]}`)}>
                                 <div className="portfolio-project">
                                     <img className="project-thumbnail" src={thumbnail[titles[thumbnailIndex]][0][0]['thumbnail'].default}/>
                                     <div className="thumbnail-overlay thumbnail-overlay--blur">
+                                        <div className="thumbnail-title-div">
+                                            {titles[thumbnailIndex]}
+                                        </div>
                                         <div className="grid buttons-div">
                                             <div className="tech-used">
                                                 {technology.map((tech, techIndex) => {

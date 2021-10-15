@@ -67,7 +67,6 @@ const UpdateC = (props) => {
                     }
                 }
                 setProjectSkills(projectTechArray)
-                console.log(projectTechArray)
 
                 if(props.thumbnails === []){
                     setThumbnails([])
