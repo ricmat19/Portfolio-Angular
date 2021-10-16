@@ -29,7 +29,6 @@ const ProjectDetailsC = () => {
 
                 //Get project from DB
                 const project = await IndexAPI.get(`/admin/portfolio/${parameters.project}`);
-                console.log(project)
 
                 const projectThumbnailsArray = [];
                 //Loops through the array of images associated with this project
@@ -38,20 +37,15 @@ const ProjectDetailsC = () => {
                     //Gets the file name of the current project image
                     const projectFile = project.data.results[1][i].thumbnail
 
-                    console.log(projectThumbnails)
                     //Loops through the array of imported images
                     for(let j = 0; j < Object.keys(projectThumbnails).length; j++){
-                        console.log(Object.keys(projectThumbnails)[j])
-                        console.log(projectFile)
+
                         if(Object.keys(projectThumbnails)[j] === projectFile){
                             projectThumbnailsArray.push(projectThumbnails[projectFile])
                         }
                     }
                 }
                 setThumbnails(projectThumbnailsArray);
-                console.log(projectThumbnailsArray)
-
-                //Get Project skills from DB
 
             }catch(err){
                 console.log(err);

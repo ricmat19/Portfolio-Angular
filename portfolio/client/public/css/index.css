@@ -65,6 +65,18 @@ input, select, textarea{
     filter: drop-shadow(1px 1px 1px black)
 }
 
+.filter-icon{
+    width: 25px;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.skill-filters{
+    grid-template-columns: auto auto;
+    justify-content: right;
+    margin: 5px 0;
+}
+
 .profile-div{
     width: fit-content;
 }
