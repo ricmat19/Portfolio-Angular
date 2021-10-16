@@ -29,7 +29,6 @@ const ProjectDetailsC = () => {
 
                 //Get project from DB
                 const project = await IndexAPI.get(`/portfolio/${parameters.project.toLowerCase()}`);
-                console.log("tTESG")
 
                 const projectThumbnailsArray = [];
                 //Loops through the array of images associated with this project

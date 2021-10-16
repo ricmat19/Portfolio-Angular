@@ -4,6 +4,11 @@ body{
     font-family: 'Rajdhani';
 }
 
+a{
+    text-decoration: none;
+    color: black
+}
+
 .main{
     display: grid;
     height: 100vh;
@@ -41,12 +46,12 @@ input, select, textarea{
 }
 
 .title-div{
-    font-size: 25px;
+    font-size: 40px;
     text-align: center;
 }
 
 .title{
-    margin-bottom: 40px;
+    margin-bottom: 20px;
 }
 
 .about-content-div{
@@ -116,7 +121,7 @@ input, select, textarea{
     width: fit-content;
 }
 
-.info-div{
+.info-div, .resources-div{
     text-align: justify;
 }
 
@@ -131,6 +136,12 @@ input, select, textarea{
     border: black 3px solid;
     padding: 10px;
     margin: 30px 0;
+}
+
+.sub-title{
+    font-size: 25px;
+    border-bottom: 1px solid black;
+    width: fit-content;
 }
 
 .skill-category-div .sub-title{
@@ -382,10 +393,38 @@ button{
 
 .project-slide-div{
     justify-content: center;
-    margin-bottom: 40px;
 }
 
-.project-details-image{
-    width: 700px;
-    display: block;
+.image-container{
+    grid-template-columns: repeat(1, minmax(300px, 700px));
+}
+
+.project-image{
+    width: 100%;
+}
+
+.project-tech-div{
+    justify-content: center;
+    margin: 20px 0;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 135px));
+
+}
+
+.tech-label{
+    cursor: default;
+}
+
+.project-details{
+    margin: 0 50px;
+}
+
+@media (min-width: 1180px){
+    .text-content-container{
+        margin: 0 200px;
+    }
+}
+
+.project-resource:hover{
+    font-weight: 700;
+    cursor: pointer;
 }
