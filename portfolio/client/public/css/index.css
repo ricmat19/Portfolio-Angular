@@ -180,12 +180,11 @@ input, select, textarea{
 }
 
 .project-thumbnail{
-    width: 700px;
+    max-width: 100%;
     display: block;
 }
 
 .portfolio-project{
-    width: 700px;
     position: relative;
     border: 1px black solid;
 }

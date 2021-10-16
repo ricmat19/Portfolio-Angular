@@ -29,12 +29,15 @@ const PortfolioC = () => {
     const [updatedProject, setUpdatedProject] = useState("");
     const [deletedProject, setDeletedProject] = useState("");
 
+    const[projects, setProjects] = useState()
+
     const [titles, setTitles] = useState([])
     const [thumbnails, setThumbnails] = useState([]);
     const [technology, setTechnology] = useState([]);
     const [skills, setSkills] = useState([]);
 
     const [filterButtons, setFilterButtons] = useState("skill-buttons");
+    const [filteredThumbnails, setFilteredThumbnails] = useState([])
 
     const [currentTitle, setCurrentTitle] = useState("");
     const [currentThumbnails, setCurrentThumbnails] = useState([]);
@@ -127,6 +130,7 @@ const PortfolioC = () => {
 
                 //Get all project thumbnails and images from DB
                 const projects = await IndexAPI.get(`/projects`);
+                setProjects(projects.data.results)
 
                 //Adds all the projects in project_images to the projectThumbnailArray
                 const projectThumbnailArray = [];
@@ -162,6 +166,7 @@ const PortfolioC = () => {
                 }
                 setTitles(projectTitles)
                 setThumbnails(currentProjectThumbnailArray);
+                setFilteredThumbnails(currentProjectThumbnailArray)
 
                 //Adds all the projects in project_tech to the projectTechArray
                 const projectTechArray = [];
@@ -199,26 +204,25 @@ const PortfolioC = () => {
     const filterProjects = async (skill) => {
         try{
 
-            //Get all project thumbnails and images from DB
-            const projects = await IndexAPI.get(`/projects`);
-
-            //Get projects that have the specified project_tech
-            const techProjects = []
-            for(let i = 0; i < projects.data.results[1].length; i++){
-                if(projects.data.results[1][i].technology === skill){
-                    techProjects.push(projects.data.results[1][i].project)
+            const techProjects = [];
+            for(let i = 0; i < technology.length; i++){
+                const projectsTech = technology[i][Object.keys(technology[i])][0];
+                for(let j = 0; j < projectsTech.length; j++){
+                    if(projectsTech[j] === skill){
+                        techProjects.push(Object.keys(technology[i])[0])
+                    }
                 }
             }
 
             const filteredThumbnails = [];
-            for(let i=0; i < techProjects.length; i++){
-                for(let j=0; j < thumbnails.length; j++){
+            for(let i = 0; i < techProjects.length; i++){
+                for(let j = 0; j < thumbnails.length; j++){
                     if(techProjects[i] === Object.keys(thumbnails[j])[0]){
                         filteredThumbnails.push(thumbnails[j])
                     }
                 }
             }
-            setThumbnails(filteredThumbnails)
+            setFilteredThumbnails(filteredThumbnails)
 
         }catch(err){
             console.log(err);
@@ -268,16 +272,16 @@ const PortfolioC = () => {
                     </div>
                 </div>
                 <div className="portfolio-thumbnail-div" >
-                    {thumbnails.map((thumbnail, thumbnailIndex) => {
+                    {filteredThumbnails.map((thumbnail, thumbnailIndex) => {
                         return(
-                            <div>
+                            <div key={thumbnailIndex}>
                                 <div className="project-buttons">
                                     <button onClick={() => displayUpdateModal(titles[thumbnailIndex])}>UPDATE</button>
                                     <button onClick={() => displayDeleteModal(titles[thumbnailIndex])}>DELETE</button>
                                 </div>
                                 <div className="portfolio-item-div" key={thumbnailIndex} onClick={() => history.push(`/admin/portfolio/${Object.keys(thumbnail)[0]}`)}>
                                     <div className="portfolio-project">
-                                        <img className="project-thumbnail" src={thumbnail[titles[thumbnailIndex]][0][0]['thumbnail'].default}/>
+                                        <img className="project-thumbnail" src={thumbnail[Object.keys(thumbnail)[0]][0][0]['thumbnail'].default}/>
                                         <div className="thumbnail-overlay thumbnail-overlay--blur">
                                             <div className="thumbnail-title-div">
                                                 {titles[thumbnailIndex].toLowerCase()}

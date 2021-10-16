@@ -5,7 +5,8 @@ const db = require("../db/index");
 router.get('/projects', async (req, res) => {
 
     try{
-        const portfolio = await db.query("SELECT * FROM project_images; SELECT * FROM project_tech;", function (err, result, fields) {
+        const portfolio = db.query("SELECT * FROM project_images; SELECT * FROM project_tech;", function (err, result, fields) {
+        
         if (err) throw err;
             res.status(200).json({
                 status: "success",

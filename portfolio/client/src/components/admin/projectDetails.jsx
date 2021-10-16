@@ -28,7 +28,7 @@ const ProjectDetailsC = () => {
                 setTitle(parameters.project.toLowerCase())
 
                 //Get project from DB
-                const project = await IndexAPI.get(`/admin/portfolio/${parameters.project}`);
+                const project = await IndexAPI.get(`/portfolio/${parameters.project}`);
 
                 const projectThumbnailsArray = [];
                 //Loops through the array of images associated with this project
