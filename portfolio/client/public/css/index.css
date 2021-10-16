@@ -77,6 +77,33 @@ input, select, textarea{
     margin: 5px 0;
 }
 
+.skill-buttons{
+    transform: translateX(100%);
+    right: 0;
+    transition: transform 0.3s ease-in-out;
+    position: fixed;
+}
+
+.skill-buttons-view{
+    transform: translateX(-0%);
+    position: relative;
+}
+
+@-webkit-keyframes slide {
+    100% { left: 0; }
+}
+
+@keyframes slide {
+    100% { left: 0; }
+}
+
+.skill{
+    -webkit-animation: slide 0.5s forwards;
+    -webkit-animation-delay: 2s;
+    animation: slide 0.5s forwards;
+    animation-delay: 2s;
+}
+
 .profile-div{
     width: fit-content;
 }
@@ -205,7 +232,7 @@ input, select, textarea{
 }
 
 .thumbnail-overlay > *{
-    transform: translateY(170px);
+    transform: translateY(110px);
     opacity: 0;
     transition: transform 300ms ease-in-out;
 
@@ -235,10 +262,9 @@ input, select, textarea{
 
 .project-buttons{
     display: block;
-    justify-content: center;
-    align-content: center;
-    text-align: center;
+    text-align: right;
     z-index: 2;
+    margin-right: -5px;
 }
 
 .project-tech{

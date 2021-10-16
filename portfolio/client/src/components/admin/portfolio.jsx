@@ -20,6 +20,8 @@ const PortfolioC = () => {
 
     let history = useHistory();
 
+    const currentProjectThumbnailArray = [];
+
     const [createModal, setCreateModal] = useState("modal");
     const [updateModal, setUpdateModal] = useState("modal");
     const [deleteModal, setDeleteModal] = useState("modal");
@@ -31,6 +33,8 @@ const PortfolioC = () => {
     const [thumbnails, setThumbnails] = useState([]);
     const [technology, setTechnology] = useState([]);
     const [skills, setSkills] = useState([]);
+
+    const [filterButtons, setFilterButtons] = useState("skill-buttons");
 
     const [currentTitle, setCurrentTitle] = useState("");
     const [currentThumbnails, setCurrentThumbnails] = useState([]);
@@ -83,6 +87,19 @@ const PortfolioC = () => {
         }
     }
 
+    const displayFilter = async () => {
+        try{
+            if(filterButtons === "skill-buttons"){
+                setFilterButtons("skill-buttons skill-buttons-view");
+            }else{
+                setFilterButtons("skill-buttons");
+            }
+
+        }catch(err){
+            console.log(err);
+        }
+    }
+
     useEffect(() => {
         const fetchData = async (req, res) => {
             try{
@@ -124,7 +141,6 @@ const PortfolioC = () => {
 
                 //Loops through the projectThumbnailArray
                 const projectTitles = [];
-                const currentProjectThumbnailArray = [];
                 for(let i = 0; i < projectThumbnailArray.length; i++){
                     const tempArray = [];
                     //Loops through all data provided from project_images
@@ -146,7 +162,6 @@ const PortfolioC = () => {
                 }
                 setTitles(projectTitles)
                 setThumbnails(currentProjectThumbnailArray);
-                console.log(currentProjectThumbnailArray)
 
                 //Adds all the projects in project_tech to the projectTechArray
                 const projectTechArray = [];
@@ -183,41 +198,9 @@ const PortfolioC = () => {
 
     const filterProjects = async (skill) => {
         try{
-            //Get all project_tech and project_images from the DB
+
+            //Get all project thumbnails and images from DB
             const projects = await IndexAPI.get(`/projects`);
-
-            //Adds all the projects in project_images to the projectThumbnailArray
-            const projectThumbnailArray = [];
-            const thumbnailFiles = Object.keys(projectThumbnails);
-            for(let i = 0; i < projects.data.results[0].length; i++){
-                if(projectThumbnailArray.indexOf(projects.data.results[0][i].thumbnail) === -1){
-                    projects.data.results[0][i].file = thumbnailFiles[i]
-                    projects.data.results[0][i].thumbnail = projectThumbnails[projects.data.results[0][i].thumbnail]
-                    projectThumbnailArray.push(projects.data.results[0][i]);
-                }
-            }
-
-            //Loops through the projectThumbnailArray
-            const currentProjectThumbnailArray = [];
-            for(let i = 0; i < projectThumbnailArray.length; i++){
-                const tempArray = [];
-                //Loops through all data provided from project_images
-                for(let j = 0; j < projects.data.results[0].length; j++){
-                    //Checks if the current item in project_images pertains to the current project
-                    if(projects.data.results[0][j].project === projectThumbnailArray[i].project){
-                        const tempThumbnailObject = {
-                            thumbnail: projects.data.results[0][j].thumbnail,
-                            file: projects.data.results[0][j].file
-                        }
-                        tempArray.push(tempThumbnailObject)
-                    }
-                }
-                const key = projectThumbnailArray[i].project;
-                const tempObject = {};
-                tempObject[key] = [tempArray];
-                currentProjectThumbnailArray.push(tempObject)
-            }
-            setThumbnails(currentProjectThumbnailArray);
 
             //Get projects that have the specified project_tech
             const techProjects = []
@@ -270,23 +253,28 @@ const PortfolioC = () => {
                 <div className="create-project-div">
                     <button onClick={() => displayCreateModal()}>CREATE</button>
                     <div className="grid skill-filters">
-                        <div className="skill-buttons">
+                        <div className={filterButtons}>
                             {skills.map((skill, index) => {
-                                return(
-                                    <button key={index} onClick={() => filterProjects(skill)}>
-                                        {skill}
-                                    </button>
-                                )
+                                // if(filter){
+                                    return(
+                                        <button className="skill" key={index} onClick={() => filterProjects(skill)}>
+                                            {skill}
+                                        </button>
+                                    )
+                                // }
                             })}
                         </div>
-                        <img className="filter-icon" src="../../images/filter-solid.svg"/>
+                        <img className="filter-icon" src="../../images/filter-solid.svg" onClick={() => displayFilter()}/>
                     </div>
                 </div>
                 <div className="portfolio-thumbnail-div" >
                     {thumbnails.map((thumbnail, thumbnailIndex) => {
-                        if(thumbnail !== undefined && thumbnails.length !== undefined){
-                            return(
-                                // <div>
+                        return(
+                            <div>
+                                <div className="project-buttons">
+                                    <button onClick={() => displayUpdateModal(titles[thumbnailIndex])}>UPDATE</button>
+                                    <button onClick={() => displayDeleteModal(titles[thumbnailIndex])}>DELETE</button>
+                                </div>
                                 <div className="portfolio-item-div" key={thumbnailIndex} onClick={() => history.push(`/admin/portfolio/${Object.keys(thumbnail)[0]}`)}>
                                     <div className="portfolio-project">
                                         <img className="project-thumbnail" src={thumbnail[titles[thumbnailIndex]][0][0]['thumbnail'].default}/>
@@ -312,53 +300,12 @@ const PortfolioC = () => {
                                                         }
                                                     })}
                                                 </div>
-                                                <div className="project-buttons">
-                                                    <button onClick={() => displayUpdateModal(titles[thumbnailIndex])}>UPDATE</button>
-                                                    <button onClick={() => displayDeleteModal(titles[thumbnailIndex])}>DELETE</button>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            )
-                        }else if(thumbnail.length !== undefined){
-                            return(
-                                // <div>
-                                <div className="portfolio-item-div" key={thumbnailIndex} onClick={() => history.push(`/admin/portfolio/${Object.keys(thumbnail)}`)}>
-                                    <div className="portfolio-project">
-                                        <img className="project-thumbnail" src={thumbnail[titles[thumbnailIndex]][0][0]['thumbnail'].default}/>
-                                        <div className="thumbnail-overlay thumbnail-overlay--blur">
-                                            <div className="thumbnail-title-div">
-                                                {titles[thumbnailIndex].toLowerCase()}
-                                            </div>
-                                            <div className="grid buttons-div">
-                                                <div className="tech-used">
-                                                    {technology.map((tech, techIndex) => {
-                                                        if(thumbnailIndex === techIndex){
-                                                            return(
-                                                                <div className="grid project-tech" key={techIndex}>
-                                                                    {tech[titles[techIndex]][0].map((t, index) => {
-                                                                        return(
-                                                                            <button key={index}>
-                                                                                {t}
-                                                                            </button>
-                                                                        )
-                                                                    })}
-                                                                </div>
-                                                            )
-                                                        }
-                                                    })}
-                                                </div>
-                                                <div className="project-buttons">
-                                                    <button onClick={() => displayUpdateModal(titles[thumbnailIndex])}>UPDATE</button>
-                                                    <button onClick={() => displayDeleteModal(titles[thumbnailIndex])}>DELETE</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            )
-                        }
+                            </div>
+                        )
                     })}
                 </div>
             </div>
