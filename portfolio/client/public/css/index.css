@@ -377,13 +377,25 @@ button{
     margin-top: -30px;
 }
 
-.tech-checkbox-list{
-    grid-template-columns: 1fr auto;
+.image-checkbox-list{
+    grid-template-columns: 1fr 75px 75px;
     gap: 10px;
     align-items: center;
+    text-align: center;
+}
+
+.tech-checkbox-list{
+    grid-template-columns: 1fr 75px;
+    gap: 10px;
+    align-items: center;
+    text-align: center;
 }
 
 .tech-checkbox-label{
+    text-align: left;
+}
+
+.image-checkbox-label{
     text-align: left;
 }
 

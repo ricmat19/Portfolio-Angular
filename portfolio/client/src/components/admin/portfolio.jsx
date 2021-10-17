@@ -32,6 +32,7 @@ const PortfolioC = () => {
     const[projects, setProjects] = useState()
 
     const [titles, setTitles] = useState([])
+    const [allThumbnails, setAllThumbnails] = useState([]);
     const [thumbnails, setThumbnails] = useState([]);
     const [technology, setTechnology] = useState([]);
     const [skills, setSkills] = useState([]);
@@ -181,6 +182,7 @@ const PortfolioC = () => {
                     }
                     exists = false;
                 }
+                setAllThumbnails(filteredProjectThumbnailArray)
 
                 const primaryThumbnailArray = [];
                 for(let i = 0; i < filteredProjectThumbnailArray.length; i++){
@@ -264,10 +266,9 @@ const PortfolioC = () => {
                     <CreateC createModal={createModal} createdProject={createdProject => setCreatedProject(createdProject)}/>
                 </div>
             </div>
-
             <div className={updateModal}>
                 <div ref={updateRef} className="modal-content">
-                    <UpdateC updateModal={updateModal} setUpdatedProject={updateProject => setUpdatedProject(updateProject)} title={currentTitle} thumbnails={thumbnails} tech={technology}/>
+                    <UpdateC updateModal={updateModal} setUpdatedProject={updateProject => setUpdatedProject(updateProject)} title={currentTitle} thumbnails={allThumbnails} tech={technology}/>
                 </div>
             </div>
 

@@ -156,64 +156,61 @@ const UpdateC = (props) => {
             </div>
             <div className="grid project-creation-checkbox-div">
                 <div className="grid thumbnail-checkbox-div">
-                    <label>THUMBNAIL</label>
+                    <div>
+                        <label>THUMBNAIL</label>
+                        <div className="grid image-checkbox-list">
+                                <label className="image-checkbox-label"></label>
+                                <label className="image-checkbox-label">Selection</label>
+                                <label className="image-checkbox-label">Primary</label>
+                        </div>
+                    </div>
                     <div>
                         {projectImages.map((file, index) => {
-                            // if(projectFiles !== undefined){
-                                if(projectFiles.includes(file)){
-                                    return(
-                                        <div key={index} className="grid tech-checkbox-list">
-                                            <label className="tech-checkbox-label">{file}</label>
-                                            <input type="checkbox" name="image" value={file} onChange={e => createList(e.target.value, e.target.checked, setProjectFiles, projectFiles)} checked/>
-                                        </div>
-                                    )
-                                }else{
-                                    return(
-                                        <div key={index} className="grid tech-checkbox-list">
-                                            <label className="tech-checkbox-label">{file}</label>
-                                            <input type="checkbox" name="image" value={file} onChange={e => createList(e.target.value, e.target.checked, setProjectFiles, projectFiles)}/>
-                                        </div>
-                                    )
-                                }
-                            // }else{
-                            //     return(
-                            //         <div key={index} className="grid tech-checkbox-list">
-                            //             <label className="tech-checkbox-label">{file}</label>
-                            //             <input type="checkbox" name="image" value={file} onChange={e => createList(e.target.value, e.target.checked, setThumbnails, thumbnails)}/>
-                            //         </div>
-                            //     )
-                            // }
+                            if(projectFiles.includes(file)){
+                                return(
+                                    <div key={index} className="grid image-checkbox-list">
+                                        <label className="image-checkbox-label">{file}</label>
+                                        <div><input type="checkbox" name="image" value={file} onChange={e => createList(e.target.value, e.target.checked, setProjectFiles, projectFiles)} checked/></div>
+                                        <div><input type="radio" name="image"/></div>
+                                    </div>
+                                )
+                            }else{
+                                return(
+                                    <div key={index} className="grid image-checkbox-list">
+                                        <label className="image-checkbox-label">{file}</label>
+                                        <div><input type="checkbox" name="image" value={file} onChange={e => createList(e.target.value, e.target.checked, setProjectFiles, projectFiles)}/></div>
+                                        <div><input type="radio" name="image"/></div>
+                                    </div>
+                                )
+                            }
                         })}
                     </div>
                 </div>
                 <div className="grid tech-grid">
-                    <label>TECH</label>
+                    <div>
+                        <label>TECH</label>
+                        <div className="grid tech-checkbox-list">
+                                <label className="image-checkbox-label"></label>
+                                <label className="image-checkbox-label">Selection</label>
+                        </div>
+                    </div>
                     <div>
                         {skills.map((skill, index) => {
-                            // if(projectSkills !== undefined){
-                                if(projectSkills.includes(skill)){
-                                    return(
-                                        <div key={index} className="grid tech-checkbox-list">
-                                            <label className="tech-checkbox-label">{skill}</label>
-                                            <input type="checkbox" name="skill" value={skill} onChange={e => createList(e.target.value, e.target.checked, setProjectSkills, projectSkills)} checked/>
-                                        </div>
-                                    )
-                                }else{
-                                    return(
-                                        <div key={index} className="grid tech-checkbox-list">
-                                            <label className="tech-checkbox-label">{skill}</label>
-                                            <input type="checkbox" name="skill" value={skill} onChange={e => createList(e.target.value, e.target.checked, setProjectSkills, projectSkills)}/>
-                                        </div>
-                                    )
-                                }
-                            // }else{
-                            //     return(
-                            //         <div key={index} className="grid tech-checkbox-list">
-                            //             <label className="tech-checkbox-label">{skill}</label>
-                            //             <input type="checkbox" name="skill" value={skill} onChange={e => createList(e.target.value, e.target.checked, setTech, tech)}/>
-                            //         </div>
-                            //     )
-                            // }
+                            if(projectSkills.includes(skill)){
+                                return(
+                                    <div key={index} className="grid tech-checkbox-list">
+                                        <label className="tech-checkbox-label">{skill}</label>
+                                        <div><input type="checkbox" name="skill" value={skill} onChange={e => createList(e.target.value, e.target.checked, setProjectSkills, projectSkills)} checked/></div>
+                                    </div>
+                                )
+                            }else{
+                                return(
+                                    <div key={index} className="grid tech-checkbox-list">
+                                        <label className="tech-checkbox-label">{skill}</label>
+                                        <div><input type="checkbox" name="skill" value={skill} onChange={e => createList(e.target.value, e.target.checked, setProjectSkills, projectSkills)}/></div>
+                                    </div>
+                                )
+                            }
                         })}
                     </div>
                 </div>

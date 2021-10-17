@@ -98,26 +98,44 @@ const CreateC = (props) => {
             </div>
             <div className="grid project-creation-checkbox-div">
                 <div className="grid thumbnail-checkbox-div">
-                    <label>THUMBNAIL</label>
+                    <div>
+                        <label>THUMBNAIL</label>
+                        <div className="grid image-checkbox-list">
+                                <label className="image-checkbox-label"></label>
+                                <label className="image-checkbox-label">Selection</label>
+                                <label className="image-checkbox-label">Primary</label>
+                        </div>
+                    </div>
                     <div>
                         {projectImages.map((image, index) => {
                             return(
-                                <div key={index} className="grid tech-checkbox-list">
-                                    <label className="tech-checkbox-label">{image}</label>
-                                    <input type="checkbox" name="image" value={image} onChange={e => createList(e.target.value, e.target.checked, setThumbnails, thumbnails)}/>
+                                <div key={index} className="grid image-checkbox-list">
+                                    <label className="image-checkbox-label">{image}</label>
+                                    <div>
+                                        <input type="checkbox" name="image" value={image} onChange={e => createList(e.target.value, e.target.checked, setThumbnails, thumbnails)}/>
+                                    </div>
+                                    <div>
+                                        <input type="radio" name="image" value={image}/>
+                                    </div>
                                 </div>
                             )
                         })}
                     </div>
                 </div>
                 <div className="grid tech-grid">
-                    <label>TECH</label>
+                    <div>
+                        <label>TECH</label>
+                        <div className="grid tech-checkbox-list">
+                                <label className="image-checkbox-label"></label>
+                                <label className="image-checkbox-label">Selection</label>
+                        </div>
+                    </div>
                     <div>
                         {skills.map((skill, index) => {
                             return(
                                 <div key={index} className="grid tech-checkbox-list">
                                     <label className="tech-checkbox-label">{skill}</label>
-                                    <input type="checkbox" name="skill" value={skill} onChange={e => createList(e.target.value, e.target.checked, setProjectTech, projectTech)}/>
+                                    <div><input type="checkbox" name="skill" value={skill} onChange={e => createList(e.target.value, e.target.checked, setProjectTech, projectTech)}/></div>
                                 </div>
                             )
                         })}
