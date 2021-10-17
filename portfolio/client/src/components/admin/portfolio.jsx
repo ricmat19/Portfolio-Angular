@@ -163,28 +163,37 @@ const PortfolioC = () => {
                     currentProjectThumbnailArray.push(tempObject)
                 }
 
-                //Set primary thumbnails
-                const primaryThumbnailArray = [];
+                //Filters out duplicate project thumbnail objects
+                let exists = false;
+                const filteredProjectThumbnailArray = [];
                 for(let i = 0; i < currentProjectThumbnailArray.length; i++){
-                    if(primaryThumbnailArray.length > 0){
-                        for(let j = 0; j < primaryThumbnailArray.length; j++){
-                            console.log(currentProjectThumbnailArray[i])
-                            if(Object.keys(primaryThumbnailArray[j])[0] !== Object.keys(currentProjectThumbnailArray[i])[0]){
-                                primaryThumbnailArray.push(currentProjectThumbnailArray[i]);
+                    if(filteredProjectThumbnailArray.length > 0){
+                            for(let j = 0; j < filteredProjectThumbnailArray.length; j++){
+                                if(Object.keys(currentProjectThumbnailArray[i])[0] === Object.keys(filteredProjectThumbnailArray[j])[0]){
+                                    exists = true;
+                                }
                             }
-                            console.log(primaryThumbnailArray)
-                        }
+                            if(exists === false){
+                                filteredProjectThumbnailArray.push(currentProjectThumbnailArray[i])
+                            }
                     }else{
-                        primaryThumbnailArray.push(currentProjectThumbnailArray[i]);
+                        filteredProjectThumbnailArray.push(currentProjectThumbnailArray[0]);
+                    }
+                    exists = false;
+                }
+
+                const primaryThumbnailArray = [];
+                for(let i = 0; i < filteredProjectThumbnailArray.length; i++){
+                    for(let j = 0; j < filteredProjectThumbnailArray[i][Object.keys(filteredProjectThumbnailArray[i])[0]][0].length; j++){
+                        if(filteredProjectThumbnailArray[i][Object.keys(filteredProjectThumbnailArray[i])[0]][0][j].primary_image === 1){
+                            primaryThumbnailArray.push(filteredProjectThumbnailArray[i][Object.keys(filteredProjectThumbnailArray[i])[0]][0][j])
+                        }
                     }
                 }
 
-                // if(projectTechArray.indexOf(projects.data.results[1][i].project) === -1){
-
                 setTitles(projectTitles)
-                setThumbnails(currentProjectThumbnailArray);
-                setFilteredThumbnails(currentProjectThumbnailArray)
-                console.log(currentProjectThumbnailArray)
+                setThumbnails(primaryThumbnailArray);
+                setFilteredThumbnails(primaryThumbnailArray)
 
                 //Adds all the projects in project_tech to the projectTechArray
                 const projectTechArray = [];
@@ -235,7 +244,7 @@ const PortfolioC = () => {
             const filteredThumbnails = [];
             for(let i = 0; i < techProjects.length; i++){
                 for(let j = 0; j < thumbnails.length; j++){
-                    if(techProjects[i] === Object.keys(thumbnails[j])[0]){
+                    if(techProjects[i] === thumbnails[j].project){
                         filteredThumbnails.push(thumbnails[j])
                     }
                 }
@@ -290,6 +299,7 @@ const PortfolioC = () => {
                     </div>
                 </div>
                 <div className="portfolio-thumbnail-div" >
+
                     {filteredThumbnails.map((thumbnail, thumbnailIndex) => {
                         return(
                             <div key={thumbnailIndex}>
@@ -299,7 +309,7 @@ const PortfolioC = () => {
                                 </div>
                                 <div className="portfolio-item-div" key={thumbnailIndex} onClick={() => history.push(`/admin/portfolio/${Object.keys(thumbnail)[0]}`)}>
                                     <div className="portfolio-project">
-                                        <img className="project-thumbnail" src={thumbnail[Object.keys(thumbnail)[0]][0][0]['thumbnail'].default}/>
+                                        <img className="project-thumbnail" src={thumbnail.thumbnail.default}/>
                                         <div className="thumbnail-overlay thumbnail-overlay--blur">
                                             <div className="thumbnail-title-div">
                                                 {titles[thumbnailIndex].toLowerCase()}
