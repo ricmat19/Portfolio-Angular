@@ -3,6 +3,8 @@ import {useHistory, useParams} from "react-router-dom";
 import IndexAPI from '../../apis/indexAPI';
 import HeaderC from '../header';
 import FooterC from '../footer';
+import LeftArrowC from '../leftArrow';
+import RightArrowC from '../rightArrow';
 
 function importAll(projects) {
     let images = {};
@@ -21,6 +23,7 @@ const ProjectDetailsC = () => {
     const [title, setTitle] = useState("");
     const [githubLink, setGithubLink] = useState("");
     const [thumbnails, setThumbnails] = useState([]);
+    const [thumbnailIndex, setThumbnailIndex] = useState(0);
     const [techs, setTechs] = useState([]);
 
     useEffect(() => {
@@ -34,7 +37,6 @@ const ProjectDetailsC = () => {
 
                 //Get project from DB
                 const project = await IndexAPI.get(`/portfolio/${parameters.project}`);
-                console.log(project)
 
                 const projectThumbnailsArray = [];
                 //Loops through the array of images associated with this project
@@ -52,9 +54,10 @@ const ProjectDetailsC = () => {
                     }
                 }
                 setThumbnails(projectThumbnailsArray);
+                console.log(projectThumbnailsArray)
 
                 const projectTechArray = [];
-                //Loops through the array of images associated with this project
+                //Loops through the array of technology associated with this project
                 for(let i = 0; i < project.data.results[0].length; i++){
                     projectTechArray.push(project.data.results[0][i].technology);
                 }
@@ -67,6 +70,36 @@ const ProjectDetailsC = () => {
         fetchData();
     }, []);
 
+    const slideThumbnailLeft = async () => {
+        try{
+
+            if(thumbnailIndex === 0){
+                setThumbnailIndex(thumbnails.length - 1)
+            }else{
+                let newThumbnail = thumbnailIndex - 1
+                setThumbnailIndex(newThumbnail);
+            }
+
+        }catch(err){
+            console.log(err);
+        }
+    }
+
+    const slideThumbnailRight = async () => {
+        try{
+
+            if(thumbnailIndex === thumbnails.length - 1){
+                setThumbnailIndex(0)
+            }else{
+                let newThumbnail = thumbnailIndex + 1
+                setThumbnailIndex(newThumbnail);
+            }
+
+        }catch(err){
+            console.log(err);
+        }
+    }
+
     return(
         <div className="main">
             <HeaderC/>
@@ -76,19 +109,23 @@ const ProjectDetailsC = () => {
                     <p className="title">{title}</p>
                 </div>
                 <div className="grid project-details">
-                    <div className="grid project-slide-div">
-                        {thumbnails[0] !== undefined ?
-                            <div className="grid image-container">
-                                <img className="grid project-image" src={thumbnails[0].default}/>
-                            </div>
-                        :
-                            ""
-                        }
+                    <div className="grid slider-div">
+                        <div className="slider-arrow" onClick={() => slideThumbnailLeft()}><LeftArrowC/></div>
+                        <div className="grid project-slide-div">
+                            {thumbnails[0] !== undefined ?
+                                <div className="grid image-container">
+                                    <img className="grid project-image" src={thumbnails[thumbnailIndex].default}/>
+                                </div>
+                            :
+                                ""
+                            }
+                        </div>
+                        <div className="slider-arrow" onClick={() => slideThumbnailRight()}><RightArrowC/></div>
                     </div>
                     <div className="grid project-tech-div">
                         {techs.map((tech, index) => {
                             return(
-                                <button className="tech-label">{tech}</button>
+                                <button key={index} className="tech-label">{tech}</button>
                             )
                         })}
                     </div>

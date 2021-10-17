@@ -428,3 +428,15 @@ button{
     font-weight: 700;
     cursor: pointer;
 }
+
+.slider-div{
+    grid-template-columns: auto auto auto;
+    align-items: center;
+    justify-content: center;
+}
+
+.slider-arrow{
+    width: 50px;
+    padding: 30px;
+    cursor: pointer;
+}

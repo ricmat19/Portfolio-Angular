@@ -307,7 +307,7 @@ const PortfolioC = () => {
                                     <button onClick={() => displayUpdateModal(titles[thumbnailIndex])}>UPDATE</button>
                                     <button onClick={() => displayDeleteModal(titles[thumbnailIndex])}>DELETE</button>
                                 </div>
-                                <div className="portfolio-item-div" key={thumbnailIndex} onClick={() => history.push(`/admin/portfolio/${Object.keys(thumbnail)[0]}`)}>
+                                <div className="portfolio-item-div" key={thumbnailIndex} onClick={() => history.push(`/admin/portfolio/${thumbnail.project}`)}>
                                     <div className="portfolio-project">
                                         <img className="project-thumbnail" src={thumbnail.thumbnail.default}/>
                                         <div className="thumbnail-overlay thumbnail-overlay--blur">
