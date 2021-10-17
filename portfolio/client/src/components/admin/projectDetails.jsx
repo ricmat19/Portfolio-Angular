@@ -29,6 +29,7 @@ const ProjectDetailsC = () => {
 
                 setTitle(parameters.project.toLowerCase())
 
+                //Fix: Add Github URL to DB
                 setGithubLink(`https://github.com/ricmat19/${parameters.project}`)
 
                 //Get project from DB

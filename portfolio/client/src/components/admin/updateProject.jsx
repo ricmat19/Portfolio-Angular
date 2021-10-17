@@ -3,7 +3,10 @@ import IndexAPI from '../../apis/indexAPI';
 
 const UpdateC = (props) => {
 
+    // console.log(props)
+
     const [files, setFiles] = useState([])
+    const [projectImages, setProjectImages] = useState([])
     const [projectFiles, setProjectFiles] = useState([]);//All Project Image urls
     const [skills, setSkills] = useState([]); //All Skills
     const [projectSkills, setProjectSkills] = useState([]);
@@ -29,6 +32,19 @@ const UpdateC = (props) => {
                     titlesArray.push(Object.keys(props.thumbnails[i])[0]);
                 }
                 setTitles(titlesArray)
+
+                let projectSet = []
+                function importAll(projects) {
+                    let images = {};
+                    projects.keys().forEach((index) => { 
+                        images[index.replace('./', '')] = projects(index); 
+                        Object.keys(images).forEach((key) => {
+                            projectSet.push(key)
+                            setProjectImages([...new Set(projectSet)]);
+                        })
+                    });
+                }
+                const projectsThumbnails = importAll(require.context('../../images/projects'));
 
                 //Sets the full list of files
                 const filesArray = [];
@@ -142,7 +158,7 @@ const UpdateC = (props) => {
                 <div className="grid thumbnail-checkbox-div">
                     <label>THUMBNAIL</label>
                     <div>
-                        {files.map((file, index) => {
+                        {projectImages.map((file, index) => {
                             // if(projectFiles !== undefined){
                                 if(projectFiles.includes(file)){
                                     return(

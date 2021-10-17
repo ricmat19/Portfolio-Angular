@@ -396,7 +396,7 @@ button{
 }
 
 .image-container{
-    grid-template-columns: repeat(1, minmax(300px, 700px));
+    grid-template-columns: repeat(1, minmax(300px, 1000px));
 }
 
 .project-image{

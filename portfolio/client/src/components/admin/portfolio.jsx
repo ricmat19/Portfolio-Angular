@@ -37,6 +37,7 @@ const PortfolioC = () => {
     const [skills, setSkills] = useState([]);
 
     const [filterButtons, setFilterButtons] = useState("skill-buttons");
+    const [primaryThumbnails, setPrimaryThumbnails] = useState([])
     const [filteredThumbnails, setFilteredThumbnails] = useState([])
 
     const [currentTitle, setCurrentTitle] = useState("");
@@ -137,6 +138,7 @@ const PortfolioC = () => {
                 const thumbnailFiles = Object.keys(projectThumbnails);
                 for(let i = 0; i < projects.data.results[0].length; i++){
                     if(projectThumbnailArray.indexOf(projects.data.results[0][i].thumbnail) === -1){
+                        // && projects.data.results[0][i].primary_image === 1
                         projects.data.results[0][i].file = thumbnailFiles[i]
                         projects.data.results[0][i].thumbnail = projectThumbnails[projects.data.results[0][i].thumbnail]
                         projectThumbnailArray.push(projects.data.results[0][i]);
@@ -151,11 +153,7 @@ const PortfolioC = () => {
                     for(let j = 0; j < projects.data.results[0].length; j++){
                         //Checks if the current item in project_images pertains to the current project
                         if(projects.data.results[0][j].project === projectThumbnailArray[i].project){
-                            const tempThumbnailObject = {
-                                thumbnail: projects.data.results[0][j].thumbnail,
-                                file: projects.data.results[0][j].file
-                            }
-                            tempArray.push(tempThumbnailObject)
+                            tempArray.push(projects.data.results[0][j])
                         }
                     }
                     const key = projectThumbnailArray[i].project;
@@ -164,9 +162,29 @@ const PortfolioC = () => {
                     projectTitles.push(projectThumbnailArray[i].project);
                     currentProjectThumbnailArray.push(tempObject)
                 }
+
+                //Set primary thumbnails
+                const primaryThumbnailArray = [];
+                for(let i = 0; i < currentProjectThumbnailArray.length; i++){
+                    if(primaryThumbnailArray.length > 0){
+                        for(let j = 0; j < primaryThumbnailArray.length; j++){
+                            console.log(currentProjectThumbnailArray[i])
+                            if(Object.keys(primaryThumbnailArray[j])[0] !== Object.keys(currentProjectThumbnailArray[i])[0]){
+                                primaryThumbnailArray.push(currentProjectThumbnailArray[i]);
+                            }
+                            console.log(primaryThumbnailArray)
+                        }
+                    }else{
+                        primaryThumbnailArray.push(currentProjectThumbnailArray[i]);
+                    }
+                }
+
+                // if(projectTechArray.indexOf(projects.data.results[1][i].project) === -1){
+
                 setTitles(projectTitles)
                 setThumbnails(currentProjectThumbnailArray);
                 setFilteredThumbnails(currentProjectThumbnailArray)
+                console.log(currentProjectThumbnailArray)
 
                 //Adds all the projects in project_tech to the projectTechArray
                 const projectTechArray = [];
@@ -309,7 +327,7 @@ const PortfolioC = () => {
                                     </div>
                                 </div>
                             </div>
-                        )
+                        )                             
                     })}
                 </div>
             </div>
