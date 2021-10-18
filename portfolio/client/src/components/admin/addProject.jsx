@@ -8,6 +8,7 @@ const CreateC = (props) => {
 
     const [project, setProject] = useState("")
     const [thumbnails, setThumbnails] = useState([])
+    const [primaryImage, setPrimaryImage] = useState("");
     const [projectTech, setProjectTech] = useState([]);
 
     const [createdProject, setCreatedProject] = useState("") //Fix
@@ -74,11 +75,13 @@ const CreateC = (props) => {
 
             console.log(project)
             console.log(thumbnails)
+            console.log(primaryImage)
             console.log(projectTech)
  
             const response = await IndexAPI.post("/projects/add-project",{
                 project,
                 thumbnails,
+                primaryImage,
                 projectTech,
             });
             projectInput.current.value = "";
@@ -115,7 +118,7 @@ const CreateC = (props) => {
                                         <input type="checkbox" name="image" value={image} onChange={e => createList(e.target.value, e.target.checked, setThumbnails, thumbnails)}/>
                                     </div>
                                     <div>
-                                        <input type="radio" name="image" value={image}/>
+                                        <input type="radio" name="image" onChange={e => setPrimaryImage(image)}/>
                                     </div>
                                 </div>
                             )

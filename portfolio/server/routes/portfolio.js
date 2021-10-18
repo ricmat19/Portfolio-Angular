@@ -41,11 +41,15 @@ router.post('/projects/add-project', async (req, res) => {
             newProject = await db.query(`INSERT INTO projects (project) VALUES (?)`, [req.body.project]);
 
             for(let i = 0; i < req.body.thumbnails.length; i++){
-                newTech = await db.query(`INSERT INTO project_images (project, thumbnail) VALUES (?, ?)`, [req.body.project, req.body.thumbnails[i]]);
+                if(req.body.thumbnails[i] === req.body.primaryImage){
+                    newThumbnail = await db.query(`INSERT INTO project_images (project, thumbnail, primary_image) VALUES (?, ?, ?)`, [req.body.project, req.body.thumbnails[i], true]);
+                }else{
+                    newThumbnail = await db.query(`INSERT INTO project_images (project, thumbnail, primary_image) VALUES (?, ?, ?)`, [req.body.project, req.body.thumbnails[i], false]);
+                }
             }
 
             for(let i = 0; i < req.body.projectTech.length; i++){
-                newThumbnail = await db.query(`INSERT INTO project_tech (project, technology) VALUES (?, ?)`, [req.body.project, req.body.projectTech[i]]);
+                newTech = await db.query(`INSERT INTO project_tech (project, technology) VALUES (?, ?)`, [req.body.project, req.body.projectTech[i]]);
             }
 
             res.status(201).json({
@@ -62,12 +66,16 @@ router.put('/projects/update-project', async (req, res) => {
     try{
 
         let project = "";
-        project = await db.query(`UPDATE projects SET project=? WHERE project=?`, [req.body.title, req.body.projectFiles, req.body.oldTitle]);
+        project = await db.query(`UPDATE projects SET project=? WHERE project=?`, [req.body.title, req.body.oldTitle]);
 
         const deleteImages = await db.query(`DELETE FROM project_images WHERE project=?`, [req.body.title]);
         let newImages = "";
         for(let i = 0; i < req.body.projectFiles.length; i++){
-            newImages = await db.query(`INSERT INTO project_images (project, thumbnail) VALUES (?, ?)`, [req.body.title, req.body.projectFiles[i]]);
+            if(req.body.projectFiles[i] === req.body.primaryImage){
+                newImages = await db.query(`INSERT INTO project_images (project, thumbnail, primary_image) VALUES (?, ?, ?)`, [req.body.title, req.body.projectFiles[i], true]);
+            }else{
+                newImages = await db.query(`INSERT INTO project_images (project, thumbnail, primary_image) VALUES (?, ?, ?)`, [req.body.title, req.body.projectFiles[i], false]);
+            }
         }
 
         const deleteTech = await db.query(`DELETE FROM project_tech WHERE project=?`, [req.body.title]);

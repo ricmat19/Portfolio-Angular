@@ -132,6 +132,7 @@ const PortfolioC = () => {
 
                 //Get all project thumbnails and images from DB
                 const projects = await IndexAPI.get(`/projects`);
+                console.log(projects)
                 setProjects(projects.data.results)
 
                 //Adds all the projects in project_images to the projectThumbnailArray
@@ -140,7 +141,7 @@ const PortfolioC = () => {
                 for(let i = 0; i < projects.data.results[0].length; i++){
                     if(projectThumbnailArray.indexOf(projects.data.results[0][i].thumbnail) === -1){
                         // && projects.data.results[0][i].primary_image === 1
-                        projects.data.results[0][i].file = thumbnailFiles[i]
+                        projects.data.results[0][i].file = thumbnailFiles[i] //fix file to thumbnail association
                         projects.data.results[0][i].thumbnail = projectThumbnails[projects.data.results[0][i].thumbnail]
                         projectThumbnailArray.push(projects.data.results[0][i]);
                     }
@@ -160,7 +161,9 @@ const PortfolioC = () => {
                     const key = projectThumbnailArray[i].project;
                     const tempObject = {};
                     tempObject[key] = [tempArray];
-                    projectTitles.push(projectThumbnailArray[i].project);
+                    if(projectTitles.indexOf(projectThumbnailArray[i].project) === -1){
+                        projectTitles.push(projectThumbnailArray[i].project);
+                    }
                     currentProjectThumbnailArray.push(tempObject)
                 }
 

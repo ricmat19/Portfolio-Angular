@@ -8,6 +8,7 @@ const UpdateC = (props) => {
     const [files, setFiles] = useState([])
     const [projectImages, setProjectImages] = useState([])
     const [projectFiles, setProjectFiles] = useState([]);//All Project Image urls
+    const [primaryImage, setPrimaryImage] = useState("");
     const [skills, setSkills] = useState([]); //All Skills
     const [projectSkills, setProjectSkills] = useState([]);
 
@@ -106,9 +107,6 @@ const UpdateC = (props) => {
     const createList = async (value, checked, setList, list) =>{
         try{
 
-            console.log(value)
-            console.log(list)
-
             if(list === null){
                 if(checked){
                     setList(value);
@@ -132,9 +130,16 @@ const UpdateC = (props) => {
         e.preventDefault();
         try{
 
+            // console.log(title)
+            // console.log(projectFiles)
+            // console.log(primaryImage)
+            // console.log(projectSkills)
+            // console.log(oldTitle)
+
             const response = await IndexAPI.put("/projects/update-project",{
                 title,
                 projectFiles,
+                primaryImage,
                 projectSkills,
                 oldTitle,
             });
@@ -165,13 +170,14 @@ const UpdateC = (props) => {
                         </div>
                     </div>
                     <div>
+                        {/* {console.log(projectFiles)} */}
                         {projectImages.map((file, index) => {
                             if(projectFiles.includes(file)){
                                 return(
                                     <div key={index} className="grid image-checkbox-list">
                                         <label className="image-checkbox-label">{file}</label>
                                         <div><input type="checkbox" name="image" value={file} onChange={e => createList(e.target.value, e.target.checked, setProjectFiles, projectFiles)} checked/></div>
-                                        <div><input type="radio" name="image"/></div>
+                                        <div><input type="radio" name="image" onChange={e => setPrimaryImage(file)}/></div>
                                     </div>
                                 )
                             }else{
@@ -179,7 +185,7 @@ const UpdateC = (props) => {
                                     <div key={index} className="grid image-checkbox-list">
                                         <label className="image-checkbox-label">{file}</label>
                                         <div><input type="checkbox" name="image" value={file} onChange={e => createList(e.target.value, e.target.checked, setProjectFiles, projectFiles)}/></div>
-                                        <div><input type="radio" name="image"/></div>
+                                        <div><input type="radio" name="image" onChange={e => setPrimaryImage(file)}/></div>
                                     </div>
                                 )
                             }
