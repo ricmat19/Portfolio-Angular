@@ -132,7 +132,6 @@ const PortfolioC = () => {
 
                 //Get all project thumbnails and images from DB
                 const projects = await IndexAPI.get(`/projects`);
-                console.log(projects)
                 setProjects(projects.data.results)
 
                 //Adds all the projects in project_images to the projectThumbnailArray
@@ -140,9 +139,7 @@ const PortfolioC = () => {
                 const thumbnailFiles = Object.keys(projectThumbnails);
                 for(let i = 0; i < projects.data.results[0].length; i++){
                     if(projectThumbnailArray.indexOf(projects.data.results[0][i].thumbnail) === -1){
-                        // && projects.data.results[0][i].primary_image === 1
-                        projects.data.results[0][i].file = thumbnailFiles[i] //fix file to thumbnail association
-                        projects.data.results[0][i].thumbnail = projectThumbnails[projects.data.results[0][i].thumbnail]
+                        projects.data.results[0][i].module = projectThumbnails[projects.data.results[0][i].thumbnail]
                         projectThumbnailArray.push(projects.data.results[0][i]);
                     }
                 }
@@ -313,7 +310,7 @@ const PortfolioC = () => {
                                 </div>
                                 <div className="portfolio-item-div" key={thumbnailIndex} onClick={() => history.push(`/admin/portfolio/${thumbnail.project}`)}>
                                     <div className="portfolio-project">
-                                        <img className="project-thumbnail" src={thumbnail.thumbnail.default}/>
+                                        <img className="project-thumbnail" src={thumbnail.module.default}/>
                                         <div className="thumbnail-overlay thumbnail-overlay--blur">
                                             <div className="thumbnail-title-div">
                                                 {titles[thumbnailIndex].toLowerCase()}

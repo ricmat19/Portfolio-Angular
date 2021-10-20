@@ -3,8 +3,6 @@ import IndexAPI from '../../apis/indexAPI';
 
 const UpdateC = (props) => {
 
-    // console.log(props)
-
     const [files, setFiles] = useState([])
     const [projectImages, setProjectImages] = useState([])
     const [projectFiles, setProjectFiles] = useState([]);//All Project Image urls
@@ -50,7 +48,7 @@ const UpdateC = (props) => {
                 //Sets the full list of files
                 const filesArray = [];
                 for(let i = 0; i < props.thumbnails.length; i++){
-                    filesArray.push(props.thumbnails[i][titles[i]][0][0]['file'])
+                    filesArray.push(props.thumbnails[i][titles[i]][0][0]['thumbnail'])
                 }
                 setFiles(filesArray)
 
@@ -60,7 +58,7 @@ const UpdateC = (props) => {
 
                     if(Object.keys(props.thumbnails[i]).toString() === props.title){
                         for(let j = 0; j < props.thumbnails[i][props.title][0].length; j++){
-                            projectFilesArray.push(props.thumbnails[i][props.title][0][j]['file'])
+                            projectFilesArray.push(props.thumbnails[i][props.title][0][j]['thumbnail'])
                         }
                     }
                 }
@@ -170,7 +168,6 @@ const UpdateC = (props) => {
                         </div>
                     </div>
                     <div>
-                        {/* {console.log(projectFiles)} */}
                         {projectImages.map((file, index) => {
                             if(projectFiles.includes(file)){
                                 return(
