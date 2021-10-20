@@ -3,7 +3,6 @@ import {useHistory} from "react-router-dom";
 import IndexAPI from '../apis/indexAPI';
 import HeaderC from './header';
 import FooterC from './footer';
-
 function importAll(projects) {
     let images = {};
     projects.keys().forEach((index) => { 
@@ -29,20 +28,18 @@ const PortfolioC = () => {
     const[projects, setProjects] = useState()
 
     const [titles, setTitles] = useState([])
+    const [allThumbnails, setAllThumbnails] = useState([]);
     const [thumbnails, setThumbnails] = useState([]);
     const [technology, setTechnology] = useState([]);
     const [skills, setSkills] = useState([]);
 
     const [filterButtons, setFilterButtons] = useState("skill-buttons");
+    const [primaryThumbnails, setPrimaryThumbnails] = useState([])
     const [filteredThumbnails, setFilteredThumbnails] = useState([])
 
     const [currentTitle, setCurrentTitle] = useState("");
     const [currentThumbnails, setCurrentThumbnails] = useState([]);
     const [currentTech, setCurrentTech] = useState([]);
-
-    const createRef = useRef();
-    const updateRef = useRef();
-    const deleteRef = useRef();
 
     const displayFilter = async () => {
         try{
@@ -77,8 +74,7 @@ const PortfolioC = () => {
                 const thumbnailFiles = Object.keys(projectThumbnails);
                 for(let i = 0; i < projects.data.results[0].length; i++){
                     if(projectThumbnailArray.indexOf(projects.data.results[0][i].thumbnail) === -1){
-                        projects.data.results[0][i].file = thumbnailFiles[i]
-                        projects.data.results[0][i].thumbnail = projectThumbnails[projects.data.results[0][i].thumbnail]
+                        projects.data.results[0][i].module = projectThumbnails[projects.data.results[0][i].thumbnail]
                         projectThumbnailArray.push(projects.data.results[0][i]);
                     }
                 }
@@ -91,22 +87,50 @@ const PortfolioC = () => {
                     for(let j = 0; j < projects.data.results[0].length; j++){
                         //Checks if the current item in project_images pertains to the current project
                         if(projects.data.results[0][j].project === projectThumbnailArray[i].project){
-                            const tempThumbnailObject = {
-                                thumbnail: projects.data.results[0][j].thumbnail,
-                                file: projects.data.results[0][j].file
-                            }
-                            tempArray.push(tempThumbnailObject)
+                            tempArray.push(projects.data.results[0][j])
                         }
                     }
                     const key = projectThumbnailArray[i].project;
                     const tempObject = {};
                     tempObject[key] = [tempArray];
-                    projectTitles.push(projectThumbnailArray[i].project);
+                    if(projectTitles.indexOf(projectThumbnailArray[i].project) === -1){
+                        projectTitles.push(projectThumbnailArray[i].project);
+                    }
                     currentProjectThumbnailArray.push(tempObject)
                 }
+
+                //Filters out duplicate project thumbnail objects
+                let exists = false;
+                const filteredProjectThumbnailArray = [];
+                for(let i = 0; i < currentProjectThumbnailArray.length; i++){
+                    if(filteredProjectThumbnailArray.length > 0){
+                            for(let j = 0; j < filteredProjectThumbnailArray.length; j++){
+                                if(Object.keys(currentProjectThumbnailArray[i])[0] === Object.keys(filteredProjectThumbnailArray[j])[0]){
+                                    exists = true;
+                                }
+                            }
+                            if(exists === false){
+                                filteredProjectThumbnailArray.push(currentProjectThumbnailArray[i])
+                            }
+                    }else{
+                        filteredProjectThumbnailArray.push(currentProjectThumbnailArray[0]);
+                    }
+                    exists = false;
+                }
+                setAllThumbnails(filteredProjectThumbnailArray)
+
+                const primaryThumbnailArray = [];
+                for(let i = 0; i < filteredProjectThumbnailArray.length; i++){
+                    for(let j = 0; j < filteredProjectThumbnailArray[i][Object.keys(filteredProjectThumbnailArray[i])[0]][0].length; j++){
+                        if(filteredProjectThumbnailArray[i][Object.keys(filteredProjectThumbnailArray[i])[0]][0][j].primary_image === 1){
+                            primaryThumbnailArray.push(filteredProjectThumbnailArray[i][Object.keys(filteredProjectThumbnailArray[i])[0]][0][j])
+                        }
+                    }
+                }
+
                 setTitles(projectTitles)
-                setThumbnails(currentProjectThumbnailArray);
-                setFilteredThumbnails(currentProjectThumbnailArray)
+                setThumbnails(primaryThumbnailArray);
+                setFilteredThumbnails(primaryThumbnailArray)
 
                 //Adds all the projects in project_tech to the projectTechArray
                 const projectTechArray = [];
@@ -157,7 +181,7 @@ const PortfolioC = () => {
             const filteredThumbnails = [];
             for(let i = 0; i < techProjects.length; i++){
                 for(let j = 0; j < thumbnails.length; j++){
-                    if(techProjects[i] === Object.keys(thumbnails[j])[0]){
+                    if(techProjects[i] === thumbnails[j].project){
                         filteredThumbnails.push(thumbnails[j])
                     }
                 }
@@ -194,12 +218,13 @@ const PortfolioC = () => {
                     </div>
                 </div>
                 <div className="portfolio-thumbnail-div" >
+
                     {filteredThumbnails.map((thumbnail, thumbnailIndex) => {
                         return(
                             <div key={thumbnailIndex}>
-                                <div className="portfolio-item-div" key={thumbnailIndex} onClick={() => history.push(`/portfolio/${Object.keys(thumbnail)[0]}`)}>
+                                <div className="portfolio-item-div" key={thumbnailIndex} onClick={() => history.push(`/portfolio/${thumbnail.project}`)}>
                                     <div className="portfolio-project">
-                                        <img className="project-thumbnail" src={thumbnail[Object.keys(thumbnail)[0]][0][0]['thumbnail'].default}/>
+                                        <img className="project-thumbnail" src={thumbnail.module.default}/>
                                         <div className="thumbnail-overlay thumbnail-overlay--blur">
                                             <div className="thumbnail-title-div">
                                                 {titles[thumbnailIndex].toLowerCase()}
@@ -227,7 +252,7 @@ const PortfolioC = () => {
                                     </div>
                                 </div>
                             </div>
-                        )
+                        )                             
                     })}
                 </div>
             </div>
