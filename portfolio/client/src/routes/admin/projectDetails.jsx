@@ -1,12 +1,12 @@
-import React from 'react';
-import ProjectDetailsC from '../../components/admin/projectDetails';
+import React from "react";
+import ProjectDetailsC from "../../components/admin/projectDetails";
 
 const ProjectDetailsR = () => {
-    return(
-        <div>
-            <ProjectDetailsC/>
-        </div>
-    )
-}
+  return (
+    <div>
+      <ProjectDetailsC />
+    </div>
+  );
+};
 
 export default ProjectDetailsR;
