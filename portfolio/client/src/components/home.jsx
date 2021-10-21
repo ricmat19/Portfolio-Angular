@@ -8,13 +8,7 @@ const HomeC = () => {
     return(
         <div className="main">
             <HeaderC/>
-            <div>
-                <div className="title-div">
-                    <p className="title">home</p>
-                </div>
-                <div className="form-div">
-                    
-                </div>
+            <div className="home-page-div">
             </div>
             <FooterC/>
         </div>

@@ -4,6 +4,24 @@ body{
     font-family: 'Rajdhani';
 }
 
+.home-page-div{
+    background-image: url("/images/family-portrait.jpg");
+    background-repeat: no-repeat;
+    background-size: 40%;
+    background-color: black;
+    display: block;
+    --x: 0px;
+    --y: 0px;
+    background-position: center var(--y);
+    transition: 1.5s ease;
+}
+
+.home-page-div:hover{
+    background-size: 55%;
+    background-position: center 5%;
+    width: 100%;
+}
+
 a{
     text-decoration: none;
     color: black
