@@ -1,0 +1,91 @@
+<div className="main">
+  <HeaderC />
+
+  <div className="project-details-container">
+    <div className="title-div">
+      <p className="title">{title}</p>
+    </div>
+    <div className="grid project-details">
+      <div className="grid slider-div">
+        <div className="slider-arrow" onClick={() => slideThumbnailLeft()}>
+          <LeftArrowC />
+        </div>
+        <div className="grid project-slide-div">
+          {thumbnails[0] !== undefined ? (
+            <div className="grid image-container">
+              <img
+                className="grid project-image"
+                src={thumbnails[thumbnailIndex].default}
+              />
+            </div>
+          ) : (
+            ""
+          )}
+        </div>
+        <div className="slider-arrow" onClick={() => slideThumbnailRight()}>
+          <RightArrowC />
+        </div>
+      </div>
+      <div className="grid project-tech-div">
+        {techs.map((tech, index) => {
+          return (
+            <button key={index} className="tech-label">
+              {tech}
+            </button>
+          );
+        })}
+      </div>
+      <div className="text-content-container">
+        <div className="info-container">
+          <div className="sub-title">about the project</div>
+          <div className="info-div">
+            <p>
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+              Explicabo itaque nulla deleniti aperiam animi rerum atque
+              numquam ex quod inventore rem fugit possimus ab quibusdam vel
+              sint, facere totam omnis? Lorem ipsum dolor sit amet
+              consectetur adipisicing elit. Veniam velit omnis ducimus in.
+              Aperiam aut possimus ullam consectetur ipsa cumque nesciunt
+              et, quia laborum accusantium iste magni, non minus quod?
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+              Corporis, molestiae doloribus cupiditate magni sapiente
+              nostrum voluptatem soluta nisi repellat quae voluptatibus
+              accusantium magnam illo facere fugit maxime distinctio quis
+              officia.
+            </p>
+            <p>
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+              Explicabo itaque nulla deleniti aperiam animi rerum atque
+              numquam ex quod inventore rem fugit possimus ab quibusdam vel
+              sint, facere totam omnis? Lorem ipsum dolor sit amet
+              consectetur adipisicing elit. Veniam velit omnis ducimus in.
+              Aperiam aut possimus ullam consectetur ipsa cumque nesciunt
+              et, quia laborum accusantium iste magni, non minus quod?
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+              Corporis, molestiae doloribus cupiditate magni sapiente
+              nostrum voluptatem soluta nisi repellat quae voluptatibus
+              accusantium magnam illo facere fugit maxime distinctio quis
+              officia.
+            </p>
+          </div>
+        </div>
+        <div className="resource-container">
+          <div className="sub-title">Resources</div>
+          <div className="resources-div">
+            <ul>
+              <li>
+                <span className="project-resource">
+                  <a href={githubLink} target="_blank" rel="noreferrer">
+                    Github
+                  </a>
+                </span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <FooterC />
+</div>

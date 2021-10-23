@@ -1,0 +1,129 @@
+<div className="main">
+  <HeaderC />
+  <div className={createModal}>
+    <div ref={createRef} className="modal-content">
+      <CreateC
+        createModal={createModal}
+        createdProject={(createdProject) =>
+          setCreatedProject(createdProject)
+        }
+      />
+    </div>
+  </div>
+  <div className={updateModal}>
+    <div ref={updateRef} className="modal-content">
+      <UpdateC
+        updateModal={updateModal}
+        setUpdatedProject={(updateProject) =>
+          setUpdatedProject(updateProject)
+        }
+        title={currentTitle}
+        thumbnails={allThumbnails}
+        tech={technology}
+      />
+    </div>
+  </div>
+
+  <div className={deleteModal}>
+    <div ref={deleteRef} className="modal-content">
+      <DeleteC
+        deleteModal={deleteModal}
+        setDeletedProject={(deletedProject) =>
+          setDeletedProject(deletedProject)
+        }
+        title={deletedProject}
+      />
+    </div>
+  </div>
+
+  <div className="container">
+    <div className="title-div">
+      <p className="title">portfolio</p>
+    </div>
+    <div className="create-project-div">
+      <button onClick={() => displayCreateModal()}>CREATE</button>
+      <div className="grid skill-filters">
+        <div className={filterButtons}>
+          {skills.map((skill, index) => {
+            // if(filter){
+            return (
+              <button
+                className="skill"
+                key={index}
+                onClick={() => filterProjects(skill)}
+              >
+                {skill}
+              </button>
+            );
+            // }
+          })}
+        </div>
+        <img
+          className="filter-icon"
+          src="../../images/filter-solid.svg"
+          onClick={() => displayFilter()}
+        />
+      </div>
+    </div>
+    <div className="portfolio-thumbnail-div">
+      {filteredThumbnails.map((thumbnail, thumbnailIndex) => {
+        return (
+          <div key={thumbnailIndex}>
+            <div className="project-buttons">
+              <button
+                onClick={() => displayUpdateModal(titles[thumbnailIndex])}
+              >
+                UPDATE
+              </button>
+              <button
+                onClick={() => displayDeleteModal(titles[thumbnailIndex])}
+              >
+                DELETE
+              </button>
+            </div>
+            <div
+              className="portfolio-item-div"
+              key={thumbnailIndex}
+              onClick={() =>
+                history.push(`/admin/portfolio/${thumbnail.project}`)
+              }
+            >
+              <div className="portfolio-project">
+                <img
+                  className="project-thumbnail"
+                  src={thumbnail.module.default}
+                />
+                <div className="thumbnail-overlay thumbnail-overlay--blur">
+                  <div className="thumbnail-title-div">
+                    {titles[thumbnailIndex].toLowerCase()}
+                  </div>
+                  <div className="grid buttons-div">
+                    <div className="tech-used">
+                      {technology.map((tech, techIndex) => {
+                        if (thumbnailIndex === techIndex) {
+                          return (
+                            <div
+                              className="grid project-tech"
+                              key={techIndex}
+                            >
+                              {tech[titles[techIndex]][0].map(
+                                (t, index) => {
+                                  return <button key={index}>{t}</button>;
+                                }
+                              )}
+                            </div>
+                          );
+                        }
+                      })}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  </div>
+  <FooterC />
+</div>
