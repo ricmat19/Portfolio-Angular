@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import IndexAPI from "../../apis/indexAPI";
 
-const CreateC = (props) => {
+const CreateC = () => {
   const [projectImages, setProjectImages] = useState([]);
   const [skills, setSkills] = useState([]);
 
@@ -10,12 +10,22 @@ const CreateC = (props) => {
   const [primaryImage, setPrimaryImage] = useState("");
   const [projectTech, setProjectTech] = useState([]);
 
-  const [createdProject, setCreatedProject] = useState(""); //Fix
-
   const projectInput = useRef(null);
 
+  let projectSet = [];
+  function importAll(projects) {
+    let images = {};
+    projects.keys().forEach((index) => {
+      images[index.replace("./", "")] = projects(index);
+      Object.keys(images).forEach((key) => {
+        projectSet.push(key);
+        setProjectImages([...new Set(projectSet)]);
+      });
+    });
+  }
+
   useEffect(() => {
-    const fetchData = async (req, res) => {
+    const fetchData = async () => {
       try {
         //Get all skills from DB
         const skills = await IndexAPI.get(`/skills`);
@@ -25,20 +35,7 @@ const CreateC = (props) => {
         }
         setSkills(skillsArray);
 
-        let projectSet = [];
-        function importAll(projects) {
-          let images = {};
-          projects.keys().forEach((index) => {
-            images[index.replace("./", "")] = projects(index);
-            Object.keys(images).forEach((key) => {
-              projectSet.push(key);
-              setProjectImages([...new Set(projectSet)]);
-            });
-          });
-        }
-        const projectsThumbnails = importAll(
-          require.context("../../images/projects")
-        );
+        importAll(require.context("../../images/projects"));
       } catch (err) {
         console.log(err);
       }
@@ -74,7 +71,7 @@ const CreateC = (props) => {
       console.log(primaryImage);
       console.log(projectTech);
 
-      const response = await IndexAPI.post("/projects/add-project", {
+      await IndexAPI.post("/projects/add-project", {
         project,
         thumbnails,
         primaryImage,
@@ -133,7 +130,7 @@ const CreateC = (props) => {
                     <input
                       type="radio"
                       name="image"
-                      onChange={(e) => setPrimaryImage(image)}
+                      onChange={() => setPrimaryImage(image)}
                     />
                   </div>
                 </div>

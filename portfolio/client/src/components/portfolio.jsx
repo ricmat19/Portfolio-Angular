@@ -1,8 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import IndexAPI from "../apis/indexAPI";
 import HeaderC from "./header";
 import FooterC from "./footer";
+
 function importAll(projects) {
   let images = {};
   projects.keys().forEach((index) => {
@@ -17,28 +18,16 @@ const PortfolioC = () => {
 
   const currentProjectThumbnailArray = [];
 
-  const [createModal, setCreateModal] = useState("modal");
-  const [updateModal, setUpdateModal] = useState("modal");
-  const [deleteModal, setDeleteModal] = useState("modal");
-  const [createdProject, setCreatedProject] = useState("");
-  const [updatedProject, setUpdatedProject] = useState("");
-  const [deletedProject, setDeletedProject] = useState("");
-
-  const [projects, setProjects] = useState();
+  const [, setProjects] = useState();
 
   const [titles, setTitles] = useState([]);
-  const [allThumbnails, setAllThumbnails] = useState([]);
+  const [, setAllThumbnails] = useState([]);
   const [thumbnails, setThumbnails] = useState([]);
   const [technology, setTechnology] = useState([]);
   const [skills, setSkills] = useState([]);
 
   const [filterButtons, setFilterButtons] = useState("skill-buttons");
-  const [primaryThumbnails, setPrimaryThumbnails] = useState([]);
   const [filteredThumbnails, setFilteredThumbnails] = useState([]);
-
-  const [currentTitle, setCurrentTitle] = useState("");
-  const [currentThumbnails, setCurrentThumbnails] = useState([]);
-  const [currentTech, setCurrentTech] = useState([]);
 
   const displayFilter = async () => {
     try {
@@ -53,7 +42,7 @@ const PortfolioC = () => {
   };
 
   useEffect(() => {
-    const fetchData = async (req, res) => {
+    const fetchData = async () => {
       try {
         const skills = await IndexAPI.get(`/skills`);
         const skillsList = [];
@@ -68,7 +57,7 @@ const PortfolioC = () => {
 
         //Adds all the projects in project_images to the projectThumbnailArray
         const projectThumbnailArray = [];
-        const thumbnailFiles = Object.keys(projectThumbnails);
+        Object.keys(projectThumbnails);
         for (let i = 0; i < projects.data.results[0].length; i++) {
           if (
             projectThumbnailArray.indexOf(

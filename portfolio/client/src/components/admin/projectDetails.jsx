@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
-import { useHistory, useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import IndexAPI from "../../apis/indexAPI";
 import HeaderC from "../header";
 import FooterC from "../footer";
@@ -16,7 +16,6 @@ function importAll(projects) {
 const projectThumbnails = importAll(require.context("../../images/projects"));
 
 const ProjectDetailsC = () => {
-  let history = useHistory();
   let parameters = useParams();
 
   const [title, setTitle] = useState("");
@@ -26,7 +25,7 @@ const ProjectDetailsC = () => {
   const [techs, setTechs] = useState([]);
 
   useEffect(() => {
-    const fetchData = async (req, res) => {
+    const fetchData = async () => {
       try {
         setTitle(parameters.project.toLowerCase());
 
@@ -169,7 +168,7 @@ const ProjectDetailsC = () => {
                 <ul>
                   <li>
                     <span className="project-resource">
-                      <a target="_blank" href={githubLink}>
+                      <a href={githubLink} target="_blank" rel="noreferrer">
                         Github
                       </a>
                     </span>

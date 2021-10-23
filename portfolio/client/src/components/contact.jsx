@@ -17,7 +17,7 @@ const ContactC = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await IndexAPI.post("/contact", {
+      await IndexAPI.post("/contact", {
         name: name,
         email: email,
         subject: subject,

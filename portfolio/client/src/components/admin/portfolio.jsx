@@ -24,11 +24,11 @@ const PortfolioC = () => {
   const [createModal, setCreateModal] = useState("modal");
   const [updateModal, setUpdateModal] = useState("modal");
   const [deleteModal, setDeleteModal] = useState("modal");
-  const [createdProject, setCreatedProject] = useState("");
-  const [updatedProject, setUpdatedProject] = useState("");
+  const [, setCreatedProject] = useState("");
+  const [, setUpdatedProject] = useState("");
   const [deletedProject, setDeletedProject] = useState("");
 
-  const [projects, setProjects] = useState();
+  const [, setProjects] = useState();
 
   const [titles, setTitles] = useState([]);
   const [allThumbnails, setAllThumbnails] = useState([]);
@@ -37,12 +37,11 @@ const PortfolioC = () => {
   const [skills, setSkills] = useState([]);
 
   const [filterButtons, setFilterButtons] = useState("skill-buttons");
-  const [primaryThumbnails, setPrimaryThumbnails] = useState([]);
   const [filteredThumbnails, setFilteredThumbnails] = useState([]);
 
   const [currentTitle, setCurrentTitle] = useState("");
-  const [currentThumbnails, setCurrentThumbnails] = useState([]);
-  const [currentTech, setCurrentTech] = useState([]);
+  const [, setCurrentThumbnails] = useState([]);
+  const [, setCurrentTech] = useState([]);
 
   const createRef = useRef();
   const updateRef = useRef();
@@ -102,7 +101,7 @@ const PortfolioC = () => {
   };
 
   useEffect(() => {
-    const fetchData = async (req, res) => {
+    const fetchData = async () => {
       try {
         document.addEventListener("mousedown", (event) => {
           if (
@@ -135,7 +134,7 @@ const PortfolioC = () => {
 
         //Adds all the projects in project_images to the projectThumbnailArray
         const projectThumbnailArray = [];
-        const thumbnailFiles = Object.keys(projectThumbnails);
+        Object.keys(projectThumbnails);
         for (let i = 0; i < projects.data.results[0].length; i++) {
           if (
             projectThumbnailArray.indexOf(

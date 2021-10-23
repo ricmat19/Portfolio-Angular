@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import IndexAPI from "../../apis/indexAPI";
+import PropTypes from "prop-types";
 
 const AddSkillC = (props) => {
   const [icons, setIcons] = useState([]);
@@ -8,25 +9,26 @@ const AddSkillC = (props) => {
   const [level, setLevel] = useState("");
   const [icon, setIcon] = useState("");
   const [ranking, setRanking] = useState("");
-  const [newSkill, setNewSkill] = useState("");
+  const [newSkill] = useState("");
 
   const skillInput = useRef(null);
 
+  let iconSet = [];
+  function importAll(icons) {
+    let images = {};
+    icons.keys().forEach((index) => {
+      images[index.replace("./", "")] = icons(index);
+      Object.keys(images).forEach((key) => {
+        iconSet.push(key);
+        setIcons([...new Set(iconSet)]);
+      });
+    });
+  }
+
   useEffect(() => {
-    const fetchData = async (req, res) => {
+    const fetchData = async () => {
       try {
-        let iconSet = [];
-        function importAll(icons) {
-          let images = {};
-          icons.keys().forEach((index) => {
-            images[index.replace("./", "")] = icons(index);
-            Object.keys(images).forEach((key) => {
-              iconSet.push(key);
-              setIcons([...new Set(iconSet)]);
-            });
-          });
-        }
-        const skillIcons = importAll(require.context("../../images/skills"));
+        importAll(require.context("../../images/skills"));
       } catch (err) {
         console.log(err);
       }
@@ -37,7 +39,7 @@ const AddSkillC = (props) => {
   const addSkill = async (e) => {
     e.preventDefault();
     try {
-      const response = await IndexAPI.post("/skill/add-skill", {
+      await IndexAPI.post("/skill/add-skill", {
         category,
         skill,
         level,
@@ -122,6 +124,10 @@ const AddSkillC = (props) => {
       </div>
     </div>
   );
+};
+
+AddSkillC.propTypes = {
+  setNewSkill: PropTypes.func,
 };
 
 export default AddSkillC;

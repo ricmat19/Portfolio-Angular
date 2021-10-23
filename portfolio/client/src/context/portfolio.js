@@ -1,4 +1,5 @@
-import React, { useState, createContext } from "react";
+import React, { createContext } from "react";
+import PropTypes from "prop-types";
 
 export const PortfolioContext = createContext();
 
@@ -31,4 +32,8 @@ export const PortfolioContextProvider = (props) => {
       {props.children}
     </PortfolioContext.Provider>
   );
+};
+
+PortfolioContextProvider.propTypes = {
+  children: PropTypes.any,
 };

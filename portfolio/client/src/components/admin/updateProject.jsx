@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import IndexAPI from "../../apis/indexAPI";
+import PropTypes from "prop-types";
 
 const UpdateC = (props) => {
-  const [files, setFiles] = useState([]);
+  const [, setFiles] = useState([]);
   const [projectImages, setProjectImages] = useState([]);
   const [projectFiles, setProjectFiles] = useState([]); //All Project Image urls
   const [primaryImage, setPrimaryImage] = useState("");
@@ -11,16 +12,26 @@ const UpdateC = (props) => {
 
   const [titles, setTitles] = useState([]);
   const [title, setTitle] = useState(""); //Current Project Name (set initial value though prop)
-  const [thumbnails, setThumbnails] = useState([]); //Current thumbnail URL (set initial value though prop)
-  const [tech, setTech] = useState([]); //Current project tech (set initial value though prop)
+  const [, setThumbnails] = useState([]); //Current thumbnail URL (set initial value though prop)
+  const [, setTech] = useState([]); //Current project tech (set initial value though prop)
   const [oldTitle, setOldTitle] = useState("");
-
-  const [updatedProject, setUpdatedProject] = useState(""); //Fix
 
   const projectInput = useRef(null);
 
+  let projectSet = [];
+  function importAll(projects) {
+    let images = {};
+    projects.keys().forEach((index) => {
+      images[index.replace("./", "")] = projects(index);
+      Object.keys(images).forEach((key) => {
+        projectSet.push(key);
+        setProjectImages([...new Set(projectSet)]);
+      });
+    });
+  }
+
   useEffect(() => {
-    const fetchData = async (req, res) => {
+    const fetchData = async () => {
       try {
         setTitle(props.title);
         setOldTitle(props.title);
@@ -31,20 +42,7 @@ const UpdateC = (props) => {
         }
         setTitles(titlesArray);
 
-        let projectSet = [];
-        function importAll(projects) {
-          let images = {};
-          projects.keys().forEach((index) => {
-            images[index.replace("./", "")] = projects(index);
-            Object.keys(images).forEach((key) => {
-              projectSet.push(key);
-              setProjectImages([...new Set(projectSet)]);
-            });
-          });
-        }
-        const projectsThumbnails = importAll(
-          require.context("../../images/projects")
-        );
+        importAll(require.context("../../images/projects"));
 
         //Sets the full list of files
         const filesArray = [];
@@ -136,7 +134,7 @@ const UpdateC = (props) => {
       // console.log(projectSkills)
       // console.log(oldTitle)
 
-      const response = await IndexAPI.put("/projects/update-project", {
+      await IndexAPI.put("/projects/update-project", {
         title,
         projectFiles,
         primaryImage,
@@ -200,7 +198,7 @@ const UpdateC = (props) => {
                       <input
                         type="radio"
                         name="image"
-                        onChange={(e) => setPrimaryImage(file)}
+                        onChange={() => setPrimaryImage(file)}
                       />
                     </div>
                   </div>
@@ -228,7 +226,7 @@ const UpdateC = (props) => {
                       <input
                         type="radio"
                         name="image"
-                        onChange={(e) => setPrimaryImage(file)}
+                        onChange={() => setPrimaryImage(file)}
                       />
                     </div>
                   </div>
@@ -302,6 +300,12 @@ const UpdateC = (props) => {
       </div>
     </div>
   );
+};
+
+UpdateC.propTypes = {
+  title: PropTypes.string,
+  thumbnails: PropTypes.array,
+  tech: PropTypes.array,
 };
 
 export default UpdateC;

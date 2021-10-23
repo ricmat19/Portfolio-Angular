@@ -21,7 +21,7 @@ const AboutC = () => {
   const skillRef = useRef();
 
   useEffect(() => {
-    const fetchData = async (req, res) => {
+    const fetchData = async () => {
       try {
         // console.log(skillIcons[`bootstrap-brands.svg`])
 

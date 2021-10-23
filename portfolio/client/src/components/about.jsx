@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import IndexAPI from "../apis/indexAPI";
 import HeaderC from "./header";
 import FooterC from "./footer";
@@ -13,14 +13,12 @@ function importAll(icons) {
 const skillIcons = importAll(require.context("../images/skills"));
 
 const AboutC = () => {
-  const [skillModal, setSkillModal] = useState("modal");
-  const [newSkill, setNewSkill] = useState("");
+  const [, setSkillModal] = useState("modal");
+  const [newSkill] = useState("");
   const [skills, setSkills] = useState([]);
 
-  const skillRef = useRef();
-
   useEffect(() => {
-    const fetchData = async (req, res) => {
+    const fetchData = async () => {
       try {
         //Get all skills from DB
         const skills = await IndexAPI.get(`/skills`);
@@ -41,7 +39,7 @@ const AboutC = () => {
     fetchData();
   }, [newSkill]);
 
-  const displaySkillModal = () => {
+  () => {
     setSkillModal("modal modal-active");
   };
 

@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import IndexAPI from "../../apis/indexAPI";
+import PropTypes from "prop-types";
 
 const DeleteC = (props) => {
   const [title, setTitle] = useState(props.title);
 
   useEffect(() => {
-    const fetchData = async (req, res) => {
+    const fetchData = async () => {
       try {
         setTitle(props.title);
       } catch (err) {
@@ -17,9 +18,7 @@ const DeleteC = (props) => {
 
   const deleteProject = async (title) => {
     try {
-      const response = await IndexAPI.delete(
-        `/admin/portfolio/${title}/delete`
-      );
+      await IndexAPI.delete(`/admin/portfolio/${title}/delete`);
     } catch (err) {
       console.log(err);
     }
@@ -27,16 +26,20 @@ const DeleteC = (props) => {
 
   return (
     <div className="grid add-project-modal">
-      <div>Are you sure you want to delete '{title}'?</div>
+      <div>Are you sure you want to delete &apos;{title}&apos;?</div>
       <button
         className="form-button"
         type="delete"
-        onClick={(e) => deleteProject(title)}
+        onClick={() => deleteProject(title)}
       >
         Delete
       </button>
     </div>
   );
+};
+
+DeleteC.propTypes = {
+  title: PropTypes.string,
 };
 
 export default DeleteC;
