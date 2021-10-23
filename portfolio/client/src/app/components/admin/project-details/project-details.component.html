@@ -1,13 +1,12 @@
 <div className="main">
-  <HeaderC />
-
+  <app-header></app-header>
   <div className="project-details-container">
     <div className="title-div">
       <p className="title">{title}</p>
     </div>
     <div className="grid project-details">
       <div className="grid slider-div">
-        <div className="slider-arrow" onClick={() => slideThumbnailLeft()}>
+        <div className="slider-arrow" (click)="slideThumbnailLeft()">
           <LeftArrowC />
         </div>
         <div className="grid project-slide-div">
@@ -22,7 +21,7 @@
             ""
           )}
         </div>
-        <div className="slider-arrow" onClick={() => slideThumbnailRight()}>
+        <div className="slider-arrow" (click)="slideThumbnailRight()">
           <RightArrowC />
         </div>
       </div>
@@ -87,5 +86,5 @@
     </div>
   </div>
 
-  <FooterC />
+  <app-footer></app-footer>
 </div>

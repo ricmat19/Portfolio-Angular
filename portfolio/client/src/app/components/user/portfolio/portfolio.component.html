@@ -1,6 +1,5 @@
 <div className="main">
-  <HeaderC />
-
+  <app-header></app-header>
   <div className="container">
     <div className="title-div">
       <p className="title">portfolio</p>
@@ -14,7 +13,7 @@
               <button
                 className="skill"
                 key={index}
-                onClick={() => filterProjects(skill)}
+                (click)="filterProjects(skill)"
               >
                 {skill}
               </button>
@@ -25,7 +24,7 @@
         <img
           className="filter-icon"
           src="../../images/filter-solid.svg"
-          onClick={() => displayFilter()}
+          (click)="displayFilter()"
         />
       </div>
     </div>
@@ -36,9 +35,7 @@
             <div
               className="portfolio-item-div"
               key={thumbnailIndex}
-              onClick={() =>
-                history.push(`/portfolio/${thumbnail.project}`)
-              }
+              (click)="history.push(`/portfolio/${thumbnail.project}`)"
             >
               <div className="portfolio-project">
                 <img
@@ -77,5 +74,5 @@
       })}
     </div>
   </div>
-  <FooterC />
+  <app-footer></app-footer>
 </div>

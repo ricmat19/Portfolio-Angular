@@ -6,7 +6,7 @@ import { Component } from "@angular/core";
   templateUrl: './add-skill.component.html'
 })
 
-export class AddSkillComponent{
+export class AdminAddSkillComponent{
 
 }
 

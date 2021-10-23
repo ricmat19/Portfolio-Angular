@@ -5,8 +5,13 @@ import { Component } from "@angular/core";
   templateUrl: './about.component.html'
 })
 
-export class AboutComponent{
+export class AdminAboutComponent{
 
+  skillModalState = '';
+
+  displaySkillModal = () => {
+    this.skillModalState = 'modal modal-active';
+  };
 }
 
 

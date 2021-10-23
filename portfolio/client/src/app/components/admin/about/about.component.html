@@ -1,11 +1,11 @@
 <div className="main">
-  <!-- <app-header></app-header> -->
-  <div className={skillModal}>
+  <app-header></app-header>
+  <div className={{skillModalState}}>
     <div ref={skillRef} className="modal-content">
-      <!-- <app-add-skill
+      <app-add-skill
         skillModal={skillModal}
         setNewSkill={(newSkill) => setNewSkill(newSkill)}
-      ></app-add-skill> -->
+      ></app-add-skill>
     </div>
   </div>
 
@@ -41,7 +41,7 @@
       </div>
       <div className="skills-category-container-div">
         <div className="create-skill-div">
-          <!-- <button onClick={() => displaySkillModal()}>CREATE</button> -->
+          <button (click)="displaySkillModal">CREATE</button>
         </div>
         <div className="skill-category-div">
           <div className="sub-title">MARKUP</div>
@@ -136,5 +136,5 @@
       </div>
     </div>
   </div>
-  <FooterC />
+  <app-footer></app-footer>
 </div>

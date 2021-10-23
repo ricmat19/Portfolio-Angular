@@ -5,7 +5,7 @@ import { Component } from "@angular/core";
   templateUrl: './project-details.component.html'
 })
 
-export class ProjectDetailsComponent{
+export class AdminProjectDetailsComponent{
 
 }
 

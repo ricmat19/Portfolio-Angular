@@ -24,7 +24,7 @@ export class AboutComponent{
 // const skillIcons = importAll(require.context("../images/skills"));
 
 // const AboutC = () => {
-//   const [, setSkillModal] = useState("modal");
+
 //   const [newSkill] = useState("");
 //   const [skills, setSkills] = useState([]);
 
@@ -49,10 +49,6 @@ export class AboutComponent{
 //     };
 //     fetchData();
 //   }, [newSkill]);
-
-//   () => {
-//     setSkillModal("modal modal-active");
-//   };
 
 //   return (
 

@@ -1,18 +1,18 @@
 <div className="main">
-  <HeaderC />
-  <div className={createModal}>
+  <app-header></app-header>
+  <div className={{createModalState}}>
     <div ref={createRef} className="modal-content">
-      <CreateC
+      <app-add-project
         createModal={createModal}
         createdProject={(createdProject) =>
           setCreatedProject(createdProject)
         }
-      />
+      ></app-add-project>
     </div>
   </div>
-  <div className={updateModal}>
+  <div className={{updateModalState}}>
     <div ref={updateRef} className="modal-content">
-      <UpdateC
+      <app-update-project
         updateModal={updateModal}
         setUpdatedProject={(updateProject) =>
           setUpdatedProject(updateProject)
@@ -20,19 +20,19 @@
         title={currentTitle}
         thumbnails={allThumbnails}
         tech={technology}
-      />
+      ></app-update-project>
     </div>
   </div>
 
-  <div className={deleteModal}>
+  <div className={{deleteModalState}}>
     <div ref={deleteRef} className="modal-content">
-      <DeleteC
+      <app-delete-project>
         deleteModal={deleteModal}
         setDeletedProject={(deletedProject) =>
           setDeletedProject(deletedProject)
         }
         title={deletedProject}
-      />
+      ></app-delete>
     </div>
   </div>
 
@@ -41,7 +41,7 @@
       <p className="title">portfolio</p>
     </div>
     <div className="create-project-div">
-      <button onClick={() => displayCreateModal()}>CREATE</button>
+      <button (click)="displayCreateModal">CREATE</button>
       <div className="grid skill-filters">
         <div className={filterButtons}>
           {skills.map((skill, index) => {
@@ -50,7 +50,7 @@
               <button
                 className="skill"
                 key={index}
-                onClick={() => filterProjects(skill)}
+                (click)="filterProjects(skill)"
               >
                 {skill}
               </button>
@@ -61,7 +61,7 @@
         <img
           className="filter-icon"
           src="../../images/filter-solid.svg"
-          onClick={() => displayFilter()}
+          (click)="displayFilter()"
         />
       </div>
     </div>
@@ -71,12 +71,12 @@
           <div key={thumbnailIndex}>
             <div className="project-buttons">
               <button
-                onClick={() => displayUpdateModal(titles[thumbnailIndex])}
+              (click)="displayUpdateModal(titles[thumbnailIndex])"
               >
                 UPDATE
               </button>
               <button
-                onClick={() => displayDeleteModal(titles[thumbnailIndex])}
+                (click)="displayDeleteModal(titles[thumbnailIndex])"
               >
                 DELETE
               </button>
@@ -84,9 +84,7 @@
             <div
               className="portfolio-item-div"
               key={thumbnailIndex}
-              onClick={() =>
-                history.push(`/admin/portfolio/${thumbnail.project}`)
-              }
+              (click)="history.push(`/admin/portfolio/${thumbnail.project}`)"
             >
               <div className="portfolio-project">
                 <img
@@ -125,5 +123,5 @@
       })}
     </div>
   </div>
-  <FooterC />
+  <app-footer></app-footer>
 </div>

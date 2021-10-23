@@ -6,7 +6,7 @@ import { Component } from "@angular/core";
   templateUrl: './delete-project.component.html'
 })
 
-export class DeleteProjectComponent{
+export class AdminDeleteProjectComponent{
 
 }
 

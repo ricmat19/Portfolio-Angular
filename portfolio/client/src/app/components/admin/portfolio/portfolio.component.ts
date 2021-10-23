@@ -1,4 +1,3 @@
-
 import { Component } from "@angular/core";
 
 @Component({
@@ -6,7 +5,52 @@ import { Component } from "@angular/core";
   templateUrl: './portfolio.component.html'
 })
 
-export class PortfolioComponent{
+export class AdminPortfolioComponent{
+
+  createModalState = '';
+  updateModalState = '';
+  deleteModalState = '';
+
+  displayCreateModal = () => {
+    this.createModalState="modal modal-active";
+  };
+
+  displayUpdateModal = (currentTitle) => {
+    try {
+      // for (let i = 0; i < thumbnails.length; i++) {
+      //   if (thumbnails[i][currentTitle] !== undefined) {
+      //     setCurrentThumbnails(thumbnails[i][currentTitle]);
+      //     break;
+      //   } else {
+      //     setCurrentThumbnails([]);
+      //   }
+      // }
+
+      // for (let i = 0; i < technology.length; i++) {
+      //   if (technology[i][currentTitle] !== undefined) {
+      //     setCurrentTech(technology[i][currentTitle]);
+      //     break;
+      //   } else {
+      //     setCurrentTech([]);
+      //   }
+      // }
+
+      // setCurrentTitle(currentTitle);
+
+      this.updateModalState="modal modal-active";
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  displayDeleteModal = async (project) => {
+    try {
+      // setDeletedProject(project);
+      this.deleteModalState="modal modal-active";
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
 }
 
