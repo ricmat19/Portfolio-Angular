@@ -7,38 +7,84 @@ import { Component } from "@angular/core";
 
 export class AdminUpdateProjectComponent{
 
+  files = [];
+  projectImages = [];
+  projectFiles = [];
+  primaryImage = '';
+  skills = [];
+  projectSkills = [];
+
+  titles = [];
+  title = '';
+  thumbnails = [];
+  tech = [];
+  oldTitle = '';
+
+  createList = async (value, checked, setList, list) => {
+    try {
+      if (list === null) {
+        if (checked) {
+          setList(value);
+        }
+      } else {
+        if (checked) {
+          setList((list) => [...list, value]);
+        }
+      }
+
+      if (!checked) {
+        setList(list.filter((list) => list !== value));
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  updateProject = async (e) => {
+    e.preventDefault();
+    try {
+      // console.log(title)
+      // console.log(projectFiles)
+      // console.log(primaryImage)
+      // console.log(projectSkills)
+      // console.log(oldTitle)
+
+      await IndexAPI.put("/projects/update-project", {
+        title,
+        projectFiles,
+        primaryImage,
+        projectSkills,
+        oldTitle,
+      });
+
+      projectInput.current.value = "";
+
+      // props.setUpdatedProject(updatedProject)
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
 }
 
 // import IndexAPI from "../../../../apis/indexAPI";
 // import PropTypes from "prop-types";
 
 // const UpdateC = (props) => {
-//   const [, setFiles] = useState([]);
-//   const [projectImages, setProjectImages] = useState([]);
-//   const [projectFiles, setProjectFiles] = useState([]); //All Project Image urls
-//   const [primaryImage, setPrimaryImage] = useState("");
-//   const [skills, setSkills] = useState([]); //All Skills
-//   const [projectSkills, setProjectSkills] = useState([]);
 
-//   const [titles, setTitles] = useState([]);
-//   const [title, setTitle] = useState(""); //Current Project Name (set initial value though prop)
-//   const [, setThumbnails] = useState([]); //Current thumbnail URL (set initial value though prop)
-//   const [, setTech] = useState([]); //Current project tech (set initial value though prop)
-//   const [oldTitle, setOldTitle] = useState("");
+  // projectSet = [];
+  // function importAll(projects) {
+  //   let images = {};
+  //   projects.keys().forEach((index) => {
+  //     images[index.replace("./", "")] = projects(index);
+  //     Object.keys(images).forEach((key) => {
+  //       projectSet.push(key);
+  //       setProjectImages([...new Set(projectSet)]);
+  //     });
+  //   });
+  // }
 
 //   const projectInput = useRef(null);
-
-//   let projectSet = [];
-//   function importAll(projects) {
-//     let images = {};
-//     projects.keys().forEach((index) => {
-//       images[index.replace("./", "")] = projects(index);
-//       Object.keys(images).forEach((key) => {
-//         projectSet.push(key);
-//         setProjectImages([...new Set(projectSet)]);
-//       });
-//     });
-//   }
 
 //   useEffect(() => {
 //     const fetchData = async () => {
@@ -114,51 +160,6 @@ export class AdminUpdateProjectComponent{
 //     };
 //     fetchData();
 //   }, [props]);
-
-//   const createList = async (value, checked, setList, list) => {
-//     try {
-//       if (list === null) {
-//         if (checked) {
-//           setList(value);
-//         }
-//       } else {
-//         if (checked) {
-//           setList((list) => [...list, value]);
-//         }
-//       }
-
-//       if (!checked) {
-//         setList(list.filter((list) => list !== value));
-//       }
-//     } catch (err) {
-//       console.log(err);
-//     }
-//   };
-
-//   const updateProject = async (e) => {
-//     e.preventDefault();
-//     try {
-//       // console.log(title)
-//       // console.log(projectFiles)
-//       // console.log(primaryImage)
-//       // console.log(projectSkills)
-//       // console.log(oldTitle)
-
-//       await IndexAPI.put("/projects/update-project", {
-//         title,
-//         projectFiles,
-//         primaryImage,
-//         projectSkills,
-//         oldTitle,
-//       });
-
-//       projectInput.current.value = "";
-
-//       // props.setUpdatedProject(updatedProject)
-//     } catch (err) {
-//       console.log(err);
-//     }
-//   };
 
 //   return (
 

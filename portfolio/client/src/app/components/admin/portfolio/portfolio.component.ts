@@ -7,9 +7,28 @@ import { Component } from "@angular/core";
 
 export class AdminPortfolioComponent{
 
-  createModalState = '';
-  updateModalState = '';
-  deleteModalState = '';
+  createModalState = 'modal';
+  updateModalState = 'modal';
+  deleteModalState = 'modal';
+
+  createdProject = '';
+  updatedProject = '';
+  deletedProject = '';
+
+  projects = [];
+
+  titles = [];
+  allThumbnails = [];
+  projectThumbnails = [];
+  tech = [];
+  skills = [];
+
+  filterButtons = 'skill-buttons';
+  filteredThumbnails = [];
+
+  currentTitle = '';
+  currentThumbnails = [];
+  currentTech = [];
 
   displayCreateModal = () => {
     this.createModalState="modal modal-active";
@@ -17,25 +36,25 @@ export class AdminPortfolioComponent{
 
   displayUpdateModal = (currentTitle) => {
     try {
-      // for (let i = 0; i < thumbnails.length; i++) {
-      //   if (thumbnails[i][currentTitle] !== undefined) {
-      //     setCurrentThumbnails(thumbnails[i][currentTitle]);
-      //     break;
-      //   } else {
-      //     setCurrentThumbnails([]);
-      //   }
-      // }
+      for (let i = 0; i < thumbnails.length; i++) {
+        if (thumbnails[i][currentTitle] !== undefined) {
+          setCurrentThumbnails(thumbnails[i][currentTitle]);
+          break;
+        } else {
+          setCurrentThumbnails([]);
+        }
+      }
 
-      // for (let i = 0; i < technology.length; i++) {
-      //   if (technology[i][currentTitle] !== undefined) {
-      //     setCurrentTech(technology[i][currentTitle]);
-      //     break;
-      //   } else {
-      //     setCurrentTech([]);
-      //   }
-      // }
+      for (let i = 0; i < technology.length; i++) {
+        if (technology[i][currentTitle] !== undefined) {
+          setCurrentTech(technology[i][currentTitle]);
+          break;
+        } else {
+          setCurrentTech([]);
+        }
+      }
 
-      // setCurrentTitle(currentTitle);
+      setCurrentTitle(currentTitle);
 
       this.updateModalState="modal modal-active";
     } catch (err) {
@@ -47,6 +66,44 @@ export class AdminPortfolioComponent{
     try {
       // setDeletedProject(project);
       this.deleteModalState="modal modal-active";
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  displayFilter = async () => {
+    try {
+      if (filterButtons === "skill-buttons") {
+        setFilterButtons("skill-buttons skill-buttons-view");
+      } else {
+        setFilterButtons("skill-buttons");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  filterProjects = async (skill) => {
+    try {
+      const techProjects = [];
+      for (let i = 0; i < technology.length; i++) {
+        const projectsTech = technology[i][Object.keys(technology[i])][0];
+        for (let j = 0; j < projectsTech.length; j++) {
+          if (projectsTech[j] === skill) {
+            techProjects.push(Object.keys(technology[i])[0]);
+          }
+        }
+      }
+
+      const filteredThumbnails = [];
+      for (let i = 0; i < techProjects.length; i++) {
+        for (let j = 0; j < thumbnails.length; j++) {
+          if (techProjects[i] === thumbnails[j].project) {
+            filteredThumbnails.push(thumbnails[j]);
+          }
+        }
+      }
+      setFilteredThumbnails(filteredThumbnails);
     } catch (err) {
       console.log(err);
     }
@@ -76,84 +133,9 @@ export class AdminPortfolioComponent{
 
 //   const currentProjectThumbnailArray = [];
 
-//   const [createModal, setCreateModal] = useState("modal");
-//   const [updateModal, setUpdateModal] = useState("modal");
-//   const [deleteModal, setDeleteModal] = useState("modal");
-//   const [, setCreatedProject] = useState("");
-//   const [, setUpdatedProject] = useState("");
-//   const [deletedProject, setDeletedProject] = useState("");
-
-//   const [, setProjects] = useState();
-
-//   const [titles, setTitles] = useState([]);
-//   const [allThumbnails, setAllThumbnails] = useState([]);
-//   const [thumbnails, setThumbnails] = useState([]);
-//   const [technology, setTechnology] = useState([]);
-//   const [skills, setSkills] = useState([]);
-
-//   const [filterButtons, setFilterButtons] = useState("skill-buttons");
-//   const [filteredThumbnails, setFilteredThumbnails] = useState([]);
-
-//   const [currentTitle, setCurrentTitle] = useState("");
-//   const [, setCurrentThumbnails] = useState([]);
-//   const [, setCurrentTech] = useState([]);
-
 //   const createRef = useRef();
 //   const updateRef = useRef();
 //   const deleteRef = useRef();
-
-//   const displayCreateModal = () => {
-//     setCreateModal("modal modal-active");
-//   };
-
-//   const displayUpdateModal = (currentTitle) => {
-//     try {
-//       for (let i = 0; i < thumbnails.length; i++) {
-//         if (thumbnails[i][currentTitle] !== undefined) {
-//           setCurrentThumbnails(thumbnails[i][currentTitle]);
-//           break;
-//         } else {
-//           setCurrentThumbnails([]);
-//         }
-//       }
-
-//       for (let i = 0; i < technology.length; i++) {
-//         if (technology[i][currentTitle] !== undefined) {
-//           setCurrentTech(technology[i][currentTitle]);
-//           break;
-//         } else {
-//           setCurrentTech([]);
-//         }
-//       }
-
-//       setCurrentTitle(currentTitle);
-
-//       setUpdateModal("modal modal-active");
-//     } catch (err) {
-//       console.log(err);
-//     }
-//   };
-
-//   const displayDeleteModal = async (project) => {
-//     try {
-//       setDeletedProject(project);
-//       setDeleteModal("modal modal-active");
-//     } catch (err) {
-//       console.log(err);
-//     }
-//   };
-
-//   const displayFilter = async () => {
-//     try {
-//       if (filterButtons === "skill-buttons") {
-//         setFilterButtons("skill-buttons skill-buttons-view");
-//       } else {
-//         setFilterButtons("skill-buttons");
-//       }
-//     } catch (err) {
-//       console.log(err);
-//     }
-//   };
 
 //   useEffect(() => {
 //     const fetchData = async () => {
@@ -312,31 +294,7 @@ export class AdminPortfolioComponent{
 //     fetchData();
 //   }, []);
 
-//   const filterProjects = async (skill) => {
-//     try {
-//       const techProjects = [];
-//       for (let i = 0; i < technology.length; i++) {
-//         const projectsTech = technology[i][Object.keys(technology[i])][0];
-//         for (let j = 0; j < projectsTech.length; j++) {
-//           if (projectsTech[j] === skill) {
-//             techProjects.push(Object.keys(technology[i])[0]);
-//           }
-//         }
-//       }
 
-//       const filteredThumbnails = [];
-//       for (let i = 0; i < techProjects.length; i++) {
-//         for (let j = 0; j < thumbnails.length; j++) {
-//           if (techProjects[i] === thumbnails[j].project) {
-//             filteredThumbnails.push(thumbnails[j]);
-//           }
-//         }
-//       }
-//       setFilteredThumbnails(filteredThumbnails);
-//     } catch (err) {
-//       console.log(err);
-//     }
-//   };
 
 //   return (
 

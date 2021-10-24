@@ -3,10 +3,11 @@
     <label>TITLE</label>
     <input
       ref={projectInput}
-      onChange={(e) => setTitle(e.target.value)}
       type="text"
       name="project_title"
       value={title}
+      #titleInput
+      (change)='setTitle(titleInput)'
     />
   </div>
   <div className="grid project-creation-checkbox-div">
@@ -30,14 +31,8 @@
                     type="checkbox"
                     name="image"
                     value={file}
-                    onChange={(e) =>
-                      createList(
-                        e.target.value,
-                        e.target.checked,
-                        setProjectFiles,
-                        projectFiles
-                      )
-                    }
+                    #fileInput
+                    (change)='createList(fileInput, e.target.checked, setProjectFiles, projectFiles)'
                     checked
                   />
                 </div>
@@ -45,7 +40,8 @@
                   <input
                     type="radio"
                     name="image"
-                    onChange={() => setPrimaryImage(file)}
+                    #imageRadio
+                    (change)='setPrimaryImage(imageRadio)'
                   />
                 </div>
               </div>
@@ -59,21 +55,16 @@
                     type="checkbox"
                     name="image"
                     value={file}
-                    onChange={(e) =>
-                      createList(
-                        e.target.value,
-                        e.target.checked,
-                        setProjectFiles,
-                        projectFiles
-                      )
-                    }
+                    #fileInput
+                    (change)='createList(fileInput, e.target.checked, setProjectFiles, projectFiles)'
                   />
                 </div>
                 <div>
                   <input
                     type="radio"
                     name="image"
-                    onChange={() => setPrimaryImage(file)}
+                    #imageRadio
+                    (change)='setPrimaryImage(imageRadio)'
                   />
                 </div>
               </div>
@@ -101,14 +92,8 @@
                     type="checkbox"
                     name="skill"
                     value={skill}
-                    onChange={(e) =>
-                      createList(
-                        e.target.value,
-                        e.target.checked,
-                        setProjectSkills,
-                        projectSkills
-                      )
-                    }
+                    #skillInput
+                    (change)='createList(skillInput, e.target.checked, setProjectSkills, projectSkills)'
                     checked
                   />
                 </div>
@@ -123,14 +108,8 @@
                     type="checkbox"
                     name="skill"
                     value={skill}
-                    onChange={(e) =>
-                      createList(
-                        e.target.value,
-                        e.target.checked,
-                        setProjectSkills,
-                        projectSkills
-                      )
-                    }
+                    #skillInput
+                    (change)='createList(skillInput, e.target.checked, setProjectSkills, projectSkills)'
                   />
                 </div>
               </div>

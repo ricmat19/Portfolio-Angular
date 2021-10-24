@@ -8,33 +8,52 @@ import { Component } from "@angular/core";
 
 export class AdminAddSkillComponent{
 
+  icons = [];
+  skill = '';
+  category = '';
+  ranking = '';
+  level = '';
+  icon = '';
+  newSkill = '';
+
+  addSkill = async (e) => {
+    e.preventDefault();
+    try {
+      await IndexAPI.post("/skill/add-skill", {
+        category,
+        skill,
+        level,
+        icon,
+        ranking,
+      });
+      skillInput.current.value = "";
+
+      props.setNewSkill(newSkill);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
 }
 
 // import IndexAPI from "../../../../apis/indexAPI";
 // import PropTypes from "prop-types";
 
 // const AddSkillC = (props) => {
-//   const [icons, setIcons] = useState([]);
-//   const [category, setCategory] = useState("");
-//   const [skill, setSkill] = useState("");
-//   const [level, setLevel] = useState("");
-//   const [icon, setIcon] = useState("");
-//   const [ranking, setRanking] = useState("");
-//   const [newSkill] = useState("");
+
+  // let iconSet = [];
+  // function importAll(icons) {
+  //   let images = {};
+  //   icons.keys().forEach((index) => {
+  //     images[index.replace("./", "")] = icons(index);
+  //     Object.keys(images).forEach((key) => {
+  //       iconSet.push(key);
+  //       setIcons([...new Set(iconSet)]);
+  //     });
+  //   });
+  // }
 
 //   const skillInput = useRef(null);
-
-//   let iconSet = [];
-//   function importAll(icons) {
-//     let images = {};
-//     icons.keys().forEach((index) => {
-//       images[index.replace("./", "")] = icons(index);
-//       Object.keys(images).forEach((key) => {
-//         iconSet.push(key);
-//         setIcons([...new Set(iconSet)]);
-//       });
-//     });
-//   }
 
 //   useEffect(() => {
 //     const fetchData = async () => {
@@ -46,24 +65,6 @@ export class AdminAddSkillComponent{
 //     };
 //     fetchData();
 //   }, []);
-
-//   const addSkill = async (e) => {
-//     e.preventDefault();
-//     try {
-//       await IndexAPI.post("/skill/add-skill", {
-//         category,
-//         skill,
-//         level,
-//         icon,
-//         ranking,
-//       });
-//       skillInput.current.value = "";
-
-//       props.setNewSkill(newSkill);
-//     } catch (err) {
-//       console.log(err);
-//     }
-//   };
 
 //   return (
 

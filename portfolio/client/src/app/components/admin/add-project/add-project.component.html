@@ -2,10 +2,10 @@
   <div className="grid toDo-modal-grid">
     <label>TITLE</label>
     <input
-      ref={projectInput}
-      onChange={(e) => setProject(e.target.value)}
+      (change)='setProject(titleInput)'
       type="text"
       name="project_title"
+      #titleInput
     />
   </div>
   <div className="grid project-creation-checkbox-div">
@@ -28,21 +28,16 @@
                   type="checkbox"
                   name="image"
                   value={image}
-                  onChange={(e) =>
-                    createList(
-                      e.target.value,
-                      e.target.checked,
-                      setThumbnails,
-                      thumbnails
-                    )
-                  }
+                  #imageInput
+                  (change)='createList(imageInput, e.target.checked, setThumbnails, thumbnails)'
                 />
               </div>
               <div>
                 <input
                   type="radio"
                   name="image"
-                  onChange={() => setPrimaryImage(image)}
+                  #imageRadio
+                  (change)='setPrimaryImage(imageRadio)'
                 />
               </div>
             </div>
@@ -68,14 +63,8 @@
                   type="checkbox"
                   name="skill"
                   value={skill}
-                  onChange={(e) =>
-                    createList(
-                      e.target.value,
-                      e.target.checked,
-                      setProjectTech,
-                      projectTech
-                    )
-                  }
+                  #skillInput
+                  (change)='createList(skillInput, e.target.checked, setProjectTech, projectTech)'
                 />
               </div>
             </div>

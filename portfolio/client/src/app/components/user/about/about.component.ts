@@ -7,6 +7,9 @@ import { Component } from "@angular/core";
 
 export class AboutComponent{
 
+  skill = '';
+  skills = [];
+  
 }
 
 
@@ -25,8 +28,7 @@ export class AboutComponent{
 
 // const AboutC = () => {
 
-//   const [newSkill] = useState("");
-//   const [skills, setSkills] = useState([]);
+
 
 //   useEffect(() => {
 //     const fetchData = async () => {

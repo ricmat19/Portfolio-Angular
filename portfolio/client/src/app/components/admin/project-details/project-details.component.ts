@@ -7,6 +7,38 @@ import { Component } from "@angular/core";
 
 export class AdminProjectDetailsComponent{
 
+  title = '';
+  githubLink = '';
+  thumbnails = [];
+  thumbnailIndex = 0;
+  tech = [];
+
+  slideThumbnailLeft = async () => {
+    try {
+      if (thumbnailIndex === 0) {
+        setThumbnailIndex(thumbnails.length - 1);
+      } else {
+        let newThumbnail = thumbnailIndex - 1;
+        setThumbnailIndex(newThumbnail);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  slideThumbnailRight = async () => {
+    try {
+      if (thumbnailIndex === thumbnails.length - 1) {
+        setThumbnailIndex(0);
+      } else {
+        let newThumbnail = thumbnailIndex + 1;
+        setThumbnailIndex(newThumbnail);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
 }
 
 // import IndexAPI from "../../../../apis/indexAPI";
@@ -26,12 +58,6 @@ export class AdminProjectDetailsComponent{
 
 // const ProjectDetailsC = () => {
 //   let parameters = useParams();
-
-//   const [title, setTitle] = useState("");
-//   const [githubLink, setGithubLink] = useState("");
-//   const [thumbnails, setThumbnails] = useState([]);
-//   const [thumbnailIndex, setThumbnailIndex] = useState(0);
-//   const [techs, setTechs] = useState([]);
 
 //   useEffect(() => {
 //     const fetchData = async () => {
@@ -72,32 +98,6 @@ export class AdminProjectDetailsComponent{
 //     };
 //     fetchData();
 //   }, []);
-
-//   const slideThumbnailLeft = async () => {
-//     try {
-//       if (thumbnailIndex === 0) {
-//         setThumbnailIndex(thumbnails.length - 1);
-//       } else {
-//         let newThumbnail = thumbnailIndex - 1;
-//         setThumbnailIndex(newThumbnail);
-//       }
-//     } catch (err) {
-//       console.log(err);
-//     }
-//   };
-
-//   const slideThumbnailRight = async () => {
-//     try {
-//       if (thumbnailIndex === thumbnails.length - 1) {
-//         setThumbnailIndex(0);
-//       } else {
-//         let newThumbnail = thumbnailIndex + 1;
-//         setThumbnailIndex(newThumbnail);
-//       }
-//     } catch (err) {
-//       console.log(err);
-//     }
-//   };
 
 //   return (
 

@@ -7,7 +7,9 @@ import { Component } from "@angular/core";
 
 export class AdminAboutComponent{
 
-  skillModalState = '';
+  newSkill = '';
+  skills = [];
+  skillModalState = 'modal';
 
   displaySkillModal = () => {
     this.skillModalState = 'modal modal-active';
@@ -32,9 +34,6 @@ export class AdminAboutComponent{
 // const skillIcons = importAll(require.context("../../images/skills"));
 
 // const AboutC = () => {
-//   const [skillModal, setSkillModal] = useState("modal");
-//   const [newSkill, setNewSkill] = useState("");
-//   const [skills, setSkills] = useState([]);
 
 //   const skillRef = useRef();
 

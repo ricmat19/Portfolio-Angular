@@ -7,6 +7,16 @@ import { Component } from "@angular/core";
 
 export class PortfolioComponent{
 
+  projects = [];
+  titles = [];
+  allThumbnails = [];
+  projectThumbnails = [];
+  tech = [];
+  skills = [];
+
+  filterButtons = 'skill-buttons';
+  filteredThumbnails = [];
+
 }
 
 // import IndexAPI from "../../apis/indexAPI";
@@ -27,16 +37,7 @@ export class PortfolioComponent{
 
 //   const currentProjectThumbnailArray = [];
 
-//   const [, setProjects] = useState();
 
-//   const [titles, setTitles] = useState([]);
-//   const [, setAllThumbnails] = useState([]);
-//   const [thumbnails, setThumbnails] = useState([]);
-//   const [technology, setTechnology] = useState([]);
-//   const [skills, setSkills] = useState([]);
-
-//   const [filterButtons, setFilterButtons] = useState("skill-buttons");
-//   const [filteredThumbnails, setFilteredThumbnails] = useState([]);
 
 //   const displayFilter = async () => {
 //     try {

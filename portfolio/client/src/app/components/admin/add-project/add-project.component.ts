@@ -8,32 +8,71 @@ import { Component } from "@angular/core";
 
 export class AdminAddProjectComponent{
 
+  projectImages = [];
+  skills =[];
+
+  project = '';
+  thumbnails = [];
+  primaryImage = '';
+  projectTech = [];
+
+  createList = async (imageInput: HTMLTextAreaElement, checked, setList, list) => {
+    try {
+      if (list === null) {
+        if (checked) {
+          setList(imageInput);
+        }
+      } else {
+        if (checked) {
+          setList((list) => [...list, imageInput]);
+        }
+      }
+
+      if (!checked) {
+        setList(list.filter((list) => list !== imageInput));
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  createProject = async (e) => {
+    e.preventDefault();
+    try {
+
+      await IndexAPI.post("/projects/add-project", {
+        project,
+        thumbnails,
+        primaryImage,
+        projectTech,
+      });
+      projectInput.current.value = "";
+
+      // props.setCreatedProject(createdProject)
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
 }
 
 // import IndexAPI from "../../../../apis/indexAPI";
 
 // const CreateC = () => {
-//   const [projectImages, setProjectImages] = useState([]);
-//   const [skills, setSkills] = useState([]);
 
-//   const [project, setProject] = useState("");
-//   const [thumbnails, setThumbnails] = useState([]);
-//   const [primaryImage, setPrimaryImage] = useState("");
-//   const [projectTech, setProjectTech] = useState([]);
+  // let projectSet = [];
+  // function importAll(projects) {
+  //   let images = {};
+  //   projects.keys().forEach((index) => {
+  //     images[index.replace("./", "")] = projects(index);
+  //     Object.keys(images).forEach((key) => {
+  //       projectSet.push(key);
+  //       setProjectImages([...new Set(projectSet)]);
+  //     });
+  //   });
+  // }
 
 //   const projectInput = useRef(null);
-
-//   let projectSet = [];
-//   function importAll(projects) {
-//     let images = {};
-//     projects.keys().forEach((index) => {
-//       images[index.replace("./", "")] = projects(index);
-//       Object.keys(images).forEach((key) => {
-//         projectSet.push(key);
-//         setProjectImages([...new Set(projectSet)]);
-//       });
-//     });
-//   }
 
 //   useEffect(() => {
 //     const fetchData = async () => {
@@ -53,52 +92,9 @@ export class AdminAddProjectComponent{
 //     };
 //     fetchData();
 //   }, []);
-
-//   const createList = async (value, checked, setList, list) => {
-//     try {
-//       if (list === null) {
-//         if (checked) {
-//           setList(value);
-//         }
-//       } else {
-//         if (checked) {
-//           setList((list) => [...list, value]);
-//         }
-//       }
-
-//       if (!checked) {
-//         setList(list.filter((list) => list !== value));
-//       }
-//     } catch (err) {
-//       console.log(err);
-//     }
-//   };
-
-//   const createProject = async (e) => {
-//     e.preventDefault();
-//     try {
-//       console.log(project);
-//       console.log(thumbnails);
-//       console.log(primaryImage);
-//       console.log(projectTech);
-
-//       await IndexAPI.post("/projects/add-project", {
-//         project,
-//         thumbnails,
-//         primaryImage,
-//         projectTech,
-//       });
-//       projectInput.current.value = "";
-
-//       // props.setCreatedProject(createdProject)
-//     } catch (err) {
-//       console.log(err);
-//     }
-//   };
-
-//   return (
+// return (
 
 //   );
-// };
+// }
 
 // export default CreateC;

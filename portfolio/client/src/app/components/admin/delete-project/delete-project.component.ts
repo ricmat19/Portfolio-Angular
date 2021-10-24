@@ -8,13 +8,22 @@ import { Component } from "@angular/core";
 
 export class AdminDeleteProjectComponent{
 
+  title = 'props.title';
+
+  deleteProject = async (title) => {
+    try {
+      await IndexAPI.delete(`/admin/portfolio/${title}/delete`);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
 }
 
 // import IndexAPI from "../../../../apis/indexAPI";
 // import PropTypes from "prop-types";
 
 // const DeleteC = (props) => {
-//   const [title, setTitle] = useState(props.title);
 
 //   useEffect(() => {
 //     const fetchData = async () => {
@@ -26,14 +35,6 @@ export class AdminDeleteProjectComponent{
 //     };
 //     fetchData();
 //   }, [props, title]);
-
-//   const deleteProject = async (title) => {
-//     try {
-//       await IndexAPI.delete(`/admin/portfolio/${title}/delete`);
-//     } catch (err) {
-//       console.log(err);
-//     }
-//   };
 
 //   return (
 

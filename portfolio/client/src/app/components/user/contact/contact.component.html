@@ -11,9 +11,10 @@
           <input
             type="text"
             ref={nameInput}
-            onChange={(e) => setName(e.target.value)}
             name="name"
             className="form-control"
+            #nameInput
+            (change)='setName(nameInput)'
           />
         </div>
         <div className="subject-line">
@@ -21,9 +22,10 @@
           <input
             type="email"
             ref={emailInput}
-            onChange={(e) => setEmail(e.target.value)}
             name="email"
             className="form-control"
+            #emailInput
+            (change)='setEmail(emailInput)'
             required
           />
         </div>
@@ -32,9 +34,10 @@
           <input
             type="text"
             ref={subjectInput}
-            onChange={(e) => setSubject(e.target.value)}
             name="subject"
             className="form-control"
+            #subjectInput
+            (change)='setSubject(subjectInput)'
             required
           />
         </div>
@@ -43,8 +46,9 @@
           <textarea
             name="message"
             ref={messageInput}
-            onChange={(e) => setMessage(e.target.value)}
             rows="10"
+            #messageText
+            (change)='setMessage(messageText)'
             required
           ></textarea>
         </div>

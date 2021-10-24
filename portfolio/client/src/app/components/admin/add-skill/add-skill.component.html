@@ -5,14 +5,15 @@
     <label>SKILL</label>
     <input
       ref={skillInput}
-      onChange={(e) => setSkill(e.target.value)}
       type="text"
       name="skill"
+      #skillInput
+      (change)='setSkill(skillInput)'
     />
   </div>
   <div className="grid skill-input">
     <label>CATEGORY</label>
-    <select onChange={(e) => setCategory(e.target.value)} name="category">
+    <select name="category" #categorySelection (change)='setCategory(categorySelection)'>
       <option disabled selected>
         Select a Category...
       </option>
@@ -26,7 +27,7 @@
   </div>
   <div className="grid skill-input">
     <label>RANKING</label>
-    <select onChange={(e) => setRanking(e.target.value)} name="rank">
+    <select name="rank" #rankSelection (change)='setRanking(rankSelection)'>
       <option disabled selected>
         Select a Rank...
       </option>
@@ -37,7 +38,7 @@
   </div>
   <div className="grid skill-input">
     <label>LEVEL</label>
-    <select onChange={(e) => setLevel(e.target.value)} name="level">
+    <select name="level" #levelSelection (change)='setLevel(levelSelection)'>
       <option disabled selected>
         Select a Level...
       </option>
@@ -50,7 +51,7 @@
   </div>
   <div className="grid skill-input">
     <label>ICON</label>
-    <select onChange={(e) => setIcon(e.target.value)} name="icon">
+    <select name="icon" #iconSelection (change)='setIcon(iconSelection)'>
       {console.log(icons)}
       <option disabled selected>
         Select an Icon...
