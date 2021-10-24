@@ -1,7 +1,7 @@
 <div className='main'>
   <app-header></app-header>
   <div className={{skillModalState}}>
-    <div ref={skillRef} className='modal-content'>
+    <div className='modal-content'>
       <app-add-skill></app-add-skill>
     </div>
   </div>
@@ -43,7 +43,7 @@
         <div className='skill-category-div'>
           <div className='sub-title'>MARKUP</div>
           <div className='skill-div'>
-            {skills.map((skill, index) => {
+            {{skills.map((skill, index) => {
               if (skill.category === 'MARKUP') {
                 return (
                   <div key={index}>
@@ -52,43 +52,43 @@
                   </div>
                 );
               }
-            })}
+            })}}
           </div>
         </div>
         <div className='skill-category-div'>
           <div className='sub-title'>STYLE</div>
           <div className='skill-div'>
-            {skills.map((skill, index) => {
+            {{skills.map((skill, index) => {
               if (skill.category === 'STYLE') {
                 return (
                   <div key={index}>
-                    <img className='icon' src={skill.iconImage.default} />
-                    <div className='icon-label'>{skill.skill}</div>
+                    <img className='icon' src={{skill.iconImage.default}} />
+                    <div className='icon-label'>{{skill.skill}}</div>
                   </div>
                 );
               }
-            })}
+            })}}
           </div>
         </div>
         <div className='skill-category-div'>
           <div className='sub-title'>FRONTEND</div>
           <div className='skill-div'>
-            {skills.map((skill, index) => {
+            {{skills.map((skill, index) => {
               if (skill.category === 'FRONTEND') {
                 return (
-                  <div key={index}>
+                  <div key={{index}}>
                     <img className='icon' src={skill.iconImage.default} />
                     <div className='icon-label'>{skill.skill}</div>
                   </div>
                 );
               }
-            })}
+            })}}
           </div>
         </div>
         <div className='skill-category-div'>
           <div className='sub-title'>BACKEND</div>
           <div className='skill-div'>
-            {skills.map((skill, index) => {
+            {{skills.map((skill, index) => {
               if (skill.category === 'BACKEND') {
                 return (
                   <div key={index}>
@@ -97,13 +97,13 @@
                   </div>
                 );
               }
-            })}
+            })}}
           </div>
         </div>
         <div className='skill-category-div'>
           <div className='sub-title'>DATABASE</div>
           <div className='skill-div'>
-            {skills.map((skill, index) => {
+            {{skills.map((skill, index) => {
               if (skill.category === 'DATABASE') {
                 return (
                   <div key={index}>
@@ -112,13 +112,13 @@
                   </div>
                 );
               }
-            })}
+            })}}
           </div>
         </div>
         <div className='skill-category-div'>
           <div className='sub-title'>OTHER</div>
           <div className='skill-div'>
-            {skills.map((skill, index) => {
+            {{skills.map((skill, index) => {
               if (skill.category === 'OTHER') {
                 return (
                   <div key={index}>
@@ -127,7 +127,7 @@
                   </div>
                 );
               }
-            })}
+            })}}
           </div>
         </div>
       </div>

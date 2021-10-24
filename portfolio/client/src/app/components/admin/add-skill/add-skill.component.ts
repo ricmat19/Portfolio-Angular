@@ -16,20 +16,43 @@ export class AdminAddSkillComponent{
   iconSelection = '';
   newSkill = '';
 
-  addSkill = async (e) => {
-    e.preventDefault();
+  construction(){
+
+    try {
+
+      let iconSet = [];
+      function importAll(icons) {
+        let images = {};
+        icons.keys().forEach((index) => {
+          images[index.replace("./", "")] = icons(index);
+          Object.keys(images).forEach((key) => {
+            iconSet.push(key);
+            setIcons([...new Set(iconSet)]);
+          });
+        });
+      }
+
+      importAll(require.context("../../images/skills"));
+
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  addSkill = async () => {
     try {
       await IndexAPI.post("/skill/add-skill", {
-        skillInput,
-        categorySelection,
-        rankSelection,
-        levelSelection,
-        iconSelection,
+        skill: this.skillInput,
+        category: this.categorySelection,
+        rank: this.rankSelection,
+        level: this.levelSelection,
+        icon: this.iconSelection,
       });
-      skillInput.current.value = "";
+
+      this.skillInput = "";
 
       props.setNewSkill(newSkill);
-      
+
     } catch (err) {
       console.log(err);
     }
@@ -42,30 +65,9 @@ export class AdminAddSkillComponent{
 
 // const AddSkillC = (props) => {
 
-  // let iconSet = [];
-  // function importAll(icons) {
-  //   let images = {};
-  //   icons.keys().forEach((index) => {
-  //     images[index.replace("./", "")] = icons(index);
-  //     Object.keys(images).forEach((key) => {
-  //       iconSet.push(key);
-  //       setIcons([...new Set(iconSet)]);
-  //     });
-  //   });
-  // }
+
 
 //   const skillInput = useRef(null);
-
-//   useEffect(() => {
-//     const fetchData = async () => {
-//       try {
-//         importAll(require.context("../../images/skills"));
-//       } catch (err) {
-//         console.log(err);
-//       }
-//     };
-//     fetchData();
-//   }, []);
 
 //   return (
 

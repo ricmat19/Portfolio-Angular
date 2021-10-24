@@ -3,14 +3,14 @@
   <div className='sub-title'>ADD A SKILL</div>
   <div className='grid skill-input'>
     <label>SKILL</label>
-    <mat-form-field>
+    <!-- <mat-form-field> -->
       <input
         matInput
         type='text'
         name='skill'
         [(ngModel)]='skillInput'
       />
-    </mat-form-field>
+    <!-- </mat-form-field> -->
   </div>
   <div className='grid skill-input'>
     <label>CATEGORY</label>
@@ -53,13 +53,12 @@
   <div className='grid skill-input'>
     <label>ICON</label>
     <select name='icon' [(ngModel)]='iconSelection'>
-      {console.log(icons)}
       <option disabled selected>
         Select an Icon...
       </option>
-      {icons.map((icon, index) => {
+      {{icons.map((icon, index) => {
         return <option key={index}>{icon}</option>;
-      })}
+      })}}
     </select>
   </div>
   <div>

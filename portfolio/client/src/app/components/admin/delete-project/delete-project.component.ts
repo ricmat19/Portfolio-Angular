@@ -10,6 +10,14 @@ export class AdminDeleteProjectComponent{
 
   title = 'props.title';
 
+  constructor(){
+    try {
+      this.title = 'props.title';
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   deleteProject = async (title) => {
     try {
       await IndexAPI.delete(`/admin/portfolio/${title}/delete`);
@@ -27,11 +35,7 @@ export class AdminDeleteProjectComponent{
 
 //   useEffect(() => {
 //     const fetchData = async () => {
-//       try {
-//         setTitle(props.title);
-//       } catch (err) {
-//         console.log(err);
-//       }
+//
 //     };
 //     fetchData();
 //   }, [props, title]);

@@ -10,7 +10,7 @@
           <LeftArrowC />
         </div>
         <div className='grid project-slide-div'>
-          {thumbnails[0] !== undefined ? (
+          {{thumbnails[0] !== undefined ? (
             <div className='grid image-container'>
               <img
                 className='grid project-image'
@@ -19,20 +19,20 @@
             </div>
           ) : (
             ''
-          )}
+          )}}
         </div>
         <div className='slider-arrow' (click)='slideThumbnailRight()'>
           <RightArrowC />
         </div>
       </div>
       <div className='grid project-tech-div'>
-        {techs.map((tech, index) => {
+        {{techs.map((tech, index) => {
           return (
             <button key={index} className='tech-label'>
               {tech}
             </button>
           );
-        })}
+        })}}
       </div>
       <div className='text-content-container'>
         <div className='info-container'>

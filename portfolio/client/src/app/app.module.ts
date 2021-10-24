@@ -4,7 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatInputModule } from '@angular/material/input';
-import { MatCardMdImage, MatCardModule } from '@angular/material/card';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
 
 import { AppComponent } from './app.component';
 import { AdminAboutComponent } from './components/admin/about/about.component';
@@ -50,7 +51,8 @@ import { ProjectDetailsComponent } from './components/user/project-details/proje
     FormsModule,
     BrowserAnimationsModule,
     MatInputModule,
-    MatCardModule
+    MatCardModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

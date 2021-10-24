@@ -17,6 +17,35 @@ export class AdminAddProjectComponent{
   primaryImage = '';
   projectTech = [];
 
+  constructor(){
+    try {
+      //Get all skills from DB
+      const skills = await IndexAPI.get(`/skills`);
+      const skillsArray = [];
+      for (let i = 0; i < skills.data.results.length; i++) {
+        skillsArray.push(skills.data.results[i].skill);
+      }
+      skills.push(skillsArray);
+
+      let projectSet = [];
+      function importAll(projects) {
+        let images = {};
+        projects.keys().forEach((index) => {
+          images[index.replace("./", "")] = projects(index);
+          Object.keys(images).forEach((key) => {
+            projectSet.push(key);
+            projectImages.push(projectSet);
+          });
+        });
+      }
+      importAll(require.context("../../images/projects"));
+
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+
   skillSet = async (checked) => {
     try {
 
@@ -65,38 +94,8 @@ export class AdminAddProjectComponent{
 
 // const CreateC = () => {
 
-  // let projectSet = [];
-  // function importAll(projects) {
-  //   let images = {};
-  //   projects.keys().forEach((index) => {
-  //     images[index.replace("./", "")] = projects(index);
-  //     Object.keys(images).forEach((key) => {
-  //       projectSet.push(key);
-  //       setProjectImages([...new Set(projectSet)]);
-  //     });
-  //   });
-  // }
-
 //   const projectInput = useRef(null);
 
-//   useEffect(() => {
-//     const fetchData = async () => {
-//       try {
-//         //Get all skills from DB
-//         const skills = await IndexAPI.get(`/skills`);
-//         const skillsArray = [];
-//         for (let i = 0; i < skills.data.results.length; i++) {
-//           skillsArray.push(skills.data.results[i].skill);
-//         }
-//         setSkills(skillsArray);
-
-//         importAll(require.context("../../images/projects"));
-//       } catch (err) {
-//         console.log(err);
-//       }
-//     };
-//     fetchData();
-//   }, []);
 // return (
 
 //   );
