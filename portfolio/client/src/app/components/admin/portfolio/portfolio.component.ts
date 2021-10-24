@@ -1,3 +1,4 @@
+import { ArrayType } from "@angular/compiler";
 import { Component } from "@angular/core";
 
 @Component({
@@ -34,27 +35,26 @@ export class AdminPortfolioComponent{
     this.createModalState="modal modal-active";
   };
 
-  displayUpdateModal = (currentTitle) => {
+  displayUpdateModal = () => {
     try {
-      for (let i = 0; i < thumbnails.length; i++) {
-        if (thumbnails[i][currentTitle] !== undefined) {
-          setCurrentThumbnails(thumbnails[i][currentTitle]);
+
+      for (let i = 0; i < this.projectThumbnails.length; i++) {
+        if (this.projectThumbnails[i][this.currentTitle] !== undefined) {
+          this.currentThumbnails = this.projectThumbnails[i][this.currentTitle];
           break;
         } else {
-          setCurrentThumbnails([]);
+         this.currentThumbnails = [];
         }
       }
 
-      for (let i = 0; i < technology.length; i++) {
-        if (technology[i][currentTitle] !== undefined) {
-          setCurrentTech(technology[i][currentTitle]);
+      for (let i = 0; i < this.tech.length; i++) {
+        if (this.tech[i][this.currentTitle] !== undefined) {
+          this.currentTech = this.tech[i][this.currentTitle]
           break;
         } else {
-          setCurrentTech([]);
+          this.currentTech = [];
         }
-      }
-
-      setCurrentTitle(currentTitle);
+      };
 
       this.updateModalState="modal modal-active";
     } catch (err) {
@@ -62,9 +62,9 @@ export class AdminPortfolioComponent{
     }
   };
 
-  displayDeleteModal = async (project) => {
+  displayDeleteModal = async () => {
     try {
-      // setDeletedProject(project);
+      this.deletedProject = this.currentTitle;
       this.deleteModalState="modal modal-active";
     } catch (err) {
       console.log(err);
@@ -73,37 +73,37 @@ export class AdminPortfolioComponent{
 
   displayFilter = async () => {
     try {
-      if (filterButtons === "skill-buttons") {
-        setFilterButtons("skill-buttons skill-buttons-view");
+      if (this.filterButtons === "skill-buttons") {
+        this.filterButtons = "skill-buttons skill-buttons-view";
       } else {
-        setFilterButtons("skill-buttons");
+        this.filterButtons = "skill-buttons";
       }
     } catch (err) {
       console.log(err);
     }
   };
 
-  filterProjects = async (skill) => {
+  filterProjects = async () => {
     try {
       const techProjects = [];
-      for (let i = 0; i < technology.length; i++) {
-        const projectsTech = technology[i][Object.keys(technology[i])][0];
+      for (let i = 0; i < this.tech.length; i++) {
+        const projectsTech = this.tech[i][Object.keys(this.tech[i])][0];
         for (let j = 0; j < projectsTech.length; j++) {
-          if (projectsTech[j] === skill) {
-            techProjects.push(Object.keys(technology[i])[0]);
+          if (projectsTech[j] === this.tech) {
+            techProjects.push(Object.keys(this.tech[i])[0]);
           }
         }
       }
 
-      const filteredThumbnails = [];
+      const filteredThumbnailsArray: ArrayType[] = [];
       for (let i = 0; i < techProjects.length; i++) {
-        for (let j = 0; j < thumbnails.length; j++) {
-          if (techProjects[i] === thumbnails[j].project) {
-            filteredThumbnails.push(thumbnails[j]);
+        for (let j = 0; j < this.projectThumbnails.length; j++) {
+          if (techProjects[i] === this.projectThumbnails[j].project) {
+            filteredThumbnailsArray.push(this.projectThumbnails[j]);
           }
         }
       }
-      setFilteredThumbnails(filteredThumbnails);
+      this.filteredThumbnails.push(filteredThumbnailsArray);
     } catch (err) {
       console.log(err);
     }

@@ -1,24 +1,21 @@
-<div className="main">
+<div className='main'>
   <app-header></app-header>
   <div className={{skillModalState}}>
-    <div ref={skillRef} className="modal-content">
-      <app-add-skill
-        skillModal={skillModal}
-        setNewSkill={(newSkill) => setNewSkill(newSkill)}
-      ></app-add-skill>
+    <div ref={skillRef} className='modal-content'>
+      <app-add-skill></app-add-skill>
     </div>
   </div>
 
-  <div className="container">
-    <div className="title-div">
-      <p className="title">about</p>
+  <div className='container'>
+    <div className='title-div'>
+      <p className='title'>about</p>
     </div>
-    <div className="about-content-div">
-      <div className="profile-div">
-        <div className="profile-image-div">
-          <img className="profile-image" src="../images/about-image.jpg" />
+    <div className='about-content-div'>
+      <div className='profile-div'>
+        <div className='profile-image-div'>
+          <img className='profile-image' src='../images/about-image.jpg' />
         </div>
-        <div className="info-div">
+        <div className='info-div'>
           <p>
             Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quas
             doloribus saepe, incidunt unde atque adipisci sint dignissimos
@@ -39,94 +36,94 @@
           </p>
         </div>
       </div>
-      <div className="skills-category-container-div">
-        <div className="create-skill-div">
-          <button (click)="displaySkillModal">CREATE</button>
+      <div className='skills-category-container-div'>
+        <div className='create-skill-div'>
+          <button (click)='displaySkillModal'>CREATE</button>
         </div>
-        <div className="skill-category-div">
-          <div className="sub-title">MARKUP</div>
-          <div className="skill-div">
+        <div className='skill-category-div'>
+          <div className='sub-title'>MARKUP</div>
+          <div className='skill-div'>
             {skills.map((skill, index) => {
-              if (skill.category === "MARKUP") {
+              if (skill.category === 'MARKUP') {
                 return (
                   <div key={index}>
-                    <img className="icon" src={skill.iconImage.default} />
-                    <div className="icon-label">{skill.skill}</div>
+                    <img className='icon' src={skill.iconImage.default} />
+                    <div className='icon-label'>{skill.skill}</div>
                   </div>
                 );
               }
             })}
           </div>
         </div>
-        <div className="skill-category-div">
-          <div className="sub-title">STYLE</div>
-          <div className="skill-div">
+        <div className='skill-category-div'>
+          <div className='sub-title'>STYLE</div>
+          <div className='skill-div'>
             {skills.map((skill, index) => {
-              if (skill.category === "STYLE") {
+              if (skill.category === 'STYLE') {
                 return (
                   <div key={index}>
-                    <img className="icon" src={skill.iconImage.default} />
-                    <div className="icon-label">{skill.skill}</div>
+                    <img className='icon' src={skill.iconImage.default} />
+                    <div className='icon-label'>{skill.skill}</div>
                   </div>
                 );
               }
             })}
           </div>
         </div>
-        <div className="skill-category-div">
-          <div className="sub-title">FRONTEND</div>
-          <div className="skill-div">
+        <div className='skill-category-div'>
+          <div className='sub-title'>FRONTEND</div>
+          <div className='skill-div'>
             {skills.map((skill, index) => {
-              if (skill.category === "FRONTEND") {
+              if (skill.category === 'FRONTEND') {
                 return (
                   <div key={index}>
-                    <img className="icon" src={skill.iconImage.default} />
-                    <div className="icon-label">{skill.skill}</div>
+                    <img className='icon' src={skill.iconImage.default} />
+                    <div className='icon-label'>{skill.skill}</div>
                   </div>
                 );
               }
             })}
           </div>
         </div>
-        <div className="skill-category-div">
-          <div className="sub-title">BACKEND</div>
-          <div className="skill-div">
+        <div className='skill-category-div'>
+          <div className='sub-title'>BACKEND</div>
+          <div className='skill-div'>
             {skills.map((skill, index) => {
-              if (skill.category === "BACKEND") {
+              if (skill.category === 'BACKEND') {
                 return (
                   <div key={index}>
-                    <img className="icon" src={skill.iconImage.default} />
-                    <div className="icon-label">{skill.skill}</div>
+                    <img className='icon' src={skill.iconImage.default} />
+                    <div className='icon-label'>{skill.skill}</div>
                   </div>
                 );
               }
             })}
           </div>
         </div>
-        <div className="skill-category-div">
-          <div className="sub-title">DATABASE</div>
-          <div className="skill-div">
+        <div className='skill-category-div'>
+          <div className='sub-title'>DATABASE</div>
+          <div className='skill-div'>
             {skills.map((skill, index) => {
-              if (skill.category === "DATABASE") {
+              if (skill.category === 'DATABASE') {
                 return (
                   <div key={index}>
-                    <img className="icon" src={skill.iconImage.default} />
-                    <div className="icon-label">{skill.skill}</div>
+                    <img className='icon' src={skill.iconImage.default} />
+                    <div className='icon-label'>{skill.skill}</div>
                   </div>
                 );
               }
             })}
           </div>
         </div>
-        <div className="skill-category-div">
-          <div className="sub-title">OTHER</div>
-          <div className="skill-div">
+        <div className='skill-category-div'>
+          <div className='sub-title'>OTHER</div>
+          <div className='skill-div'>
             {skills.map((skill, index) => {
-              if (skill.category === "OTHER") {
+              if (skill.category === 'OTHER') {
                 return (
                   <div key={index}>
-                    <img className="icon" src={skill.iconImage.default} />
-                    <div className="icon-label">{skill.skill}</div>
+                    <img className='icon' src={skill.iconImage.default} />
+                    <div className='icon-label'>{skill.skill}</div>
                   </div>
                 );
               }

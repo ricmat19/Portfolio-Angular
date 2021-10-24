@@ -15,49 +15,47 @@ export class AdminUpdateProjectComponent{
   projectSkills = [];
 
   titles = [];
-  title = '';
+  titleInput = '';
   thumbnails = [];
   tech = [];
   oldTitle = '';
 
-  createList = async (value, checked, setList, list) => {
+  skillSet = async (skillInput: HTMLTextAreaElement, checked) => {
     try {
-      if (list === null) {
-        if (checked) {
-          setList(value);
-        }
-      } else {
-        if (checked) {
-          setList((list) => [...list, value]);
-        }
+
+      if (checked) {
+        this.skills.push(skillInput)
       }
 
-      if (!checked) {
-        setList(list.filter((list) => list !== value));
-      }
     } catch (err) {
       console.log(err);
     }
   };
 
-  updateProject = async (e) => {
-    e.preventDefault();
+  projectSet = async (imageInput: HTMLTextAreaElement, checked) => {
     try {
-      // console.log(title)
-      // console.log(projectFiles)
-      // console.log(primaryImage)
-      // console.log(projectSkills)
-      // console.log(oldTitle)
+
+      if (checked) {
+        setList(imageInput);
+      }
+
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  updateProject = async () => {
+    try {
 
       await IndexAPI.put("/projects/update-project", {
-        title,
-        projectFiles,
-        primaryImage,
-        projectSkills,
-        oldTitle,
+        title: this.titleInput,
+        projectFiles: this.projectFiles,
+        primaryImage: this.primaryImage,
+        projectSkills: this.projectSkills,
+        oldTitle: this.oldTitle,
       });
 
-      projectInput.current.value = "";
+      this.titleInput = "";
 
       // props.setUpdatedProject(updatedProject)
     } catch (err) {

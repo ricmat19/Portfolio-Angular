@@ -15,11 +15,11 @@ export class AdminProjectDetailsComponent{
 
   slideThumbnailLeft = async () => {
     try {
-      if (thumbnailIndex === 0) {
-        setThumbnailIndex(thumbnails.length - 1);
+      if (this.thumbnailIndex === 0) {
+        this.thumbnails.length - 1;
       } else {
-        let newThumbnail = thumbnailIndex - 1;
-        setThumbnailIndex(newThumbnail);
+        let newThumbnail = this.thumbnailIndex - 1;
+        this.thumbnailIndex = newThumbnail;
       }
     } catch (err) {
       console.log(err);
@@ -28,11 +28,11 @@ export class AdminProjectDetailsComponent{
 
   slideThumbnailRight = async () => {
     try {
-      if (thumbnailIndex === thumbnails.length - 1) {
-        setThumbnailIndex(0);
+      if (this.thumbnailIndex === this.thumbnails.length - 1) {
+        this.thumbnailIndex = 0;
       } else {
-        let newThumbnail = thumbnailIndex + 1;
-        setThumbnailIndex(newThumbnail);
+        let newThumbnail = this.thumbnailIndex + 1;
+        this.thumbnailIndex = newThumbnail;
       }
     } catch (err) {
       console.log(err);

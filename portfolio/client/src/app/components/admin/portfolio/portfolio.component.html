@@ -1,56 +1,37 @@
-<div className="main">
+<div className='main'>
   <app-header></app-header>
   <div className={{createModalState}}>
-    <div ref={createRef} className="modal-content">
-      <app-add-project
-        createModal={createModal}
-        createdProject={(createdProject) =>
-          setCreatedProject(createdProject)
-        }
-      ></app-add-project>
+    <div ref={createRef} className='modal-content'>
+      <app-add-project></app-add-project>
     </div>
   </div>
   <div className={{updateModalState}}>
-    <div ref={updateRef} className="modal-content">
-      <app-update-project
-        updateModal={updateModal}
-        setUpdatedProject={(updateProject) =>
-          setUpdatedProject(updateProject)
-        }
-        title={currentTitle}
-        thumbnails={allThumbnails}
-        tech={technology}
-      ></app-update-project>
+    <div ref={updateRef} className='modal-content'>
+      <app-update-project></app-update-project>
     </div>
   </div>
 
   <div className={{deleteModalState}}>
-    <div ref={deleteRef} className="modal-content">
-      <app-delete-project>
-        deleteModal={deleteModal}
-        setDeletedProject={(deletedProject) =>
-          setDeletedProject(deletedProject)
-        }
-        title={deletedProject}
-      ></app-delete>
+    <div ref={deleteRef} className='modal-content'>
+      <app-delete-project></app-delete-project>
     </div>
   </div>
 
-  <div className="container">
-    <div className="title-div">
-      <p className="title">portfolio</p>
+  <div className='container'>
+    <div className='title-div'>
+      <p className='title'>portfolio</p>
     </div>
-    <div className="create-project-div">
-      <button (click)="displayCreateModal">CREATE</button>
-      <div className="grid skill-filters">
+    <div className='create-project-div'>
+      <button (click)='displayCreateModal'>CREATE</button>
+      <div className='grid skill-filters'>
         <div className={filterButtons}>
           {skills.map((skill, index) => {
             // if(filter){
             return (
               <button
-                className="skill"
+                className='skill'
                 key={index}
-                (click)="filterProjects(skill)"
+                (click)='filterProjects()'
               >
                 {skill}
               </button>
@@ -59,49 +40,49 @@
           })}
         </div>
         <img
-          className="filter-icon"
-          src="../../images/filter-solid.svg"
-          (click)="displayFilter()"
+          className='filter-icon'
+          src='../../images/filter-solid.svg'
+          (click)='displayFilter()'
         />
       </div>
     </div>
-    <div className="portfolio-thumbnail-div">
+    <div className='portfolio-thumbnail-div'>
       {filteredThumbnails.map((thumbnail, thumbnailIndex) => {
         return (
           <div key={thumbnailIndex}>
-            <div className="project-buttons">
+            <div className='project-buttons'>
               <button
-              (click)="displayUpdateModal(titles[thumbnailIndex])"
+              (click)='displayUpdateModal()'
               >
                 UPDATE
               </button>
               <button
-                (click)="displayDeleteModal(titles[thumbnailIndex])"
+                (click)='displayDeleteModal()'
               >
                 DELETE
               </button>
             </div>
             <div
-              className="portfolio-item-div"
+              className='portfolio-item-div'
               key={thumbnailIndex}
-              (click)="history.push(`/admin/portfolio/${thumbnail.project}`)"
+              (click)='history.push(`/admin/portfolio/${thumbnail.project}`)'
             >
-              <div className="portfolio-project">
+              <div className='portfolio-project'>
                 <img
-                  className="project-thumbnail"
+                  className='project-thumbnail'
                   src={thumbnail.module.default}
                 />
-                <div className="thumbnail-overlay thumbnail-overlay--blur">
-                  <div className="thumbnail-title-div">
+                <div className='thumbnail-overlay thumbnail-overlay--blur'>
+                  <div className='thumbnail-title-div'>
                     {titles[thumbnailIndex].toLowerCase()}
                   </div>
-                  <div className="grid buttons-div">
-                    <div className="tech-used">
+                  <div className='grid buttons-div'>
+                    <div className='tech-used'>
                       {technology.map((tech, techIndex) => {
                         if (thumbnailIndex === techIndex) {
                           return (
                             <div
-                              className="grid project-tech"
+                              className='grid project-tech'
                               key={techIndex}
                             >
                               {tech[titles[techIndex]][0].map(

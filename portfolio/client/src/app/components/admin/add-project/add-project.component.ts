@@ -1,4 +1,3 @@
-
 import { Component } from "@angular/core";
 
 @Component({
@@ -8,45 +7,51 @@ import { Component } from "@angular/core";
 
 export class AdminAddProjectComponent{
 
+  projectInput = '';
   projectImages = [];
+  skillInput = '';
   skills =[];
 
-  project = '';
+  titleInput = '';
   thumbnails = [];
   primaryImage = '';
   projectTech = [];
 
-  createList = async (imageInput: HTMLTextAreaElement, checked, setList, list) => {
+  skillSet = async (checked) => {
     try {
-      if (list === null) {
-        if (checked) {
-          setList(imageInput);
-        }
-      } else {
-        if (checked) {
-          setList((list) => [...list, imageInput]);
-        }
+
+      if (checked) {
+        this.skills.push(this.skillInput)
       }
 
-      if (!checked) {
-        setList(list.filter((list) => list !== imageInput));
-      }
     } catch (err) {
       console.log(err);
     }
   };
 
-  createProject = async (e) => {
-    e.preventDefault();
+  projectSet = async (imageInput: HTMLTextAreaElement, checked) => {
+    try {
+
+      if (checked) {
+        this.projectImages.push(this.projectInput);
+      }
+
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  createProject = async () => {
+
     try {
 
       await IndexAPI.post("/projects/add-project", {
-        project,
-        thumbnails,
-        primaryImage,
-        projectTech,
+        project: this.titleInput,
+        thumbnails: this.thumbnails,
+        primaryImage: this.primaryImage,
+        projectTech: this.projectTech,
       });
-      projectInput.current.value = "";
+      this.titleInput = "";
 
       // props.setCreatedProject(createdProject)
     } catch (err) {

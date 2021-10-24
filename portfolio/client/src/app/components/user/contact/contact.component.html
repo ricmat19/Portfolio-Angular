@@ -8,52 +8,56 @@
       <form className="contact-form" method="POST" action="/contact">
         <div className="subject-line">
           <label className="form-label">name</label>
-          <input
-            type="text"
-            ref={nameInput}
-            name="name"
-            className="form-control"
-            #nameInput
-            (change)='setName(nameInput)'
-          />
+          <mat-form-field>
+            <input
+              matInput
+              type="text"
+              name="name"
+              className="form-control"
+              [(ngModel)]="nameInput"
+            />
+          </mat-form-field>
         </div>
         <div className="subject-line">
           <label className="form-label">email</label>
-          <input
-            type="email"
-            ref={emailInput}
-            name="email"
-            className="form-control"
-            #emailInput
-            (change)='setEmail(emailInput)'
-            required
-          />
+          <mat-form-field>
+            <input
+              matInput
+              type="email"
+              name="email"
+              className="form-control"
+              [(ngModel)]="emailInput"
+              required
+            />
+          </mat-form-field>
         </div>
         <div className="subject-line">
           <label className="form-label">subject</label>
-          <input
-            type="text"
-            ref={subjectInput}
-            name="subject"
-            className="form-control"
-            #subjectInput
-            (change)='setSubject(subjectInput)'
-            required
-          />
+          <mat-form-field>
+            <input
+              matInput
+              type="text"
+              name="subject"
+              className="form-control"
+              [(ngModel)]="subjectInput"
+              required
+            />
+          </mat-form-field>
         </div>
         <div className="subject-line">
           <label className="form-label">message</label>
-          <textarea
-            name="message"
-            ref={messageInput}
-            rows="10"
-            #messageText
-            (change)='setMessage(messageText)'
-            required
-          ></textarea>
+          <mat-form-field>
+            <textarea
+              matInput
+              name="message"
+              rows="10"
+              [(ngModel)]="messageText"
+              required
+            ></textarea>
+          </mat-form-field>
         </div>
         <div className="">
-          <button (click)="handleSubmit" type="submit" className="">
+          <button (click)="(handleSubmit)" type="submit" className="">
             submit
           </button>
         </div>

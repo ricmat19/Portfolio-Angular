@@ -1,71 +1,79 @@
-<div className="grid add-project-modal">
-  <div className="grid toDo-modal-grid">
+<div className='grid add-project-modal'>
+  <div className='grid toDo-modal-grid'>
     <label>TITLE</label>
-    <input
-      (change)='setProject(titleInput)'
-      type="text"
-      name="project_title"
-      #titleInput
-    />
+    <mat-form-field>
+      <input
+        matInput
+        type='text'
+        name='project_title'
+        [(ngModel)]='titleInput'
+      />
+    </mat-form-field>
   </div>
-  <div className="grid project-creation-checkbox-div">
-    <div className="grid thumbnail-checkbox-div">
+  <div className='grid project-creation-checkbox-div'>
+    <div className='grid thumbnail-checkbox-div'>
       <div>
         <label>THUMBNAIL</label>
-        <div className="grid image-checkbox-list">
-          <label className="image-checkbox-label"></label>
-          <label className="image-checkbox-label">Selection</label>
-          <label className="image-checkbox-label">Primary</label>
+        <div className='grid image-checkbox-list'>
+          <label className='image-checkbox-label'></label>
+          <label className='image-checkbox-label'>Selection</label>
+          <label className='image-checkbox-label'>Primary</label>
         </div>
       </div>
       <div>
         {projectImages.map((image, index) => {
           return (
-            <div key={index} className="grid image-checkbox-list">
-              <label className="image-checkbox-label">{image}</label>
+            <div key={index} className='grid image-checkbox-list'>
+              <label className='image-checkbox-label'>{image}</label>
               <div>
-                <input
-                  type="checkbox"
-                  name="image"
-                  value={image}
-                  #imageInput
-                  (change)='createList(imageInput, e.target.checked, setThumbnails, thumbnails)'
-                />
+                <mat-form-field>
+                  <input
+                    matInput
+                    type='checkbox'
+                    name='image'
+                    [(ngModel)]='skillInput'
+                    (change)='projectSet(e.target.checked)'
+                  />
+                </mat-form-field>
               </div>
               <div>
-                <input
-                  type="radio"
-                  name="image"
-                  #imageRadio
-                  (change)='setPrimaryImage(imageRadio)'
-                />
+                <mat-form-field>
+                  <input
+                    matInput
+                    type='radio'
+                    name='image'
+                    [(ngModel)]='primaryImage'
+                  />
+                </mat-form-field>
               </div>
             </div>
           );
         })}
       </div>
     </div>
-    <div className="grid tech-grid">
+    <div className='grid tech-grid'>
       <div>
         <label>TECH</label>
-        <div className="grid tech-checkbox-list">
-          <label className="image-checkbox-label"></label>
-          <label className="image-checkbox-label">Selection</label>
+        <div className='grid tech-checkbox-list'>
+          <label className='image-checkbox-label'></label>
+          <label className='image-checkbox-label'>Selection</label>
         </div>
       </div>
       <div>
         {skills.map((skill, index) => {
           return (
-            <div key={index} className="grid tech-checkbox-list">
-              <label className="tech-checkbox-label">{skill}</label>
+            <div key={index} className='grid tech-checkbox-list'>
+              <label className='tech-checkbox-label'>{skill}</label>
               <div>
-                <input
-                  type="checkbox"
-                  name="skill"
-                  value={skill}
-                  #skillInput
-                  (change)='createList(skillInput, e.target.checked, setProjectTech, projectTech)'
-                />
+                <mat-form-field>
+                  <input
+                    matInput
+                    type='checkbox'
+                    name='skill'
+                    [(ngModel)]='skillInput'
+                    (change)='skillSet(e.target.checked)'
+                  />
+                </mat-form-field>
               </div>
             </div>
           );
@@ -74,7 +82,7 @@
     </div>
   </div>
   <div>
-    <button className="form-button" type="submit" (click)="createProject">
+    <button className='form-button' type='submit' (click)='createProject'>
       CREATE
     </button>
   </div>

@@ -35,8 +35,6 @@ export class AdminAboutComponent{
 
 // const AboutC = () => {
 
-//   const skillRef = useRef();
-
 //   useEffect(() => {
 //     const fetchData = async () => {
 //       try {
@@ -68,10 +66,6 @@ export class AdminAboutComponent{
 //     };
 //     fetchData();
 //   }, [newSkill]);
-
-//   const displaySkillModal = () => {
-//     setSkillModal("modal modal-active");
-//   };
 
 //   return (
 

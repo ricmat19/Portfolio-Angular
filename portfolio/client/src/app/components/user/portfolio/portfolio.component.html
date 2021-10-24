@@ -1,19 +1,19 @@
-<div className="main">
+<div className='main'>
   <app-header></app-header>
-  <div className="container">
-    <div className="title-div">
-      <p className="title">portfolio</p>
+  <div className='container'>
+    <div className='title-div'>
+      <p className='title'>portfolio</p>
     </div>
-    <div className="create-project-div">
-      <div className="grid skill-filters">
+    <div className='create-project-div'>
+      <div className='grid skill-filters'>
         <div className={filterButtons}>
           {skills.map((skill, index) => {
             // if(filter){
             return (
               <button
-                className="skill"
+                className='skill'
                 key={index}
-                (click)="filterProjects(skill)"
+                (click)='filterProjects(skill)'
               >
                 {skill}
               </button>
@@ -22,37 +22,37 @@
           })}
         </div>
         <img
-          className="filter-icon"
-          src="../../images/filter-solid.svg"
-          (click)="displayFilter()"
+          className='filter-icon'
+          src='../../images/filter-solid.svg'
+          (click)='displayFilter()'
         />
       </div>
     </div>
-    <div className="portfolio-thumbnail-div">
+    <div className='portfolio-thumbnail-div'>
       {filteredThumbnails.map((thumbnail, thumbnailIndex) => {
         return (
           <div key={thumbnailIndex}>
             <div
-              className="portfolio-item-div"
+              className='portfolio-item-div'
               key={thumbnailIndex}
-              (click)="history.push(`/portfolio/${thumbnail.project}`)"
+              (click)='history.push(`/portfolio/${thumbnail.project}`)'
             >
-              <div className="portfolio-project">
+              <div className='portfolio-project'>
                 <img
-                  className="project-thumbnail"
+                  className='project-thumbnail'
                   src={thumbnail.module.default}
                 />
-                <div className="thumbnail-overlay thumbnail-overlay--blur">
-                  <div className="thumbnail-title-div">
+                <div className='thumbnail-overlay thumbnail-overlay--blur'>
+                  <div className='thumbnail-title-div'>
                     {titles[thumbnailIndex].toLowerCase()}
                   </div>
-                  <div className="grid buttons-div">
-                    <div className="tech-used">
+                  <div className='grid buttons-div'>
+                    <div className='tech-used'>
                       {technology.map((tech, techIndex) => {
                         if (thumbnailIndex === techIndex) {
                           return (
                             <div
-                              className="grid project-tech"
+                              className='grid project-tech'
                               key={techIndex}
                             >
                               {tech[titles[techIndex]][0].map(

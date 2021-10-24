@@ -7,25 +7,25 @@ import { Component } from "@angular/core";
 
 export class ContactComponent{
 
-  name = '';
-  email = '';
-  subject = '';
-  message = '';
+  nameInput = '';
+  emailInput = '';
+  subjectInput = '';
+  messageText = '';
 
-  handleSubmit = async (e) => {
-    e.preventDefault();
+  handleSubmit = async () => {
+
     try {
       await IndexAPI.post("/contact", {
-        name: name,
-        email: email,
-        subject: subject,
-        message: message,
+        name: this.nameInput,
+        email: this.emailInput,
+        subject: this.subjectInput,
+        message: this.messageText,
       });
 
-      nameInput.current.value = "";
-      emailInput.current.value = "";
-      subjectInput.current.value = "";
-      messageInput.current.value = "";
+      this.nameInput = "";
+      this.emailInput = "";
+      this.subjectInput = "";
+      this.messageText = "";
     } catch (err) {
       console.log(err);
     }

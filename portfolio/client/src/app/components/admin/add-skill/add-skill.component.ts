@@ -9,26 +9,27 @@ import { Component } from "@angular/core";
 export class AdminAddSkillComponent{
 
   icons = [];
-  skill = '';
-  category = '';
-  ranking = '';
-  level = '';
-  icon = '';
+  skillInput = '';
+  categorySelection = '';
+  rankSelection = '';
+  levelSelection = '';
+  iconSelection = '';
   newSkill = '';
 
   addSkill = async (e) => {
     e.preventDefault();
     try {
       await IndexAPI.post("/skill/add-skill", {
-        category,
-        skill,
-        level,
-        icon,
-        ranking,
+        skillInput,
+        categorySelection,
+        rankSelection,
+        levelSelection,
+        iconSelection,
       });
       skillInput.current.value = "";
 
       props.setNewSkill(newSkill);
+      
     } catch (err) {
       console.log(err);
     }

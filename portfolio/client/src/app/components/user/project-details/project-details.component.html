@@ -1,43 +1,43 @@
-<div className="main">
+<div className='main'>
   <app-header></app-header>
-  <div className="project-details-container">
-    <div className="title-div">
-      <p className="title">{title}</p>
+  <div className='project-details-container'>
+    <div className='title-div'>
+      <p className='title'>{title}</p>
     </div>
-    <div className="grid project-details">
-      <div className="grid slider-div">
-        <div className="slider-arrow" (click)="slideThumbnailLeft()">
+    <div className='grid project-details'>
+      <div className='grid slider-div'>
+        <div className='slider-arrow' (click)='slideThumbnailLeft()'>
           <LeftArrowC />
         </div>
-        <div className="grid project-slide-div">
+        <div className='grid project-slide-div'>
           {thumbnails[0] !== undefined ? (
-            <div className="grid image-container">
+            <div className='grid image-container'>
               <img
-                className="grid project-image"
+                className='grid project-image'
                 src={thumbnails[thumbnailIndex].default}
               />
             </div>
           ) : (
-            ""
+            ''
           )}
         </div>
-        <div className="slider-arrow" (click)="slideThumbnailRight()">
+        <div className='slider-arrow' (click)='slideThumbnailRight()'>
           <RightArrowC />
         </div>
       </div>
-      <div className="grid project-tech-div">
+      <div className='grid project-tech-div'>
         {techs.map((tech, index) => {
           return (
-            <button key={index} className="tech-label">
+            <button key={index} className='tech-label'>
               {tech}
             </button>
           );
         })}
       </div>
-      <div className="text-content-container">
-        <div className="info-container">
-          <div className="sub-title">about the project</div>
-          <div className="info-div">
+      <div className='text-content-container'>
+        <div className='info-container'>
+          <div className='sub-title'>about the project</div>
+          <div className='info-div'>
             <p>
               Lorem ipsum dolor sit, amet consectetur adipisicing elit.
               Explicabo itaque nulla deleniti aperiam animi rerum atque
@@ -68,13 +68,13 @@
             </p>
           </div>
         </div>
-        <div className="resource-container">
-          <div className="sub-title">Resources</div>
-          <div className="resources-div">
+        <div className='resource-container'>
+          <div className='sub-title'>Resources</div>
+          <div className='resources-div'>
             <ul>
               <li>
-                <span className="project-resource">
-                  <a href={githubLink} target="_blank" rel="noreferrer">
+                <span className='project-resource'>
+                  <a href={githubLink} target='_blank' rel='noreferrer'>
                     Github
                   </a>
                 </span>

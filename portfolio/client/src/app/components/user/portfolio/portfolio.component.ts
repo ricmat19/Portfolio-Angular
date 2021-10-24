@@ -17,6 +17,44 @@ export class PortfolioComponent{
   filterButtons = 'skill-buttons';
   filteredThumbnails = [];
 
+  displayFilter = async () => {
+    try {
+      if (this.filterButtons === "skill-buttons") {
+        this.filterButtons = "skill-buttons skill-buttons-view";
+      } else {
+        this.filterButtons = "skill-buttons";
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  filterProjects = async (skill) => {
+    try {
+      const techProjects = [];
+      for (let i = 0; i < this.tech.length; i++) {
+        const projectsTech = this.tech[i][Object.keys(this.tech[i])][0];
+        for (let j = 0; j < projectsTech.length; j++) {
+          if (projectsTech[j] === skill) {
+            techProjects.push(Object.keys(this.tech[i])[0]);
+          }
+        }
+      }
+
+      const filteredThumbnailsArray: ArrayType[] = [];
+      for (let i = 0; i < techProjects.length; i++) {
+        for (let j = 0; j < this.projectThumbnails.length; j++) {
+          if (techProjects[i] === this.projectThumbnails[j].project) {
+            filteredThumbnailsArray.push(this.projectThumbnails[j]);
+          }
+        }
+      }
+      this.filteredThumbnails.push(filteredThumbnailsArray);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
 }
 
 // import IndexAPI from "../../apis/indexAPI";
@@ -36,20 +74,6 @@ export class PortfolioComponent{
 //   let history = useHistory();
 
 //   const currentProjectThumbnailArray = [];
-
-
-
-//   const displayFilter = async () => {
-//     try {
-//       if (filterButtons === "skill-buttons") {
-//         setFilterButtons("skill-buttons skill-buttons-view");
-//       } else {
-//         setFilterButtons("skill-buttons");
-//       }
-//     } catch (err) {
-//       console.log(err);
-//     }
-//   };
 
 //   useEffect(() => {
 //     const fetchData = async () => {
@@ -189,32 +213,6 @@ export class PortfolioComponent{
 //     };
 //     fetchData();
 //   }, []);
-
-//   const filterProjects = async (skill) => {
-//     try {
-//       const techProjects = [];
-//       for (let i = 0; i < technology.length; i++) {
-//         const projectsTech = technology[i][Object.keys(technology[i])][0];
-//         for (let j = 0; j < projectsTech.length; j++) {
-//           if (projectsTech[j] === skill) {
-//             techProjects.push(Object.keys(technology[i])[0]);
-//           }
-//         }
-//       }
-
-//       const filteredThumbnails = [];
-//       for (let i = 0; i < techProjects.length; i++) {
-//         for (let j = 0; j < thumbnails.length; j++) {
-//           if (techProjects[i] === thumbnails[j].project) {
-//             filteredThumbnails.push(thumbnails[j]);
-//           }
-//         }
-//       }
-//       setFilteredThumbnails(filteredThumbnails);
-//     } catch (err) {
-//       console.log(err);
-//     }
-//   };
 
 //   return (
 

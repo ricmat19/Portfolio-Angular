@@ -1,19 +1,20 @@
-<div className="grid skill-modal-div">
+<div className='grid skill-modal-div'>
   {/* Add Skill */}
-  <div className="sub-title">ADD A SKILL</div>
-  <div className="grid skill-input">
+  <div className='sub-title'>ADD A SKILL</div>
+  <div className='grid skill-input'>
     <label>SKILL</label>
-    <input
-      ref={skillInput}
-      type="text"
-      name="skill"
-      #skillInput
-      (change)='setSkill(skillInput)'
-    />
+    <mat-form-field>
+      <input
+        matInput
+        type='text'
+        name='skill'
+        [(ngModel)]='skillInput'
+      />
+    </mat-form-field>
   </div>
-  <div className="grid skill-input">
+  <div className='grid skill-input'>
     <label>CATEGORY</label>
-    <select name="category" #categorySelection (change)='setCategory(categorySelection)'>
+    <select name='category' [(ngModel)]='categorySelection'>
       <option disabled selected>
         Select a Category...
       </option>
@@ -25,9 +26,9 @@
       <option>OTHER</option>
     </select>
   </div>
-  <div className="grid skill-input">
+  <div className='grid skill-input'>
     <label>RANKING</label>
-    <select name="rank" #rankSelection (change)='setRanking(rankSelection)'>
+    <select name='rank' [(ngModel)]='rankSelection'>
       <option disabled selected>
         Select a Rank...
       </option>
@@ -36,9 +37,9 @@
       <option>3</option>
     </select>
   </div>
-  <div className="grid skill-input">
+  <div className='grid skill-input'>
     <label>LEVEL</label>
-    <select name="level" #levelSelection (change)='setLevel(levelSelection)'>
+    <select name='level' [(ngModel)]='levelSelection'>
       <option disabled selected>
         Select a Level...
       </option>
@@ -49,9 +50,9 @@
       <option>5</option>
     </select>
   </div>
-  <div className="grid skill-input">
+  <div className='grid skill-input'>
     <label>ICON</label>
-    <select name="icon" #iconSelection (change)='setIcon(iconSelection)'>
+    <select name='icon' [(ngModel)]='iconSelection'>
       {console.log(icons)}
       <option disabled selected>
         Select an Icon...
@@ -62,7 +63,7 @@
     </select>
   </div>
   <div>
-    <button className="form-button" type="submit" (click)="addSkill">
+    <button className='form-button' type='submit' (click)='addSkill'>
       ADD
     </button>
   </div>

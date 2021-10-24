@@ -1,9 +1,12 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatInputModule } from '@angular/material/input';
+import { MatCardMdImage, MatCardModule } from '@angular/material/card';
 
+import { AppComponent } from './app.component';
 import { AdminAboutComponent } from './components/admin/about/about.component';
 import { AdminAddProjectComponent } from './components/admin/add-project/add-project.component';
 import { AdminAddSkillComponent } from './components/admin/add-skill/add-skill.component';
@@ -43,7 +46,11 @@ import { ProjectDetailsComponent } from './components/user/project-details/proje
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    BrowserAnimationsModule,
+    MatInputModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]
