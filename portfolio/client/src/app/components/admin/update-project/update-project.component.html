@@ -21,64 +21,56 @@
         </div>
       </div>
       <div>
-        {{projectImages.map((file, index) => {
-          if (projectFiles.includes(file)) {
-            return (
-              <div key={index} className='grid image-checkbox-list'>
-                <label className='image-checkbox-label'>{file}</label>
-                <div>
-                  <!-- <mat-form-field> -->
-                    <input
-                      matInput
-                      type='checkbox'
-                      name='image'
-                      [(ngModel)]='fileInput'
-                      (change)='projectSet(fileInput, e.target.checked)'
-                      checked
-                    />
-                  <!-- </mat-form-field> -->
-                </div>
-                <div>
-                  <!-- <mat-form-field> -->
-                    <input
-                      matInput
-                      type='radio'
-                      name='image'
-                      [(ngModel)]='primaryImage'
-                    />
-                  <!-- </mat-form-field> -->
-                </div>
-              </div>
-            );
-          } else {
-            return (
-              <div key={index} className='grid image-checkbox-list'>
-                <label className='image-checkbox-label'>{file}</label>
-                <div>
-                  <!-- <mat-form-field> -->
-                    <input
-                      matInput
-                      type='checkbox'
-                      name='image'
-                      [(ngModel)]='fileInput'
-                      (change)='projectSet(fileInput, e.target.checked)'
-                    />
-                  <!-- </mat-form-field> -->
-                </div>
-                <div>
-                  <!-- <mat-form-field> -->
-                    <input
-                      matInput
-                      type='radio'
-                      name='image'
-                      [(ngModel)]='primaryImage'
-                    />
-                  <!-- </mat-form-field> -->
-                </div>
-              </div>
-            );
-          }
-        })}}
+        <div className='grid image-checkbox-list' *ngFor="let file of projectImages">
+          <div *ngIf="projectFiles.includes(file)">
+            <label className='image-checkbox-label'>{{file}}</label>
+            <div>
+              <!-- <mat-form-field> -->
+                <input
+                  matInput
+                  type='checkbox'
+                  name='image'
+                  [(ngModel)]='fileInput'
+                  (change)='projectSet(fileInput, e.target.checked)'
+                  checked
+                />
+              <!-- </mat-form-field> -->
+            </div>
+            <div>
+              <!-- <mat-form-field> -->
+                <input
+                  matInput
+                  type='radio'
+                  name='image'
+                  [(ngModel)]='primaryImage'
+                />
+              <!-- </mat-form-field> -->
+            </div>
+          </div>
+          <div *ngIf="!projectFiles.includes(file)">
+            <label className='image-checkbox-label'>{{file}}</label>
+            <div>
+              <!-- <mat-form-field> -->
+                <input
+                  matInput
+                  type='checkbox'
+                  name='image'
+                  [(ngModel)]='fileInput'
+                  (change)='projectSet(fileInput, e.target.checked)'
+                />
+              <!-- </mat-form-field> -->
+            </div>
+            <div>
+              <!-- <mat-form-field> -->
+                <input
+                  matInput
+                  type='radio'
+                  name='image'
+                  [(ngModel)]='primaryImage'
+                />
+              <!-- </mat-form-field> -->
+            </div>
+          </div>
       </div>
     </div>
     <div className='grid tech-grid'>
@@ -90,44 +82,37 @@
         </div>
       </div>
       <div>
-        {{skills.map((skill, index) => {
-          if (projectSkills.includes(skill)) {
-            return (
-              <div key={index} className='grid tech-checkbox-list'>
-                <label className='tech-checkbox-label'>{skill}</label>
-                <div>
-                  <!-- <mat-form-field> -->
-                    <input
-                      matInput
-                      type='checkbox'
-                      name='skill'
-                      [(ngModel)]='skillInput'
-                      (change)='skillSet(skillInput, e.target.checked)'
-                      checked
-                    />
-                  <!-- </mat-form-field> -->
-                </div>
+        <div className='grid tech-checkbox-list' *ngFor="let skill of skills">
+          <div *ngIf="projectSkills.includes(skill)">
+            <label className='tech-checkbox-label'>{{skill}}</label>
+            <div>
+              <!-- <mat-form-field> -->
+                <input
+                  matInput
+                  type='checkbox'
+                  name='skill'
+                  [(ngModel)]='skillInput'
+                  (change)='skillSet(skillInput, e.target.checked)'
+                  checked
+                />
+              <!-- </mat-form-field> -->
+            </div>
+          </div>
+            <div *ngIf="!projectSkills.includes(skill)">
+              <label className='tech-checkbox-label'>{{skill}}</label>
+              <div>
+                <!-- <mat-form-field> -->
+                  <input
+                    matInput
+                    type='checkbox'
+                    name='skill'
+                    [(ngModel)]='skillInput'
+                    (change)='creskillSetateList(skillInput, e.target.checked)'
+                  />
+                <!-- </mat-form-field> -->
               </div>
-            );
-          } else {
-            return (
-              <div key={index} className='grid tech-checkbox-list'>
-                <label className='tech-checkbox-label'>{skill}</label>
-                <div>
-                  <!-- <mat-form-field> -->
-                    <input
-                      matInput
-                      type='checkbox'
-                      name='skill'
-                      [(ngModel)]='skillInput'
-                      (change)='creskillSetateList(skillInput, e.target.checked)'
-                    />
-                  <!-- </mat-form-field> -->
-                </div>
-              </div>
-            );
-          }
-        })}}
+            </div>
+        </div>
       </div>
     </div>
   </div>

@@ -21,34 +21,30 @@
         </div>
       </div>
       <div>
-        {{projectImages.map((image, index) => {
-          return (
-            <div key={index} className='grid image-checkbox-list'>
-              <label className='image-checkbox-label'>{image}</label>
-              <div>
-                <!-- <mat-form-field> -->
-                  <input
-                    matInput
-                    type='checkbox'
-                    name='image'
-                    [(ngModel)]='skillInput'
-                    (change)='projectSet(e.target.checked)'
-                  />
-                <!-- </mat-form-field> -->
-              </div>
-              <div>
-                <!-- <mat-form-field> -->
-                  <input
-                    matInput
-                    type='radio'
-                    name='image'
-                    [(ngModel)]='primaryImage'
-                  />
-                <!-- </mat-form-field> -->
-              </div>
-            </div>
-          );
-        })}}
+        <div className='grid image-checkbox-list' *ngFor="let image of projectImages">
+          <label className='image-checkbox-label'>{{image}}</label>
+          <div>
+            <!-- <mat-form-field> -->
+              <input
+                matInput
+                type='checkbox'
+                name='image'
+                [(ngModel)]='skillInput'
+                (change)='projectSet(e.target.checked)'
+              />
+            <!-- </mat-form-field> -->
+          </div>
+          <div>
+            <!-- <mat-form-field> -->
+              <input
+                matInput
+                type='radio'
+                name='image'
+                [(ngModel)]='primaryImage'
+              />
+            <!-- </mat-form-field> -->
+          </div>
+        </div>
       </div>
     </div>
     <div className='grid tech-grid'>
@@ -60,24 +56,20 @@
         </div>
       </div>
       <div>
-        {{skills.map((skill, index) => {
-          return (
-            <div key={index} className='grid tech-checkbox-list'>
-              <label className='tech-checkbox-label'>{skill}</label>
-              <div>
-                <!-- <mat-form-field> -->
-                  <input
-                    matInput
-                    type='checkbox'
-                    name='skill'
-                    [(ngModel)]='skillInput'
-                    (change)='skillSet(e.target.checked)'
-                  />
-                <!-- </mat-form-field> -->
-              </div>
-            </div>
-          );
-        })}}
+        <div className='grid tech-checkbox-list' *ngFor="let skill of skills">
+          <label className='tech-checkbox-label'>{{skill}}</label>
+          <div>
+            <!-- <mat-form-field> -->
+              <input
+                matInput
+                type='checkbox'
+                name='skill'
+                [(ngModel)]='skillInput'
+                (change)='skillSet(e.target.checked)'
+              />
+            <!-- </mat-form-field> -->
+          </div>
+        </div>
       </div>
     </div>
   </div>

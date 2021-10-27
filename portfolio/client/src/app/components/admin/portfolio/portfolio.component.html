@@ -25,19 +25,15 @@
       <button (click)='displayCreateModal'>CREATE</button>
       <div className='grid skill-filters'>
         <div className={filterButtons}>
-          {{skills.map((skill, index) => {
-            // if(filter){
-            return (
-              <button
-                className='skill'
-                key={index}
-                (click)='filterProjects()'
-              >
-                {skill}
-              </button>
-            );
-            // }
-          })}}
+          <div *ngFor="let skill of skills">
+            <button
+              className='skill'
+              *ngIf="filter"
+              (click)='filterProjects()'
+            >
+              {{skill}}
+            </button>
+          </div>
         </div>
         <img
           className='filter-icon'
@@ -47,61 +43,48 @@
       </div>
     </div>
     <div className='portfolio-thumbnail-div'>
-      {{filteredThumbnails.map((thumbnail, thumbnailIndex) => {
-        return (
-          <div key={thumbnailIndex}>
-            <div className='project-buttons'>
-              <button
-              (click)='displayUpdateModal()'
-              >
-                UPDATE
-              </button>
-              <button
-                (click)='displayDeleteModal()'
-              >
-                DELETE
-              </button>
-            </div>
-            <div
-              className='portfolio-item-div'
-              key={thumbnailIndex}
-              (click)='history.push(`/admin/portfolio/${thumbnail.project}`)'
-            >
-              <div className='portfolio-project'>
-                <img
-                  className='project-thumbnail'
-                  src={thumbnail.module.default}
-                />
-                <div className='thumbnail-overlay thumbnail-overlay--blur'>
-                  <div className='thumbnail-title-div'>
-                    {titles[thumbnailIndex].toLowerCase()}
-                  </div>
-                  <div className='grid buttons-div'>
-                    <div className='tech-used'>
-                      {technology.map((tech, techIndex) => {
-                        if (thumbnailIndex === techIndex) {
-                          return (
-                            <div
-                              className='grid project-tech'
-                              key={techIndex}
-                            >
-                              {tech[titles[techIndex]][0].map(
-                                (t, index) => {
-                                  return <button key={index}>{t}</button>;
-                                }
-                              )}
-                            </div>
-                          );
-                        }
-                      })}
+      <div *ngFor="let thumbnail of filteredThumbnails">
+        <div className='project-buttons'>
+          <button
+          (click)='displayUpdateModal()'
+          >
+            UPDATE
+          </button>
+          <button
+            (click)='displayDeleteModal()'
+          >
+            DELETE
+          </button>
+        </div>
+        <div
+          className='portfolio-item-div'
+          (click)='history.push(`/admin/portfolio/${thumbnail.project}`)'
+        >
+          <div className='portfolio-project'>
+            <img
+              className='project-thumbnail'
+              src={{thumbnail.module.default}}
+            />
+            <div className='thumbnail-overlay thumbnail-overlay--blur'>
+              <div className='thumbnail-title-div'>
+                {{titles[thumbnailIndex].toLowerCase()}}
+              </div>
+              <div className='grid buttons-div'>
+                <div className='tech-used'>
+                  <div
+                    className='grid project-tech'
+                    *ngFor="let tech of technology"
+                  >
+                    <div *ngIf="thumbnailIndex === techIndex">
+                      <button *ngFor="let t of tech[titles[techIndex]][0]">{{t}}</button>;
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        );
-      })}}
+        </div>
+      </div>
     </div>
   </div>
   <app-footer></app-footer>

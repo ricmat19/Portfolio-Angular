@@ -26,13 +26,9 @@
         </div>
       </div>
       <div className='grid project-tech-div'>
-        {{techs.map((tech, index) => {
-          return (
-            <button key={index} className='tech-label'>
-              {tech}
-            </button>
-          );
-        })}}
+        <button className='tech-label' *ngFor="let tech of techs">
+          {{tech}}
+        </button>
       </div>
       <div className='text-content-container'>
         <div className='info-container'>

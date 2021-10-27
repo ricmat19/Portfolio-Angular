@@ -56,9 +56,7 @@
       <option disabled selected>
         Select an Icon...
       </option>
-      {{icons.map((icon, index) => {
-        return <option key={index}>{icon}</option>;
-      })}}
+      <option *ngFor="let icon of icons">{{icon}}</option>;
     </select>
   </div>
   <div>
