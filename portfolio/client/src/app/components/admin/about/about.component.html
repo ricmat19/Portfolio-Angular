@@ -13,7 +13,7 @@
     <div className='about-content-div'>
       <div className='profile-div'>
         <div className='profile-image-div'>
-          <img className='profile-image' src='../images/about-image.jpg' />
+          <img className='profile-image' src='../../../../assets/images/about-image.jpg' />
         </div>
         <div className='info-div'>
           <p>
@@ -37,17 +37,17 @@
         </div>
       </div>
       <div className='skills-category-container-div'>
-        <div className='create-skill-div'>
+        <!-- <div className='create-skill-div'>
           <button (click)='displaySkillModal'>CREATE</button>
-        </div>
+        </div> -->
         <div className='skill-category-div'>
           <div className='sub-title'>MARKUP</div>
           <div className='skill-div'>
               <div *ngFor="let skill of skills">
-                <div *ngIf="skill.category === 'MARKUP'">
+                <!-- <div *ngIf="skill.category === 'MARKUP'">
                   <img className='icon' src={{skill.iconImage.default}} />
                   <div className='icon-label'>{{skill.skill}}</div>
-                </div>
+                </div> -->
               </div>
           </div>
         </div>
@@ -55,10 +55,10 @@
           <div className='sub-title'>STYLE</div>
           <div className='skill-div'>
               <div *ngFor="let skill of skills">
-                <div *ngIf="skill.category === 'STYLE'">
+                <!-- <div *ngIf="skill.category === 'STYLE'">
                   <img className='icon' src={{skill.iconImage.default}} />
                   <div className='icon-label'>{{skill.skill}}</div>
-                </div>
+                </div> -->
               </div>
           </div>
         </div>
@@ -66,10 +66,10 @@
           <div className='sub-title'>FRONTEND</div>
           <div className='skill-div'>
               <div *ngFor="let skill of skills">
-                <div *ngIf="skill.category === 'FRONTEND'">
+                <!-- <div *ngIf="skill.category === 'FRONTEND'">
                   <img className='icon' src={{skill.iconImage.default}} />
                   <div className='icon-label'>{{skill.skill}}</div>
-                </div>
+                </div> -->
               </div>
           </div>
         </div>
@@ -77,10 +77,10 @@
           <div className='sub-title'>BACKEND</div>
           <div className='skill-div'>
               <div *ngFor="let skill of skills">
-                <div *ngIf="skill.category === 'BACKEND'">
+                <!-- <div *ngIf="skill.category === 'BACKEND'">
                   <img className='icon' src={{skill.iconImage.default}} />
                   <div className='icon-label'>{{skill.skill}}</div>
-                </div>
+                </div> -->
               </div>
           </div>
         </div>
@@ -88,10 +88,10 @@
           <div className='sub-title'>DATABASE</div>
           <div className='skill-div'>
             <div *ngFor="let skill of skills">
-              <div *ngIf="skill.category === 'DATABASE'">
+              <!-- <div *ngIf="skill.category === 'DATABASE'">
                 <img className='icon' src={{skill.iconImage.default}} />
                 <div className='icon-label'>{{skill.skill}}</div>
-              </div>
+              </div> -->
             </div>
           </div>
         </div>
@@ -99,10 +99,10 @@
           <div className='sub-title'>OTHER</div>
           <div className='skill-div'>
             <div *ngFor="let skill of skills">
-              <div *ngIf="skill.category === 'OTHER'">
+              <!-- <div *ngIf="skill.category === 'OTHER'">
                 <img className='icon' src={{skill.iconImage.default}} />
                 <div className='icon-label'>{{skill.skill}}</div>
-              </div>
+              </div> -->
             </div>
           </div>
         </div>

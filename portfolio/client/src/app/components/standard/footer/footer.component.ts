@@ -8,11 +8,3 @@ import { Component } from "@angular/core";
 export class FooterComponent{
 
 }
-
-// const FooterC = () => {
-//   return (
-
-//   );
-// };
-
-// export default FooterC;

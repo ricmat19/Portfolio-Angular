@@ -1,49 +1,49 @@
-<div className='main'>
+<div class='main'>
   <app-header></app-header>
-  <div className='container'>
-    <div className='title-div'>
-      <p className='title'>portfolio</p>
+  <div class='container'>
+    <div class='title-div'>
+      <p class='title'>portfolio</p>
     </div>
-    <div className='create-project-div'>
-      <div className='grid skill-filters'>
-        <div className={filterButtons}>
+    <div class='create-project-div'>
+      <div class='grid skill-filters'>
+        <div class={filterButtons}>
           <div *ngFor="let skill of skills">
-            <button
-              className='skill'
+            <!-- <button
+              class='skill'
               *ngIf="filter"
               (click)='filterProjects(skill)'
             >
               {{skill}}
-            </button>
+            </button> -->
           </div>
         </div>
         <img
-          className='filter-icon'
-          src='../../images/filter-solid.svg'
+          class='filter-icon'
+          src='../../../../assets/images/filter-solid.svg'
           (click)='displayFilter()'
         />
       </div>
     </div>
-    <div className='portfolio-thumbnail-div'>
-      <div *ngFor="let thumbnail of filteredThumbnails">
+    <div class='portfolio-thumbnail-div'>
+      <!-- <div *ngFor="let thumbnail of filteredThumbnails">
         <div
-          className='portfolio-item-div'
+          class='portfolio-item-div'
           key={thumbnailIndex}
           (click)='history.push(`/portfolio/${{thumbnail.project}}`)'
         >
-          <div className='portfolio-project'>
+          <div class='portfolio-project'>
             <img
-              className='project-thumbnail'
+              class='project-thumbnail'
               src={thumbnail.module.default}
             />
-            <div className='thumbnail-overlay thumbnail-overlay--blur'>
-              <div className='thumbnail-title-div'>
+            <div class='thumbnail-overlay thumbnail-overlay--blur'>
+              <div class='thumbnail-title-div'>
                 {{titles[thumbnailIndex].toLowerCase()}}
               </div>
-              <div className='grid buttons-div'>
-                <div className='tech-used'>
+              <div class='grid buttons-div'>
+                <div class='tech-used'>
                   <div
-                    className='grid project-tech'
+                    class='grid project-tech'
                     *ngFor="let tech of technology"
                   >
                     <div *ngIf="thumbnailIndex === techIndex">
@@ -54,9 +54,8 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
-    </div>
   </div>
   <app-footer></app-footer>
 </div>

@@ -1,5 +1,6 @@
 
 import { Component } from "@angular/core";
+// import IndexAPI from "../../../../apis/indexAPI";
 
 @Component({
   selector: 'app-delete-project',
@@ -8,45 +9,22 @@ import { Component } from "@angular/core";
 
 export class AdminDeleteProjectComponent{
 
-  title = 'props.title';
+  title = '';
 
   constructor(){
     try {
-      this.title = 'props.title';
+      this.title;
     } catch (err) {
       console.log(err);
     }
   }
 
-  deleteProject = async (title) => {
-    try {
-      await IndexAPI.delete(`/admin/portfolio/${title}/delete`);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  // deleteProject = async (title) => {
+  //   try {
+  //     await IndexAPI.delete(`/admin/portfolio/${title}/delete`);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
 }
-
-// import IndexAPI from "../../../../apis/indexAPI";
-// import PropTypes from "prop-types";
-
-// const DeleteC = (props) => {
-
-//   useEffect(() => {
-//     const fetchData = async () => {
-//
-//     };
-//     fetchData();
-//   }, [props, title]);
-
-//   return (
-
-//   );
-// };
-
-// DeleteC.propTypes = {
-//   title: PropTypes.string,
-// };
-
-// export default DeleteC;

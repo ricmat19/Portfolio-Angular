@@ -3,9 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatInputModule } from '@angular/material/input';
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
 
 import { AppComponent } from './app.component';
 import { AdminAboutComponent } from './components/admin/about/about.component';
@@ -20,8 +17,8 @@ import { HeaderComponent } from './components/standard/header/header.component';
 import { LeftArrowComponent } from './components/standard/left-arrow/left-arrow.component';
 import { RightArrowComponent } from './components/standard/right-arrow/right-arrow.component';
 import { AboutComponent } from './components/user/about/about.component';
-import { ContactComponent } from './components/user/contact/contact.component';
-import { HomeComponent } from './components/user/home/home.component';
+import { ContactComponent } from './components/standard/contact/contact.component';
+import { HomeComponent } from './components/standard/home/home.component';
 import { PortfolioComponent } from './components/user/portfolio/portfolio.component';
 import { ProjectDetailsComponent } from './components/user/project-details/project-details.component';
 
@@ -49,10 +46,7 @@ import { ProjectDetailsComponent } from './components/user/project-details/proje
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    BrowserAnimationsModule,
-    MatInputModule,
-    MatCardModule,
-    MatButtonModule
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

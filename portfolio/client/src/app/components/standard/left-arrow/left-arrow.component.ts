@@ -8,11 +8,3 @@ import { Component } from "@angular/core";
 export class LeftArrowComponent{
 
 }
-
-// const LeftArrowC = () => {
-//   return (
-
-//   );
-// };
-
-// export default LeftArrowC;

@@ -1,81 +1,73 @@
-<div className='grid add-project-modal'>
-  <div className='grid toDo-modal-grid'>
+<div class='grid add-project-modal'>
+  <div class='grid toDo-modal-grid'>
     <label>TITLE</label>
-    <!-- <mat-form-field> -->
       <input
         matInput
         type='text'
         name='project_title'
         [(ngModel)]='titleInput'
       />
-    <!-- </mat-form-field> -->
   </div>
-  <div className='grid project-creation-checkbox-div'>
-    <div className='grid thumbnail-checkbox-div'>
+  <div class='grid project-creation-checkbox-div'>
+    <div class='grid thumbnail-checkbox-div'>
       <div>
         <label>THUMBNAIL</label>
-        <div className='grid image-checkbox-list'>
-          <label className='image-checkbox-label'></label>
-          <label className='image-checkbox-label'>Selection</label>
-          <label className='image-checkbox-label'>Primary</label>
+        <div class='grid image-checkbox-list'>
+          <label class='image-checkbox-label'></label>
+          <label class='image-checkbox-label'>Selection</label>
+          <label class='image-checkbox-label'>Primary</label>
         </div>
       </div>
       <div>
-        <div className='grid image-checkbox-list' *ngFor="let image of projectImages">
-          <label className='image-checkbox-label'>{{image}}</label>
+        <div class='grid image-checkbox-list' *ngFor="let image of projectImages">
+          <label class='image-checkbox-label'>{{image}}</label>
           <div>
-            <!-- <mat-form-field> -->
-              <input
+              <!-- <input
                 matInput
                 type='checkbox'
                 name='image'
                 [(ngModel)]='skillInput'
                 (change)='projectSet(e.target.checked)'
-              />
-            <!-- </mat-form-field> -->
+              /> -->
           </div>
           <div>
-            <!-- <mat-form-field> -->
               <input
                 matInput
                 type='radio'
                 name='image'
                 [(ngModel)]='primaryImage'
               />
-            <!-- </mat-form-field> -->
           </div>
         </div>
       </div>
     </div>
-    <div className='grid tech-grid'>
+    <div class='grid tech-grid'>
       <div>
         <label>TECH</label>
-        <div className='grid tech-checkbox-list'>
-          <label className='image-checkbox-label'></label>
-          <label className='image-checkbox-label'>Selection</label>
+        <div class='grid tech-checkbox-list'>
+          <label class='image-checkbox-label'></label>
+          <label class='image-checkbox-label'>Selection</label>
         </div>
       </div>
       <div>
-        <div className='grid tech-checkbox-list' *ngFor="let skill of skills">
-          <label className='tech-checkbox-label'>{{skill}}</label>
+        <div class='grid tech-checkbox-list' *ngFor="let skill of skills">
+          <label class='tech-checkbox-label'>{{skill}}</label>
           <div>
-            <!-- <mat-form-field> -->
-              <input
+              <!-- <input
                 matInput
                 type='checkbox'
                 name='skill'
                 [(ngModel)]='skillInput'
                 (change)='skillSet(e.target.checked)'
-              />
-            <!-- </mat-form-field> -->
+              /> -->
           </div>
         </div>
       </div>
     </div>
   </div>
   <div>
-    <button className='form-button' type='submit' (click)='createProject'>
+    <!-- <button class='form-button' type='submit' (click)='createProject'>
       CREATE
-    </button>
+    </button> -->
   </div>
 </div>

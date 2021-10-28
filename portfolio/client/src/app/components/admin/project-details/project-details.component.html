@@ -1,19 +1,19 @@
-<div className='main'>
+<div class='main'>
   <app-header></app-header>
-  <div className='project-details-container'>
-    <div className='title-div'>
-      <p className='title'>{title}</p>
+  <div class='project-details-container'>
+    <div class='title-div'>
+      <p class='title'>{{title}}</p>
     </div>
-    <div className='grid project-details'>
-      <div className='grid slider-div'>
-        <div className='slider-arrow' (click)='slideThumbnailLeft()'>
-          <LeftArrowC />
+    <div class='grid project-details'>
+      <div class='grid slider-div'>
+        <div class='slider-arrow' (click)='slideThumbnailLeft()'>
+          <app-left-arrow></app-left-arrow>
         </div>
-        <div className='grid project-slide-div'>
+        <div class='grid project-slide-div'>
           {{thumbnails[0] !== undefined ? (
-            <div className='grid image-container'>
+            <div class='grid image-container'>
               <img
-                className='grid project-image'
+                class='grid project-image'
                 src={thumbnails[thumbnailIndex].default}
               />
             </div>
@@ -21,19 +21,19 @@
             ''
           )}}
         </div>
-        <div className='slider-arrow' (click)='slideThumbnailRight()'>
-          <RightArrowC />
+        <div class='slider-arrow' (click)='slideThumbnailRight()'>
+          <app-right-arrow></app-right-arrow>
         </div>
       </div>
-      <div className='grid project-tech-div'>
-        <button className='tech-label' *ngFor="let tech of techs">
-          {{tech}}
+      <div class='grid project-tech-div'>
+        <button class='tech-label' *ngFor="let t of tech">
+          {{t}}
         </button>
       </div>
-      <div className='text-content-container'>
-        <div className='info-container'>
-          <div className='sub-title'>about the project</div>
-          <div className='info-div'>
+      <div class='text-content-container'>
+        <div class='info-container'>
+          <div class='sub-title'>about the project</div>
+          <div class='info-div'>
             <p>
               Lorem ipsum dolor sit, amet consectetur adipisicing elit.
               Explicabo itaque nulla deleniti aperiam animi rerum atque
@@ -64,12 +64,12 @@
             </p>
           </div>
         </div>
-        <div className='resource-container'>
-          <div className='sub-title'>Resources</div>
-          <div className='resources-div'>
+        <div class='resource-container'>
+          <div class='sub-title'>Resources</div>
+          <div class='resources-div'>
             <ul>
               <li>
-                <span className='project-resource'>
+                <span class='project-resource'>
                   <a href={githubLink} target='_blank' rel='noreferrer'>
                     Github
                   </a>
