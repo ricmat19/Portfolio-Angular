@@ -1,5 +1,6 @@
 import { ArrayType } from "@angular/compiler";
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
+import { AppServiceService } from "src/app/app-service.service";
 // import IndexAPI from "../../../../apis/indexAPI";
 // import HeaderC from "../../header.component";
 // import FooterC from "../../footer.component";
@@ -12,7 +13,7 @@ import { Component } from "@angular/core";
   templateUrl: './portfolio.component.html'
 })
 
-export class AdminPortfolioComponent{
+export class AdminPortfolioComponent implements OnInit{
 
   createModalState = 'modal';
   updateModalState = 'modal';
@@ -38,7 +39,7 @@ export class AdminPortfolioComponent{
 
   tempObject = {};
 
-  constructor(){
+  constructor(private service: AppServiceService){
     // function importAll(projects) {
     //   let images = {};
     //   projects.keys().forEach((index) => {
@@ -196,6 +197,9 @@ export class AdminPortfolioComponent{
     } catch (err) {
       console.log(err);
     }
+  }
+  ngOnInit(): void {
+    throw new Error("Method not implemented.");
   }
 
   // displayCreateModal = () => {
