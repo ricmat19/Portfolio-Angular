@@ -37,18 +37,23 @@ export interface Skill {
 export class AdminAboutComponent{
 
   newSkill = '';
-  skills = [];
+  skills: any[] = [];
   skillModalState = 'modal';
 
   constructor(private http: HttpClient){}
 
   ngOnInit(){
     this.getSkills()
+
+    document.addEventListener("mousedown", (event) => {
+      this.skillModalState = 'modal';
+    });
+
   }
 
   getSkills(){
     return this.http.get<any>(`http://localhost:3000/skills`).subscribe((res) => {
-        this.skills = res;
+        this.skills = res.results;
         console.log(this.skills)
       }, (err) => {
         console.log(err)
@@ -56,44 +61,8 @@ export class AdminAboutComponent{
     );
   }
 
-//       try {
+  displaySkillModal = () => {
+    this.skillModalState = 'modal modal-active';
+  }
 
-//         function importAll(icons) {
-//           let images = {};
-//           icons.keys().forEach((icon) => {
-//             images[icon.replace("./", "")] = icons(icon);
-//           });
-//           return images;
-//         }
-//         importAll(require.context("../../images/skills"));
-
-//         document.addEventListener("mousedown", (event) => {
-//           this.skillModalState = 'modal';
-//         });
-
-//         //Get all skills from DB
-//         const skills = await IndexAPI.get(`/skills`);
-//         const skillArray = [];
-//         for (let i = 0; i < skills.data.results.length; i++) {
-//           skills.data.results[i].iconImage =
-//             skillIcons[skills.data.results[i].icon];
-//           skillArray.push(skills.data.results[i]);
-//         }
-//         skillArray.sort(function (a, b) {
-//           return a.ranking - b.ranking;
-//         });
-//         skills.push(skillArray);
-//       } catch (err) {
-//         console.log(err);
-//       }
-
-//     };
-
-//     displaySkillModal = () => {
-//       this.skillModalState = 'modal modal-active';
-//     }
-
-//   }
-
-// }
 }

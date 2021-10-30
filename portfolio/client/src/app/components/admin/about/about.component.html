@@ -1,21 +1,16 @@
-<div className='main'>
+<div class='main'>
   <app-header></app-header>
-  <div className={{skillModalState}}>
-    <div className='modal-content'>
-      <app-add-skill></app-add-skill>
-    </div>
-  </div>
 
-  <div className='container'>
-    <div className='title-div'>
-      <p className='title'>about</p>
+  <div class='container'>
+    <div class='title-div'>
+      <p class='title'>about</p>
     </div>
-    <div className='about-content-div'>
-      <div className='profile-div'>
-        <div className='profile-image-div'>
-          <img className='profile-image' src='../../../../assets/images/about-image.jpg' />
+    <div class='about-content-div'>
+      <div class='profile-div'>
+        <div class='profile-image-div'>
+          <img class='profile-image' src='../../../../assets/images/about-image.jpg' />
         </div>
-        <div className='info-div'>
+        <div class='info-div'>
           <p>
             Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quas
             doloribus saepe, incidunt unde atque adipisci sint dignissimos
@@ -36,73 +31,71 @@
           </p>
         </div>
       </div>
-      <div className='skills-category-container-div'>
-        <!-- <div className='create-skill-div'>
+      <div class='skills-category-container-div'>
+        <div className='create-skill-div'>
           <button (click)='displaySkillModal'>CREATE</button>
-        </div> -->
-        <div className='skill-category-div'>
-          <div className='sub-title'>MARKUP</div>
-          <div className='skill-div'>
-              <div *ngFor="let skill of skills">
-                <!-- <div *ngIf="skill.category === 'MARKUP'">
-                  <img className='icon' src={{skill.iconImage.default}} />
-                  <div className='icon-label'>{{skill.skill}}</div>
-                </div> -->
-              </div>
-          </div>
         </div>
-        <div className='skill-category-div'>
-          <div className='sub-title'>STYLE</div>
-          <div className='skill-div'>
-              <div *ngFor="let skill of skills">
-                <!-- <div *ngIf="skill.category === 'STYLE'">
-                  <img className='icon' src={{skill.iconImage.default}} />
-                  <div className='icon-label'>{{skill.skill}}</div>
-                </div> -->
-              </div>
-          </div>
-        </div>
-        <div className='skill-category-div'>
-          <div className='sub-title'>FRONTEND</div>
-          <div className='skill-div'>
-              <div *ngFor="let skill of skills">
-                <!-- <div *ngIf="skill.category === 'FRONTEND'">
-                  <img className='icon' src={{skill.iconImage.default}} />
-                  <div className='icon-label'>{{skill.skill}}</div>
-                </div> -->
-              </div>
-          </div>
-        </div>
-        <div className='skill-category-div'>
-          <div className='sub-title'>BACKEND</div>
-          <div className='skill-div'>
-              <div *ngFor="let skill of skills">
-                <!-- <div *ngIf="skill.category === 'BACKEND'">
-                  <img className='icon' src={{skill.iconImage.default}} />
-                  <div className='icon-label'>{{skill.skill}}</div>
-                </div> -->
-              </div>
-          </div>
-        </div>
-        <div className='skill-category-div'>
-          <div className='sub-title'>DATABASE</div>
-          <div className='skill-div'>
+        <div class='skill-category-div'>
+          <div class='sub-title'>MARKUP</div>
+          <div class='skill-div'>
             <div *ngFor="let skill of skills">
-              <!-- <div *ngIf="skill.category === 'DATABASE'">
-                <img className='icon' src={{skill.iconImage.default}} />
-                <div className='icon-label'>{{skill.skill}}</div>
-              </div> -->
+              <div *ngIf="skill.category === 'MARKUP'">
+                <img class='icon' src="{{'../../../../assets/images/skills/' + skill.icon}}"/>
+                <div class='icon-label'>{{skill.skill}}</div>
+              </div>
             </div>
           </div>
         </div>
-        <div className='skill-category-div'>
-          <div className='sub-title'>OTHER</div>
-          <div className='skill-div'>
+        <div class='skill-category-div'>
+          <div class='sub-title'>STYLE</div>
+            <div *ngFor="let skill of skills" class='skill-div'>
+              <div *ngIf="skill.category === 'STYLE'">
+                <img class='icon' src="{{'../../../../assets/images/skills/' + skill.icon}}"/>
+                <div class='icon-label'>{{skill.skill}}</div>
+              </div>
+            </div>
+        </div>
+        <div class='skill-category-div'>
+          <div class='sub-title'>FRONTEND</div>
+          <div class='skill-div'>
             <div *ngFor="let skill of skills">
-              <!-- <div *ngIf="skill.category === 'OTHER'">
-                <img className='icon' src={{skill.iconImage.default}} />
-                <div className='icon-label'>{{skill.skill}}</div>
-              </div> -->
+              <div *ngIf="skill.category === 'FRONTEND'">
+                <img class='icon' src="{{'../../../../assets/images/skills/' + skill.icon}}"/>
+                <div class='icon-label'>{{skill.skill}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class='skill-category-div'>
+          <div class='sub-title'>BACKEND</div>
+          <div class='skill-div'>
+            <div *ngFor="let skill of skills">
+              <div *ngIf="skill.category === 'BACKEND'">
+                <img class='icon' src="{{'../../../../assets/images/skills/' + skill.icon}}"/>
+                <div class='icon-label'>{{skill.skill}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class='skill-category-div'>
+          <div class='sub-title'>DATABASE</div>
+          <div class='skill-div'>
+            <div *ngFor="let skill of skills">
+              <div *ngIf="skill.category === 'DATABASE'">
+                <img class='icon' src="{{'../../../../assets/images/skills/' + skill.icon}}"/>
+                <div class='icon-label'>{{skill.skill}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class='skill-category-div'>
+          <div class='sub-title'>OTHER</div>
+          <div class='skill-div'>
+            <div *ngFor="let skill of skills">
+              <div *ngIf="skill.category === 'OTHER'">
+                <img class='icon' src="{{'../../../../assets/images/skills/' + skill.icon}}"/>
+                <div class='icon-label'>{{skill.skill}}</div>
+              </div>
             </div>
           </div>
         </div>

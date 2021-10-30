@@ -28,19 +28,19 @@ export class AdminAddSkillComponent{
 
   constructor(private http: HttpClient){}
 
-  ngOnInit(){
-    this.addSkill(this.categorySelection, this.skillInput, this.levelSelection, this.iconSelection, this.rankSelection)
-  }
+  // ngOnInit(){
+  //   this.addSkill(this.categorySelection, this.skillInput, this.levelSelection, this.iconSelection, this.rankSelection)
+  // }
 
-  addSkill(category: any, skill: any, level: any, icon: any, ranking: any){
-    return this.http.post(`http://localhost:3000/skill/add-skill`, [category, skill, level, icon, ranking]).subscribe((res) => {
-        this.skills = res;
-        console.log(this.skills)
-      }, (err) => {
-        console.log(err)
-      }
-    );
-  }
+  // addSkill(category: any, skill: any, level: any, icon: any, ranking: any){
+  //   return this.http.post(`http://localhost:3000/skill/add-skill`, [category, skill, level, icon, ranking]).subscribe((res) => {
+  //       this.skills = res;
+  //       console.log(this.skills)
+  //     }, (err) => {
+  //       console.log(err)
+  //     }
+  //   );
+  // }
 
   //   try {
 

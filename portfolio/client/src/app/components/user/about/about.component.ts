@@ -38,7 +38,7 @@ export interface Skill {
 export class AboutComponent{
 
   skill = '';
-  skills = [];
+  skills: any[] = [];
 
   constructor(private http: HttpClient){}
 
@@ -48,7 +48,7 @@ export class AboutComponent{
 
   getSkills(){
     return this.http.get<any>(`http://localhost:3000/skills`).subscribe((res) => {
-        this.skills = res;
+        this.skills = res.results;
         console.log(this.skills)
       }, (err) => {
         console.log(err)
@@ -56,30 +56,4 @@ export class AboutComponent{
     );
   }
 
-    // try {
-      // function importAll(icons) {
-      //   let images = {};
-      //   icons.keys().forEach((icon) => {
-      //     images[icon.replace("./", "")] = icons(icon);
-      //   });
-      //   return images;
-      // }
-      // const skillIcons = importAll(require.context("../images/skills"));
-      //   //Get all skills from DB
-      //   const skills = await IndexAPI.get(`/skills`);
-      //   const skillArray = [];
-      //   for (let i = 0; i < skills.data.results.length; i++) {
-      //     skills.data.results[i].iconImage =
-      //       skillIcons[skills.data.results[i].icon];
-      //     skillArray.push(skills.data.results[i]);
-      //   }
-      //   skillArray.sort(function (a, b) {
-      //     return a.ranking - b.ranking;
-      //   });
-      //   setSkills(skillArray);
-//       } catch (err) {
-//         console.log(err);
-//       }
-
-//   }
 }

@@ -36,32 +36,30 @@
           <div class='sub-title'>MARKUP</div>
           <div class='skill-div'>
             <div *ngFor="let skill of skills">
-              <!-- <div *ngIf="skill.category === 'MARKUP'">
-                <img class='icon' src={{skill.iconImage.default}} />
+              <div *ngIf="skill.category === 'MARKUP'">
+                <img class='icon' src="{{'../../../../assets/images/skills/' + skill.icon}}"/>
                 <div class='icon-label'>{{skill.skill}}</div>
-              </div> -->
+              </div>
             </div>
           </div>
         </div>
         <div class='skill-category-div'>
           <div class='sub-title'>STYLE</div>
-          <div class='skill-div'>
-            <div *ngFor="let skill of skills">
-              <!-- <div *ngIf="skill.category === 'STYLE'">
-                <img class='icon' src={{skill.iconImage.default}} />
+            <div *ngFor="let skill of skills" class='skill-div'>
+              <div *ngIf="skill.category === 'STYLE'">
+                <img class='icon' src="{{'../../../../assets/images/skills/' + skill.icon}}"/>
                 <div class='icon-label'>{{skill.skill}}</div>
-              </div> -->
+              </div>
             </div>
-          </div>
         </div>
         <div class='skill-category-div'>
           <div class='sub-title'>FRONTEND</div>
           <div class='skill-div'>
             <div *ngFor="let skill of skills">
-              <!-- <div *ngIf="skill.category === 'FRONTEND'">
-                <img class='icon' src={{skill.iconImage.default}} />
+              <div *ngIf="skill.category === 'FRONTEND'">
+                <img class='icon' src="{{'../../../../assets/images/skills/' + skill.icon}}"/>
                 <div class='icon-label'>{{skill.skill}}</div>
-              </div> -->
+              </div>
             </div>
           </div>
         </div>
@@ -69,10 +67,10 @@
           <div class='sub-title'>BACKEND</div>
           <div class='skill-div'>
             <div *ngFor="let skill of skills">
-              <!-- <div *ngIf="skill.category === 'BACKEND'">
-                <img class='icon' src={{skill.iconImage.default}} />
+              <div *ngIf="skill.category === 'BACKEND'">
+                <img class='icon' src="{{'../../../../assets/images/skills/' + skill.icon}}"/>
                 <div class='icon-label'>{{skill.skill}}</div>
-              </div> -->
+              </div>
             </div>
           </div>
         </div>
@@ -80,10 +78,10 @@
           <div class='sub-title'>DATABASE</div>
           <div class='skill-div'>
             <div *ngFor="let skill of skills">
-              <!-- <div *ngIf="skill.category === 'DATABASE'">
-                <img class='icon' src={{skill.iconImage.default}} />
+              <div *ngIf="skill.category === 'DATABASE'">
+                <img class='icon' src="{{'../../../../assets/images/skills/' + skill.icon}}"/>
                 <div class='icon-label'>{{skill.skill}}</div>
-              </div> -->
+              </div>
             </div>
           </div>
         </div>
@@ -91,10 +89,10 @@
           <div class='sub-title'>OTHER</div>
           <div class='skill-div'>
             <div *ngFor="let skill of skills">
-              <!-- <div *ngIf="skill.category === 'OTHER'">
-                <img class='icon' src={{skill.iconImage.default}} />
+              <div *ngIf="skill.category === 'OTHER'">
+                <img class='icon' src="{{'../../../../assets/images/skills/' + skill.icon}}"/>
                 <div class='icon-label'>{{skill.skill}}</div>
-              </div> -->
+              </div>
             </div>
           </div>
         </div>
