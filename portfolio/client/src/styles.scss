@@ -305,8 +305,7 @@ textarea {
 }
 
 .project-tech {
-  display: block;
-  grid-template-columns: repeat(auto-fit, minmax(50px, 100px));
+  grid-template-columns: repeat(auto-fill, minmax(50px, 100px));
   justify-content: center;
   align-content: center;
 }

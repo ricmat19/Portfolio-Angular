@@ -26,20 +26,19 @@
       <div class='grid skill-filters'>
         <div class={filterButtons}>
           <div *ngFor="let skill of skills">
-            <!-- <button
+            <button
               class='skill'
-              *ngIf="filter"
-              (click)='filterProjects()'
+              (click)='filterProjects(skill.skill)'
             >
               {{skill.skill}}
-            </button> -->
+            </button>
           </div>
         </div>
-        <!-- <img
+        <img
           class='filter-icon'
           src='../../../../assets/images/filter-solid.svg'
           (click)='displayFilter()'
-        /> -->
+        />
       </div>
     </div>
     <div class='portfolio-thumbnail-div'>
@@ -72,16 +71,15 @@
               <div class='thumbnail-title-div'>
                 {{thumbnail.project.toLowerCase()}}
               </div>
-              <div class='grid buttons-div'>
-                <div class='tech-used'>
-                  <div
-                    class='grid project-tech'
-                    *ngFor="let skill of projectSkills"
-                  >
-                    <!-- <div *ngIf="thumbnail.project === projectSkills"> -->
-                    <div>
-                      {{projectSkills}}
-                      <!-- <button *ngFor="let t of tech[titles[techIndex]][0]">{{t}}</button>; -->
+              <div class='buttons-div'>
+                <div class='tech-used project-tech'>
+                  <div class='grid project-tech' *ngFor="let project of projectSkills | keyvalue">
+                    <div *ngIf="project.key === thumbnail.project">
+                      <div class='grid project-tech'>
+                        <div *ngFor="let technology of project.value">
+                          <button>{{technology}}</button>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
