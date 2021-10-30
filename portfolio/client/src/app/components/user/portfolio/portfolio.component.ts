@@ -1,8 +1,34 @@
+import { HttpClient } from "@angular/common/http";
 import { Component } from "@angular/core";
 // import IndexAPI from "../../apis/indexAPI";
 // import HeaderC from "../../standard/header/header.component";
 // import FooterC from "../../standard/footer/footer.component";
 
+export interface Root {
+  status: string
+  results: Result[][]
+  data: Data
+}
+
+export interface Result {
+  id: number
+  project: string
+  technology: string
+  thumbnail: string
+  primary_image?: number
+}
+
+export interface Data {
+  skills: Skill[][]
+}
+
+export interface Skill {
+  id: number
+  project: string
+  technology: string
+  thumbnail: string
+  primary_image?: number
+}
 
 @Component({
   selector: 'app-portfolio',
@@ -21,9 +47,23 @@ export class PortfolioComponent{
   filterButtons = 'skill-buttons';
   filteredThumbnails = [];
 
-  constructor(){
+  constructor(private http: HttpClient){}
 
-    try {
+  ngOnInit(){
+    this.getProjects()
+  }
+
+  getProjects(){
+    return this.http.get<any>(`http://localhost:3000/projects`).subscribe((res) => {
+        this.projects = res;
+        console.log(this.projects)
+      }, (err) => {
+        console.log(err)
+      }
+    );
+  }
+
+    // try {
 
       // function importAll(projects) {
       //   let images = {};
@@ -163,23 +203,23 @@ export class PortfolioComponent{
       //   currentProjectTechArray.push(tempObject);
       // }
       // setTechnology(currentProjectTechArray);
-    } catch (err) {
-      console.log(err);
-    }
+    // } catch (err) {
+    //   console.log(err);
+    // }
 
   }
 
-  displayFilter = async () => {
-    try {
-      if (this.filterButtons === "skill-buttons") {
-        this.filterButtons = "skill-buttons skill-buttons-view";
-      } else {
-        this.filterButtons = "skill-buttons";
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  // displayFilter = async () => {
+  //   try {
+  //     if (this.filterButtons === "skill-buttons") {
+  //       this.filterButtons = "skill-buttons skill-buttons-view";
+  //     } else {
+  //       this.filterButtons = "skill-buttons";
+  //     }
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
   // filterProjects = async (skill) => {
   //   try {
@@ -207,4 +247,4 @@ export class PortfolioComponent{
     // }
   // };
 
-}
+// }

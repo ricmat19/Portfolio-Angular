@@ -1,9 +1,36 @@
+import { HttpClient } from "@angular/common/http";
 import { Component } from "@angular/core";
 // import IndexAPI from "../../../../apis/indexAPI";
 // import HeaderC from "../../header.component";
 // import FooterC from "../../footer.component";
 // import LeftArrowC from "../../left-arrow.component";
 // import RightArrowC from "../../right-arrow.component";
+
+export interface Root {
+  status: string
+  results: Result[][]
+  data: Data
+}
+
+export interface Result {
+  id: number
+  project: string
+  thumbnail: string
+  primary_image: number
+  technology: string
+}
+
+export interface Data {
+  project: Project[][]
+}
+
+export interface Project {
+  id: number
+  project: string
+  thumbnail: string
+  primary_image: number
+  technology: string
+}
 
 @Component({
   selector: 'app-project-details',
@@ -12,15 +39,28 @@ import { Component } from "@angular/core";
 
 export class AdminProjectDetailsComponent{
 
+  project = {};
   title = '';
   githubLink = '';
   thumbnails = [];
   thumbnailIndex = 0;
   tech = [];
 
-  constructor(){
+  constructor(private http: HttpClient){}
 
-    try {
+  ngOnInit(){
+      this.getProject(this.title)
+  }
+
+  getProject(title: any){
+    return this.http.get<any>(`http://localhost:3000/portfolio/${title}`).subscribe((res) => {
+        this.project = res;
+        console.log(this.project)
+      }, (err) => {
+        console.log(err)
+      }
+    );
+  }
 
       // function importAll(projects) {
       //   let images = {};
@@ -62,35 +102,30 @@ export class AdminProjectDetailsComponent{
       //   projectTechArray.push(project.data.results[0][i].technology);
       // }
       // setTechs(projectTechArray);
-    } catch (err) {
-      console.log(err);
-    }
   }
 
-  slideThumbnailLeft = async () => {
-    try {
-      if (this.thumbnailIndex === 0) {
-        this.thumbnails.length - 1;
-      } else {
-        let newThumbnail = this.thumbnailIndex - 1;
-        this.thumbnailIndex = newThumbnail;
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  // slideThumbnailLeft = async () => {
+  //   try {
+  //     if (this.thumbnailIndex === 0) {
+  //       this.thumbnails.length - 1;
+  //     } else {
+  //       let newThumbnail = this.thumbnailIndex - 1;
+  //       this.thumbnailIndex = newThumbnail;
+  //     }
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
-  slideThumbnailRight = async () => {
-    try {
-      if (this.thumbnailIndex === this.thumbnails.length - 1) {
-        this.thumbnailIndex = 0;
-      } else {
-        let newThumbnail = this.thumbnailIndex + 1;
-        this.thumbnailIndex = newThumbnail;
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-}
+  // slideThumbnailRight = async () => {
+  //   try {
+  //     if (this.thumbnailIndex === this.thumbnails.length - 1) {
+  //       this.thumbnailIndex = 0;
+  //     } else {
+  //       let newThumbnail = this.thumbnailIndex + 1;
+  //       this.thumbnailIndex = newThumbnail;
+  //     }
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };

@@ -41,6 +41,7 @@ export class AdminAddProjectComponent{
       }
     );
   }
+  
   //   try {
   //     //Get all skills from DB
   //     const skills = IndexAPI.get(`/skills`);

@@ -1,6 +1,13 @@
 import { Component } from "@angular/core";
 // import IndexAPI from "../../../../apis/indexAPI";
 
+export interface Project {
+  project: string,
+  thumbnails: string,
+  primaryImage: string,
+  projectTech: string,
+}
+
 @Component({
   selector: 'app-update-project',
   templateUrl: './update-project.component.html'
@@ -8,6 +15,7 @@ import { Component } from "@angular/core";
 
 export class AdminUpdateProjectComponent{
 
+  project = {};
   files = [];
   projectImages = [];
   projectFiles = [];
@@ -21,7 +29,19 @@ export class AdminUpdateProjectComponent{
   tech = [];
   oldTitle = '';
 
-  // constructor(){
+  // ngOnInit(){
+  //   this.updateProject(this.titleInput, this.projectFiles, this.primaryImage, this.projectSkills, this.oldTitle)
+  // }
+
+  // updateProject(title: any, projectFiles: any, primaryImage: any, projectSkills: any, oldTitle: any){
+  //   return this.http.push(`http://localhost:3000/projects/update-project`, [title, projectFiles, primaryImage, projectSkills, oldTitle]).subscribe((res) => {
+  //       this.project = res;
+  //       console.log(this.project)
+  //     }, (err) => {
+  //       console.log(err)
+  //     }
+  //   );
+  // }
 
   //   try{
 

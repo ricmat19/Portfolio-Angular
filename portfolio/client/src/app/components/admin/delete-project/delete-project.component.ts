@@ -1,4 +1,5 @@
 
+import { HttpClient } from "@angular/common/http";
 import { Component } from "@angular/core";
 // import IndexAPI from "../../../../apis/indexAPI";
 
@@ -11,20 +12,18 @@ export class AdminDeleteProjectComponent{
 
   title = '';
 
-  constructor(){
-    try {
-      this.title;
-    } catch (err) {
-      console.log(err);
-    }
+  constructor(private http: HttpClient){}
+
+  ngOnInit(){
+    this.deleteProject(this.title)
   }
 
-  // deleteProject = async (title) => {
-  //   try {
-  //     await IndexAPI.delete(`/admin/portfolio/${title}/delete`);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
+  deleteProject(title: any){
+    return this.http.delete(`http://localhost:3000/admin/portfolio/${title}/delete`).subscribe((res) => {
+      }, (err) => {
+        console.log(err)
+      }
+    );
+  }
 
 }

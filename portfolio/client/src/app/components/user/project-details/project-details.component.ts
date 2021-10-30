@@ -1,9 +1,36 @@
+import { HttpClient } from "@angular/common/http";
 import { Component } from "@angular/core";
 // import IndexAPI from "../../apis/indexAPI";
 // import HeaderC from "../../standard/header/header.component";
 // import FooterC from "../../standard/footer/footer.component";
 // import LeftArrowC from "../../standard/left-arrow/left-arrow.component";
 // import RightArrowC from "../../standard/right-arrow/right-arrow.component";
+
+export interface Root {
+  status: string
+  results: Result[][]
+  data: Data
+}
+
+export interface Result {
+  id: number
+  project: string
+  thumbnail: string
+  primary_image: number
+  technology: string
+}
+
+export interface Data {
+  project: Project[][]
+}
+
+export interface Project {
+  id: number
+  project: string
+  thumbnail: string
+  primary_image: number
+  technology: string
+}
 
 @Component({
   selector: 'app-project-details',
@@ -12,15 +39,30 @@ import { Component } from "@angular/core";
 
 export class ProjectDetailsComponent{
 
+  project = {};
   title = '';
   githubLink = '';
   thumbnails = [];
   thumbnailIndex = 0;
   tech = [];
 
-  constructor(){
+  constructor(private http: HttpClient){}
 
-    try {
+  ngOnInit(){
+      this.getProject(this.title)
+  }
+
+  getProject(title: any){
+    return this.http.get<any>(`http://localhost:3000/portfolio/${title}`).subscribe((res) => {
+        this.project = res;
+        console.log(this.project)
+      }, (err) => {
+        console.log(err)
+      }
+    );
+  }
+
+    // try {
 
       // function importAll(projects) {
       //   let images = {};
@@ -61,11 +103,11 @@ export class ProjectDetailsComponent{
     //     projectTechArray.push(project.data.results[0][i].technology);
     //   }
     //   setTechs(projectTechArray);
-    } catch (err) {
-      console.log(err);
-    }
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
 
-  }
+  // }
 
   // slideThumbnailLeft = async () => {
   //   try {

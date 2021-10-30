@@ -6,9 +6,9 @@
     </div>
     <div class='grid project-details'>
       <div class='grid slider-div'>
-        <div class='slider-arrow' (click)='slideThumbnailLeft()'>
+        <!-- <div class='slider-arrow' (click)='slideThumbnailLeft()'>
           <app-left-arrow></app-left-arrow>
-        </div>
+        </div> -->
         <div class='grid project-slide-div'>
           {{thumbnails[0] !== undefined ? (
             <div class='grid image-container'>
@@ -21,9 +21,9 @@
             ''
           )}}
         </div>
-        <div class='slider-arrow' (click)='slideThumbnailRight()'>
+        <!-- <div class='slider-arrow' (click)='slideThumbnailRight()'>
           <app-right-arrow></app-right-arrow>
-        </div>
+        </div> -->
       </div>
       <div class='grid project-tech-div'>
         <button class='tech-label' *ngFor="let t of tech">

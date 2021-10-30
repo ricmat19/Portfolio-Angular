@@ -1,7 +1,34 @@
+import { HttpClient } from "@angular/common/http";
 import { Component } from "@angular/core";
 // import IndexAPI from "../../../../apis/indexAPI";
 // import HeaderC from "../../standard/header/header.component";
 // import FooterC from "../../standard/footer/footer.component";
+
+export interface Root {
+  status: string
+  results: Result[]
+  data: Data
+}
+
+export interface Result {
+  skill: string
+  level: number
+  category: string
+  icon: string
+  ranking: number
+}
+
+export interface Data {
+  skills: Skill[]
+}
+
+export interface Skill {
+  skill: string
+  level: number
+  category: string
+  icon: string
+  ranking: number
+}
 
 @Component({
   selector: 'app-about',
@@ -13,9 +40,23 @@ export class AboutComponent{
   skill = '';
   skills = [];
 
-  constructor(){
+  constructor(private http: HttpClient){}
 
-    try {
+  ngOnInit(){
+    this.getSkills()
+  }
+
+  getSkills(){
+    return this.http.get<any>(`http://localhost:3000/skills`).subscribe((res) => {
+        this.skills = res;
+        console.log(this.skills)
+      }, (err) => {
+        console.log(err)
+      }
+    );
+  }
+
+    // try {
       // function importAll(icons) {
       //   let images = {};
       //   icons.keys().forEach((icon) => {
@@ -36,9 +77,9 @@ export class AboutComponent{
       //     return a.ranking - b.ranking;
       //   });
       //   setSkills(skillArray);
-      } catch (err) {
-        console.log(err);
-      }
+//       } catch (err) {
+//         console.log(err);
+//       }
 
-  }
+//   }
 }
