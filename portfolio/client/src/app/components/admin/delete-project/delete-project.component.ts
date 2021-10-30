@@ -14,16 +14,16 @@ export class AdminDeleteProjectComponent{
 
   constructor(private http: HttpClient){}
 
-  ngOnInit(){
-    this.deleteProject(this.title)
-  }
+  // ngOnInit(){
+  //   this.deleteProject(this.title)
+  // }
 
-  deleteProject(title: any){
-    return this.http.delete(`http://localhost:3000/admin/portfolio/${title}/delete`).subscribe((res) => {
-      }, (err) => {
-        console.log(err)
-      }
-    );
-  }
+  // deleteProject(title: any){
+  //   return this.http.delete(`http://localhost:3000/admin/portfolio/${title}/delete`).subscribe((res) => {
+  //     }, (err) => {
+  //       console.log(err)
+  //     }
+  //   );
+  // }
 
 }

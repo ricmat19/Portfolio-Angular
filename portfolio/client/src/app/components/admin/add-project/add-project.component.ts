@@ -28,20 +28,20 @@ export class AdminAddProjectComponent{
 
   constructor(private http: HttpClient){}
 
-  ngOnInit(){
-    this.addProject(this.projectInput, this.thumbnails, this.primaryImage, this.projectTech)
-  }
+  // ngOnInit(){
+  //   this.addProject(this.projectInput, this.thumbnails, this.primaryImage, this.projectTech)
+  // }
 
-  addProject(project: any, thumbnails: any, primaryImage: any, projectTech: any){
-    return this.http.post(`http://localhost:3000/projects/add-project`, [project, thumbnails, primaryImage, projectTech]).subscribe((res) => {
-        this.project = res;
-        console.log(this.project)
-      }, (err) => {
-        console.log(err)
-      }
-    );
-  }
-  
+  // addProject(project: any, thumbnails: any, primaryImage: any, projectTech: any){
+  //   return this.http.post(`http://localhost:3000/projects/add-project`, [project, thumbnails, primaryImage, projectTech]).subscribe((res) => {
+  //       this.project = res;
+  //       console.log(this.project)
+  //     }, (err) => {
+  //       console.log(err)
+  //     }
+  //   );
+  // }
+
   //   try {
   //     //Get all skills from DB
   //     const skills = IndexAPI.get(`/skills`);

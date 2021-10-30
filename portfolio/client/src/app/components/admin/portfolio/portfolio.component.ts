@@ -1,11 +1,5 @@
 import { HttpClient } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
-// import IndexAPI from "../../../../apis/indexAPI";
-// import HeaderC from "../../header.component";
-// import FooterC from "../../footer.component";
-// import CreateC from "../add-project/add-project.component";
-// import UpdateC from "../update-project/update-project.component";
-// import DeleteC from "../delete-project/delete-project.component";
 
 export interface Root {
   status: string
@@ -48,7 +42,11 @@ export class AdminPortfolioComponent implements OnInit{
   updatedProject = '';
   deletedProject = '';
 
-  projects = [];
+  projects: any[] = [];
+  projectSkills: any[] = [];
+  skills: any[] = [];
+
+
   titlesArray = [];
   allThumbnailsArray = [];
   projectThumbnailsArray = [];
@@ -56,7 +54,7 @@ export class AdminPortfolioComponent implements OnInit{
   skillsArray = [];
 
   filterButtons = 'skill-buttons';
-  filteredThumbnailsArray = [];
+  filteredThumbnails: any[] = [];
 
   currentTitle = '';
   currentThumbnailsArray = [];
@@ -67,117 +65,127 @@ export class AdminPortfolioComponent implements OnInit{
   constructor(private http: HttpClient){}
 
   ngOnInit(){
+
     this.getProjects()
+    this.getSkills()
+
+    // console.log(filteredProjectThumbnailArray)
+    // this.allThumbnailsArray.push(filteredProjectThumbnailArray);
+
+
   }
+
+  ngAfterContentChecked(){
+
+    // document.addEventListener("mousedown", (event) => {
+    //   if (
+    //     createRef.current !== null &&
+    //     updateRef.current !== null &&
+    //     deleteRef !== null
+    //   ) {
+    //     if (!createRef.current.contains(event.target)) {
+    //       this.createModalState = "modal";
+    //     }
+    //     if (!updateRef.current.contains(event.target)) {
+    //       this.updateModalState = "modal";
+    //     }
+    //     if (!deleteRef.current.contains(event.target)) {
+    //       this.deleteModalState = "modal";
+    //     }
+    // }
+
+    //Filters out duplicate project thumbnail objects
+    let exists = false;
+    const filteredProjectThumbnailArray = [];
+    for (let i = 0; i < this.projects[0].length; i++) {
+      if (filteredProjectThumbnailArray.length > 0) {
+        for (let j = 0; j < filteredProjectThumbnailArray.length; j++) {
+          if (
+            this.projects[0][i].project ===
+            filteredProjectThumbnailArray[j].project
+          ) {
+            exists = true;
+          }
+        }
+        if (exists === false) {
+          filteredProjectThumbnailArray.push(
+            this.projects[0][i]
+          );
+        }
+      } else {
+        filteredProjectThumbnailArray.push(this.projects[0][i]);
+      }
+      exists = false;
+    }
+    this.filteredThumbnails = filteredProjectThumbnailArray;
+
+    const projectNames: any[] = [];
+    for (let i = 0; i < this.projects[1].length; i++) {
+      if(projectNames.indexOf(this.projects[1][i].project) === -1){
+        projectNames.push(this.projects[1][i].project)
+      }
+    }
+
+    const projectTech: any[] = [];
+    let newProjectTech: any = {};
+    for (let i = 0; i < projectNames.length; i++) {
+      const tempArray: any[] = [];
+      for (let j = 0; j < this.projects[1].length; j++) {
+        if (projectNames[i] === this.projects[1][j].project) {
+          tempArray.push(this.projects[1][j].technology)
+        }
+      }
+      projectTech.push(tempArray)
+
+      Object.keys(projectTech).forEach(function(){
+          let value = projectTech[i];
+          let key = projectNames[i];
+          newProjectTech[key] = value;
+      });
+
+    }
+
+    this.projectSkills = newProjectTech;
+    console.log(this.projectSkills)
+  }
+
 
   getProjects(){
     return this.http.get<any>(`http://localhost:3000/projects`).subscribe((res) => {
-        this.projects = res;
-        console.log(this.projects)
+        this.projects = res.results;
+        console.log(res.results)
       }, (err) => {
         console.log(err)
       }
     );
   }
 
-    // function importAll(projects) {
-    //   let images = {};
-    //   projects.keys().forEach((index) => {
-    //     images[index.replace("./", "")] = projects(index);
-    //   });
-    //   return images;
-    // }
-    // importAll(require.context("../../images/projects"));
+  getSkills(){
+    return this.http.get<any>(`http://localhost:3000/skills`).subscribe((res) => {
+        this.skills = res.results;
+        console.log(this.skills)
+      }, (err) => {
+        console.log(err)
+      }
+    );
+  }
 
-    // try {
-    //   document.addEventListener("mousedown", (event) => {
-    //     // if (
-    //     //   // createRef.current !== null &&
-    //     //   // updateRef.current !== null &&
-    //     //   // deleteRef !== null
-    //     // ) {
-    //       // if (!createRef.current.contains(event.target)) {
-    //         this.createModalState = "modal";
-    //       // }
-    //       // if (!updateRef.current.contains(event.target)) {
-    //         this.updateModalState = "modal";
-    //       // }
-    //       // if (!deleteRef.current.contains(event.target)) {
-    //         this.deleteModalState = "modal";
-    //       // }
-    //     // }
-    //   });
+  filterProjects(){
+    try {
 
-      // const skills = await IndexAPI.get(`/skills`);
-      // for (let i = 0; i < skills.data.data.skills.length; i++) {
-      //   this.skillsArray.push(skills.data.data.skills[i].skill);
-      // }
-
-      //Get all project thumbnails and images from DB
-      // this.projects = await IndexAPI.get(`/projects`);
-
-      //Adds all the projects in project_images to the projectThumbnailArray
-      // const projectThumbnailArray = [];
-      // Object.keys(projectThumbnails);
-      // for (let i = 0; i < this.projects.data.results[0].length; i++) {
-      //   if (
-      //     projectThumbnailArray.indexOf(
-      //       this.projects.data.results[0][i].thumbnail
-      //     ) === -1
-      //   ) {
-      //     this.projects.data.results[0][i].module =
-      //       projectThumbnails[projects.data.results[0][i].thumbnail];
-      //     projectThumbnailArray.push(projects.data.results[0][i]);
-      //   }
-      // }
-
-      //Loops through the projectThumbnailArray
-      // const projectTitles = [];
-      // for (let i = 0; i < projectThumbnailArray.length; i++) {
-      //   const tempArray = [];
-      //   //Loops through all data provided from project_images
-      //   for (let j = 0; j < this.projects.data.results[0].length; j++) {
-      //     //Checks if the current item in project_images pertains to the current project
-      //     if (
-      //       this.projects.data.results[0][j].project ===
-      //       projectThumbnailArray[i].project
-      //     ) {
-      //       tempArray.push(this.projects.data.results[0][j]);
-      //     }
-      //   }
-      //   const key = projectThumbnailArray[i].project;
-
-        // this.tempObject[key] = [tempArray];
-        // if (projectTitles.indexOf(projectThumbnailArray[i].project) === -1) {
-        //   projectTitles.push(projectThumbnailArray[i].project);
+        // const filteredThumbnailsArray: ArrayType[] = [];
+        // for (let i = 0; i < techProjects.length; i++) {
+        //   for (let j = 0; j < this.projectThumbnails.length; j++) {
+        //     if (techProjects[i] === this.projectThumbnails[j].project) {
+        //       filteredThumbnailsArray.push(this.projectThumbnails[j]);
+        //     }
+        //   }
         // }
-        // this.currentProjectThumbnailArray.push(this.tempObject);
-      // }
-
-      //Filters out duplicate project thumbnail objects
-      // let exists = false;
-      // const filteredProjectThumbnailArray = [];
-      // for (let i = 0; i < currentProjectThumbnailArray.length; i++) {
-      //   if (filteredProjectThumbnailArray.length > 0) {
-      //     for (let j = 0; j < filteredProjectThumbnailArray.length; j++) {
-      //       if (
-      //         Object.keys(currentProjectThumbnailArray[i])[0] ===
-      //         Object.keys(filteredProjectThumbnailArray[j])[0]
-      //       ) {
-      //         exists = true;
-      //       }
-      //     }
-      //     if (exists === false) {
-      //       filteredProjectThumbnailArray.push(
-      //         currentProjectThumbnailArray[i]
-      //       );
-      //     }
-      //   } else {
-      //     filteredProjectThumbnailArray.push(currentProjectThumbnailArray[0]);
-      //   }
-      //   exists = false;
-      // }
-      // this.allThumbnailsArray.push(filteredProjectThumbnailArray);
+        // this.filteredThumbnails.push(filteredThumbnailsArray);
+      } catch (err) {
+        console.log(err);
+      }
+    };
 
       // const primaryThumbnailArray = [];
       // for (let i = 0; i < filteredProjectThumbnailArray.length; i++) {
@@ -286,32 +294,6 @@ export class AdminPortfolioComponent implements OnInit{
   //     } else {
   //       this.filterButtons = "skill-buttons";
   //     }
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
-
-  // filterProjects = async () => {
-  //   try {
-  //     const techProjects = [];
-  //     for (let i = 0; i < this.tech.length; i++) {
-  //       const projectsTech = this.tech[i][Object.keys(this.tech[i])][0];
-  //       for (let j = 0; j < projectsTech.length; j++) {
-  //         if (projectsTech[j] === this.tech) {
-  //           techProjects.push(Object.keys(this.tech[i])[0]);
-  //         }
-  //       }
-  //     }
-
-  //     const filteredThumbnailsArray: ArrayType[] = [];
-  //     for (let i = 0; i < techProjects.length; i++) {
-  //       for (let j = 0; j < this.projectThumbnails.length; j++) {
-  //         if (techProjects[i] === this.projectThumbnails[j].project) {
-  //           filteredThumbnailsArray.push(this.projectThumbnails[j]);
-  //         }
-  //       }
-  //     }
-  //     this.filteredThumbnails.push(filteredThumbnailsArray);
   //   } catch (err) {
   //     console.log(err);
   //   }
