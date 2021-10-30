@@ -1,6 +1,33 @@
+import { HttpClient } from "@angular/common/http";
 import { Component } from "@angular/core";
 // import FooterComponent from "../../standard/footer/footer.component";
 // import SkillC from "../add-skill/add-skill.component";
+
+export interface Root {
+  status: string
+  results: Result[]
+  data: Data
+}
+
+export interface Result {
+  skill: string
+  level: number
+  category: string
+  icon: string
+  ranking: number
+}
+
+export interface Data {
+  skills: Skill[]
+}
+
+export interface Skill {
+  skill: string
+  level: number
+  category: string
+  icon: string
+  ranking: number
+}
 
 @Component({
   selector: 'app-about',
@@ -13,7 +40,21 @@ export class AdminAboutComponent{
   skills = [];
   skillModalState = 'modal';
 
-//   constructor(){
+  constructor(private http: HttpClient){}
+
+  ngOnInit(){
+    this.getSkills()
+  }
+
+  getSkills(){
+    return this.http.get<any>(`http://localhost:3000/skills`).subscribe((res) => {
+        this.skills = res;
+        console.log(this.skills)
+      }, (err) => {
+        console.log(err)
+      }
+    );
+  }
 
 //       try {
 

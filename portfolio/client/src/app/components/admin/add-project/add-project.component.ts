@@ -1,4 +1,12 @@
+import { HttpClient } from "@angular/common/http";
 import { Component } from "@angular/core";
+
+export interface Project {
+  project: string,
+  thumbnails: string,
+  primaryImage: string,
+  projectTech: string,
+}
 
 @Component({
   selector: 'app-add-project',
@@ -7,6 +15,7 @@ import { Component } from "@angular/core";
 
 export class AdminAddProjectComponent{
 
+  project = {}
   projectInput = '';
   projectImages = [];
   skillInput = '';
@@ -17,7 +26,21 @@ export class AdminAddProjectComponent{
   primaryImage = '';
   projectTech = [];
 
-  // constructor(){
+  constructor(private http: HttpClient){}
+
+  ngOnInit(){
+    this.addProject(this.projectInput, this.thumbnails, this.primaryImage, this.projectTech)
+  }
+
+  addProject(project: any, thumbnails: any, primaryImage: any, projectTech: any){
+    return this.http.post(`http://localhost:3000/projects/add-project`, [project, thumbnails, primaryImage, projectTech]).subscribe((res) => {
+        this.project = res;
+        console.log(this.project)
+      }, (err) => {
+        console.log(err)
+      }
+    );
+  }
   //   try {
   //     //Get all skills from DB
   //     const skills = IndexAPI.get(`/skills`);

@@ -1,27 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { AppServiceService } from './app-service.service';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit{
-  title = 'client';
+export class AppComponent{
 
-  constructor(private service: AppServiceService){
-
-  }
-
-  ngOnInit(){
-    this.getDataFromAPI()
-  }
-
-  getDataFromAPI(){
-    this.service.getData().subscribe((res) =>{
-      console.log(res)
-    }, (err) => {
-      console.log(err)
-    })
-  }
 }

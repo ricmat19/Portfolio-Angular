@@ -1,6 +1,14 @@
-
-import { Component } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { Component, OnInit } from "@angular/core";
 // import IndexAPI from "../../../../apis/indexAPI";
+
+export interface Skill {
+  category: string,
+  skill: string,
+  level: number,
+  icon: string,
+  ranking: number,
+}
 
 @Component({
   selector: 'app-add-skill',
@@ -9,6 +17,7 @@ import { Component } from "@angular/core";
 
 export class AdminAddSkillComponent{
 
+  skills = {};
   icons = [];
   skillInput = '';
   categorySelection = '';
@@ -17,7 +26,21 @@ export class AdminAddSkillComponent{
   iconSelection = '';
   newSkill = '';
 
-  // construction(){
+  constructor(private http: HttpClient){}
+
+  ngOnInit(){
+    this.addSkill(this.categorySelection, this.skillInput, this.levelSelection, this.iconSelection, this.rankSelection)
+  }
+
+  addSkill(category: any, skill: any, level: any, icon: any, ranking: any){
+    return this.http.post(`http://localhost:3000/skill/add-skill`, [category, skill, level, icon, ranking]).subscribe((res) => {
+        this.skills = res;
+        console.log(this.skills)
+      }, (err) => {
+        console.log(err)
+      }
+    );
+  }
 
   //   try {
 

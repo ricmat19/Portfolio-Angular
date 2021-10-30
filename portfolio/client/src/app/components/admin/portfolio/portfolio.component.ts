@@ -1,12 +1,37 @@
-import { ArrayType } from "@angular/compiler";
+import { HttpClient } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
-import { AppServiceService } from "src/app/app-service.service";
 // import IndexAPI from "../../../../apis/indexAPI";
 // import HeaderC from "../../header.component";
 // import FooterC from "../../footer.component";
 // import CreateC from "../add-project/add-project.component";
 // import UpdateC from "../update-project/update-project.component";
 // import DeleteC from "../delete-project/delete-project.component";
+
+export interface Root {
+  status: string
+  results: Result[][]
+  data: Data
+}
+
+export interface Result {
+  id: number
+  project: string
+  technology: string
+  thumbnail: string
+  primary_image?: number
+}
+
+export interface Data {
+  skills: Skill[][]
+}
+
+export interface Skill {
+  id: number
+  project: string
+  technology: string
+  thumbnail: string
+  primary_image?: number
+}
 
 @Component({
   selector: 'app-portfolio',
@@ -39,7 +64,22 @@ export class AdminPortfolioComponent implements OnInit{
 
   tempObject = {};
 
-  constructor(private service: AppServiceService){
+  constructor(private http: HttpClient){}
+
+  ngOnInit(){
+    this.getProjects()
+  }
+
+  getProjects(){
+    return this.http.get<any>(`http://localhost:3000/projects`).subscribe((res) => {
+        this.projects = res;
+        console.log(this.projects)
+      }, (err) => {
+        console.log(err)
+      }
+    );
+  }
+
     // function importAll(projects) {
     //   let images = {};
     //   projects.keys().forEach((index) => {
@@ -49,24 +89,24 @@ export class AdminPortfolioComponent implements OnInit{
     // }
     // importAll(require.context("../../images/projects"));
 
-    try {
-      document.addEventListener("mousedown", (event) => {
-        // if (
-        //   // createRef.current !== null &&
-        //   // updateRef.current !== null &&
-        //   // deleteRef !== null
-        // ) {
-          // if (!createRef.current.contains(event.target)) {
-            this.createModalState = "modal";
-          // }
-          // if (!updateRef.current.contains(event.target)) {
-            this.updateModalState = "modal";
-          // }
-          // if (!deleteRef.current.contains(event.target)) {
-            this.deleteModalState = "modal";
-          // }
-        // }
-      });
+    // try {
+    //   document.addEventListener("mousedown", (event) => {
+    //     // if (
+    //     //   // createRef.current !== null &&
+    //     //   // updateRef.current !== null &&
+    //     //   // deleteRef !== null
+    //     // ) {
+    //       // if (!createRef.current.contains(event.target)) {
+    //         this.createModalState = "modal";
+    //       // }
+    //       // if (!updateRef.current.contains(event.target)) {
+    //         this.updateModalState = "modal";
+    //       // }
+    //       // if (!deleteRef.current.contains(event.target)) {
+    //         this.deleteModalState = "modal";
+    //       // }
+    //     // }
+    //   });
 
       // const skills = await IndexAPI.get(`/skills`);
       // for (let i = 0; i < skills.data.data.skills.length; i++) {
@@ -194,13 +234,10 @@ export class AdminPortfolioComponent implements OnInit{
       //   currentProjectTechArray.push(tempObject);
       // }
   //     this.techArray.push(currentProjectTechArray);
-    } catch (err) {
-      console.log(err);
-    }
-  }
-  ngOnInit(): void {
-    throw new Error("Method not implemented.");
-  }
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // }
 
   // displayCreateModal = () => {
   //   this.createModalState="modal modal-active";
