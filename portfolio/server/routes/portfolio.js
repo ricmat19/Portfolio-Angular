@@ -24,38 +24,40 @@ router.get("/projects", async (req, res) => {
 
 router.post("/projects/add-project", async (req, res) => {
   try {
+
+    console.log(req.body)
     const currentProjects = await db.query("SELECT project FROM projects");
 
     let uniqueProject = true;
     for (let i = 0; i < currentProjects.length; i++) {
-      if (currentProjects[i] === req.body.project) {
+      if (currentProjects[i] === req.body.projectTitle) {
         uniqueProject = false;
       }
     }
 
     if (uniqueProject === true) {
       db.query(`INSERT INTO projects (project) VALUES (?)`, [
-        req.body.project,
+        req.body.projectTitle,
       ]);
 
-      for (let i = 0; i < req.body.thumbnails.length; i++) {
-        if (req.body.thumbnails[i] === req.body.primaryImage) {
+      for (let i = 0; i < req.body.projectImages.length; i++) {
+        if (req.body.projectImages[i] === req.body.primaryImage) {
           db.query(
             `INSERT INTO project_images (project, thumbnail, primary_image) VALUES (?, ?, ?)`,
-            [req.body.project, req.body.thumbnails[i], true]
+            [req.body.projectTitle, req.body.projectImages[i], true]
           );
         } else {
           db.query(
             `INSERT INTO project_images (project, thumbnail, primary_image) VALUES (?, ?, ?)`,
-            [req.body.project, req.body.thumbnails[i], false]
+            [req.body.projectTitle, req.body.projectImages[i], false]
           );
         }
       }
 
-      for (let i = 0; i < req.body.projectTech.length; i++) {
+      for (let i = 0; i < req.body.projectSkills.length; i++) {
         db.query(
           `INSERT INTO project_tech (project, technology) VALUES (?, ?)`,
-          [req.body.project, req.body.projectTech[i]]
+          [req.body.projectTitle, req.body.projectSkills[i]]
         );
       }
 

@@ -26,11 +26,7 @@ export class ContactComponent{
 
   constructor(private http: HttpClient){}
 
-  ngOnInit(){
-    this.contact(this.nameInput, this.emailInput, this.subjectInput, this.messageText)
-  }
-
-  contact(name: any, email: any, subject: any, message: any){
+  contactSubmit(name: any, email: any, subject: any, message: any){
     return this.http.post(`http://localhost:3000/contact`, [name, email, subject, message]).subscribe((res) => {
         this.contactObject = res;
         console.log(this.contactObject)
@@ -39,24 +35,5 @@ export class ContactComponent{
       }
     );
   }
-
-  handleSubmit = async () => {
-
-    try {
-      // await IndexAPI.post("/contact", {
-      //   name: this.nameInput,
-      //   email: this.emailInput,
-      //   subject: this.subjectInput,
-      //   message: this.messageText,
-      // });
-
-      this.nameInput = "";
-      this.emailInput = "";
-      this.subjectInput = "";
-      this.messageText = "";
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
 }

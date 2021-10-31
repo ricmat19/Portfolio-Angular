@@ -209,113 +209,53 @@ export class AdminPortfolioComponent implements OnInit {
     }
   }
 
-  // const primaryThumbnailArray = [];
-  // for (let i = 0; i < uniqueProjects.length; i++) {
-  //   for (
-  //     let j = 0;
-  //     j <
-  //     uniqueProjects[i][
-  //       Object.keys(uniqueProjects[i])[0]
-  //     ][0].length;
-  //     j++
-  //   ) {
-  //     if (
-  //       uniqueProjects[i][
-  //         Object.keys(uniqueProjects[i])[0]
-  //       ][0][j].primary_image === 1
-  //     ) {
-  //       primaryThumbnailArray.push(
-  //         uniqueProjects[i][
-  //           Object.keys(uniqueProjects[i])[0]
-  //         ][0][j]
-  //       );
-  //     }
-  //   }
-  // }
-
-  // this.titlesArray.push(projectTitles);
-  // this.allThumbnailsArray.push(primaryThumbnailArray);
-  // this.filteredThumbnailsArray(primaryThumbnailArray);
-
-  //Adds all the projects in project_tech to the projectTechArray
-  // const projectTechArray = [];
-  // for (let i = 0; i < this.projects.data.results[1].length; i++) {
-  //   if (
-  //     projectTechArray.indexOf(this.projects.data.results[1][i].project) === -1
-  //   ) {
-  //     projectTechArray.push(this.projects.data.results[1][i].project);
-  //   }
-  // }
-
-  //Loops through the projectArray
-  // const currentProjectTechArray = [];
-  // for (let i = 0; i < projectTechArray.length; i++) {
-  //   const tempArray = [];
-  //   //Loops through all data provided from project_tech
-  //   for (let j = 0; j < this.projects.data.results[1].length; j++) {
-  //     //Checks if the current item in project_tech pertains to the current project
-  //     if (this.projects.data.results[1][j].project === projectTechArray[i]) {
-  //       tempArray.push(this.projects.data.results[1][j].technology);
-  //     }
-  //   }
-  //   const key = projectTechArray[i];
-  //   const tempObject = {};
-  //   tempObject[key] = [tempArray];
-  //   currentProjectTechArray.push(tempObject);
-  // }
-  //     this.techArray.push(currentProjectTechArray);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // }
-
-  displayCreateModal = () => {
-    this.createModalState = 'modal modal-active';
-  };
-
-  // displayUpdateModal = () => {
-  //   try {
-
-  //     for (let i = 0; i < this.projectThumbnails.length; i++) {
-  //       if (this.projectThumbnails[i][this.currentTitle] !== undefined) {
-  //         this.currentThumbnails = this.projectThumbnails[i][this.currentTitle];
-  //         break;
-  //       } else {
-  //        this.currentThumbnails = [];
-  //       }
-  //     }
-
-  //     for (let i = 0; i < this.tech.length; i++) {
-  //       if (this.tech[i][this.currentTitle] !== undefined) {
-  //         this.currentTech = this.tech[i][this.currentTitle]
-  //         break;
-  //       } else {
-  //         this.currentTech = [];
-  //       }
-  //     };
-
-  //     this.updateModalState="modal modal-active";
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
-
-  // displayDeleteModal = async () => {
-  //   try {
-  //     this.deletedProject = this.currentTitle;
-  //     this.deleteModalState="modal modal-active";
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
-
-  displayFilter = async () => {
+  displayFilters = async () => {
     try {
       if (this.filterButtons === 'skill-buttons') {
         this.filterButtons = 'skill-buttons skill-buttons-view';
       } else {
         this.filterButtons = 'skill-buttons';
       }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  displayCreateModal = () => {
+    this.createModalState = 'modal modal-active';
+  };
+
+  displayUpdateModal = () => {
+    try {
+
+      // for (let i = 0; i < this.allProjects.length; i++) {
+      //   if (this.allProjects[i] !== undefined) {
+      //     this.currentThumbnails = this.projectThumbnails[i][this.currentTitle];
+      //     break;
+      //   } else {
+      //    this.currentThumbnails = [];
+      //   }
+      // }
+
+      // for (let i = 0; i < this.tech.length; i++) {
+      //   if (this.tech[i][this.currentTitle] !== undefined) {
+      //     this.currentTech = this.tech[i][this.currentTitle]
+      //     break;
+      //   } else {
+      //     this.currentTech = [];
+      //   }
+      // };
+
+      this.updateModalState="modal modal-active";
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  displayDeleteModal = async () => {
+    try {
+      // this.deletedProject = this.currentTitle;
+      this.deleteModalState="modal modal-active";
     } catch (err) {
       console.log(err);
     }

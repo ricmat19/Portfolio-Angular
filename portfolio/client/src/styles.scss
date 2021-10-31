@@ -75,7 +75,7 @@ textarea {
 }
 
 .title {
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 }
 
 .about-content-div {
@@ -111,6 +111,7 @@ textarea {
   right: 0;
   transition: transform 0.3s ease-in-out;
   position: fixed;
+  display: flex;
 }
 
 .skill-buttons-view {
@@ -305,7 +306,8 @@ textarea {
 }
 
 .project-tech {
-  grid-template-columns: repeat(auto-fill, minmax(50px, 100px));
+  display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   align-content: center;
 }

@@ -5,7 +5,7 @@
         matInput
         type='text'
         name='project_title'
-        [(ngModel)]='titleInput'
+        [(ngModel)]='projectTitle'
       />
   </div>
   <div class='grid project-creation-checkbox-div'>
@@ -19,23 +19,22 @@
         </div>
       </div>
       <div>
-        <div class='grid image-checkbox-list' *ngFor="let image of projectImages">
-          <label class='image-checkbox-label'>{{image}}</label>
+        <div class='grid image-checkbox-list' *ngFor="let project of allImages">
+          <label class='image-checkbox-label'>{{project.thumbnail}}</label>
           <div>
-              <!-- <input
+              <input
                 matInput
                 type='checkbox'
                 name='image'
-                [(ngModel)]='skillInput'
-                (change)='projectSet(e.target.checked)'
-              /> -->
+                (change)='imageSet(project.thumbnail, $event)'
+              />
           </div>
           <div>
               <input
                 matInput
                 type='radio'
                 name='image'
-                [(ngModel)]='primaryImage'
+                (change)='primaryImageSet(project.thumbnail)'
               />
           </div>
         </div>
@@ -51,23 +50,22 @@
       </div>
       <div>
         <div class='grid tech-checkbox-list' *ngFor="let skill of skills">
-          <label class='tech-checkbox-label'>{{skill}}</label>
+          <label class='tech-checkbox-label'>{{skill.skill}}</label>
           <div>
-              <!-- <input
+              <input
                 matInput
                 type='checkbox'
                 name='skill'
-                [(ngModel)]='skillInput'
-                (change)='skillSet(e.target.checked)'
-              /> -->
+                (change)='skillSet(skill.skill, $event)'
+              />
           </div>
         </div>
       </div>
     </div>
   </div>
   <div>
-    <!-- <button class='form-button' type='submit' (click)='createProject'>
+    <button class='form-button' type='submit' (click)='addProject(projectTitle, projectImages, primaryImage, projectSkills)'>
       CREATE
-    </button> -->
+    </button>
   </div>
 </div>

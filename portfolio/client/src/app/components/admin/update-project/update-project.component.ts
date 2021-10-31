@@ -29,10 +29,6 @@ export class AdminUpdateProjectComponent{
   tech = [];
   oldTitle = '';
 
-  // ngOnInit(){
-  //   this.updateProject(this.titleInput, this.projectFiles, this.primaryImage, this.projectSkills, this.oldTitle)
-  // }
-
   // updateProject(title: any, projectFiles: any, primaryImage: any, projectSkills: any, oldTitle: any){
   //   return this.http.push(`http://localhost:3000/projects/update-project`, [title, projectFiles, primaryImage, projectSkills, oldTitle]).subscribe((res) => {
   //       this.project = res;

@@ -15,11 +15,20 @@ export interface Project {
 
 export class AdminAddProjectComponent{
 
+  projects: any[] = [];
+  allImages: any[] = [];
+  allSkills: any[] = [];
+
   project = {}
-  projectInput = '';
-  projectImages = [];
+  projectTitle = '';
+  projectImages: any[] = [];
+  currentProjectImages: any[] = [];
   skillInput = '';
-  skills =[];
+  skills: any[] = [];
+  projectSkills: any[] = [];
+
+  imageChecked = false;
+  skillChecked = false;
 
   titleInput = '';
   thumbnails = [];
@@ -28,88 +37,90 @@ export class AdminAddProjectComponent{
 
   constructor(private http: HttpClient){}
 
-  // ngOnInit(){
-  //   this.addProject(this.projectInput, this.thumbnails, this.primaryImage, this.projectTech)
-  // }
+  ngOnInit() {
+    this.getProjects();
+    this.getSkills();
+  }
 
-  // addProject(project: any, thumbnails: any, primaryImage: any, projectTech: any){
-  //   return this.http.post(`http://localhost:3000/projects/add-project`, [project, thumbnails, primaryImage, projectTech]).subscribe((res) => {
-  //       this.project = res;
-  //       console.log(this.project)
-  //     }, (err) => {
-  //       console.log(err)
-  //     }
-  //   );
-  // }
+  getProjects() {
+    return this.http.get<any>(`http://localhost:3000/projects`).subscribe(
+      (res) => {
+        this.projects = res.results;
+        for(let i = 0; i < this.projects[0].length; i++){
+          this.allImages.push(this.projects[0][i]);
+        }
+        for(let i = 0; i < this.projects[1].length; i++){
+          this.allSkills.push(this.projects[1][i]);
+        }
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
 
-  //   try {
-  //     //Get all skills from DB
-  //     const skills = IndexAPI.get(`/skills`);
-  //     const skillsArray = [];
-  //     for (let i = 0; i < skills.data.results.length; i++) {
-  //       skillsArray.push(skills.data.results[i].skill);
-  //     }
-  //     skills.push(skillsArray);
+  getSkills() {
+    return this.http.get<any>(`http://localhost:3000/skills`).subscribe(
+      (res) => {
+        this.skills = res.results;
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
 
-  //     let projectSet = [];
-  //     function importAll(projects) {
-  //       let images = {};
-  //       projects.keys().forEach((index) => {
-  //         images[index.replace("./", "")] = projects(index);
-  //         Object.keys(images).forEach((key) => {
-  //           projectSet.push(key);
-  //           projectImages.push(projectSet);
-  //         });
-  //       });
-  //     }
-  //     importAll(require.context("../../images/projects"));
+  addProject(projectTitle: any, projectImages: any, primaryImage: any, projectSkills: any){
+    return this.http.post(`http://localhost:3000/projects/add-project`, {projectTitle, projectImages, primaryImage, projectSkills}).subscribe((res) => {
+        this.project = res;
+      }, (err) => {
+        console.log(err)
+      }
+    );
+  }
 
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // }
+  skillSet = async (skill: HTMLTextAreaElement, e: any) => {
+    try {
 
+      const currentSkills: any[] = this.projectSkills;
+      if (e.target.checked) {
+        currentSkills.push(skill)
+      }else if (!e.target.checked) {
+        const index = currentSkills.indexOf(skill);
+        currentSkills.splice(index, 1);
+      }
+      this.projectSkills = currentSkills;
 
-  // skillSet = async (checked) => {
-  //   try {
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
-  //     if (checked) {
-  //       this.skills.push(this.skillInput)
-  //     }
+  imageSet = async (image: HTMLTextAreaElement, e: any) => {
+    try {
 
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
+      const currentImages: any[] = this.projectImages;
+      if (e.target.checked) {
+        currentImages.push(image)
+      }else if (!e.target.checked) {
+        const index = currentImages.indexOf(image);
+        currentImages.splice(index, 1);
+      }
+      this.projectImages = currentImages;
 
-  // projectSet = async (imageInput: HTMLTextAreaElement, checked) => {
-  //   try {
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
-  //     if (checked) {
-  //       this.projectImages.push(this.projectInput);
-  //     }
+  primaryImageSet = async (image: string) => {
+    try {
 
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
+      this.primaryImage = image
 
-  // createProject = async () => {
-
-  //   try {
-
-  //     await IndexAPI.post("/projects/add-project", {
-  //       project: this.titleInput,
-  //       thumbnails: this.thumbnails,
-  //       primaryImage: this.primaryImage,
-  //       projectTech: this.projectTech,
-  //     });
-  //     this.titleInput = "";
-
-  //     // props.setCreatedProject(createdProject)
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
 }
