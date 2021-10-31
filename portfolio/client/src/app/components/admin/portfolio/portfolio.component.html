@@ -13,7 +13,7 @@
 
   <div class={{deleteModalState}}>
     <div ref={deleteRef} class='modal-content'>
-      <app-delete-project></app-delete-project>
+      <app-delete-project deletedProject={{deletedProject}}></app-delete-project>
     </div>
   </div>
 
@@ -50,7 +50,7 @@
             UPDATE
           </button>
           <button
-            (click)='displayDeleteModal()'
+            (click)='displayDeleteModal(thumbnail.project)'
           >
             DELETE
           </button>

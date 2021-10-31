@@ -53,6 +53,4 @@ export class AdminAddSkillComponent implements OnInit{
     );
   }
 
-
-
 }

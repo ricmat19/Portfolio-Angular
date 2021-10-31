@@ -1,6 +1,6 @@
 
 import { HttpClient } from "@angular/common/http";
-import { Component } from "@angular/core";
+import { Component, Input } from "@angular/core";
 // import IndexAPI from "../../../../apis/indexAPI";
 
 @Component({
@@ -10,16 +10,15 @@ import { Component } from "@angular/core";
 
 export class AdminDeleteProjectComponent{
 
-  title = '';
+  @Input() deletedProject = '';
 
   constructor(private http: HttpClient){}
 
-  // deleteProject(title: any){
-  //   return this.http.delete(`http://localhost:3000/admin/portfolio/${title}/delete`).subscribe((res) => {
-  //     }, (err) => {
-  //       console.log(err)
-  //     }
-  //   );
-  // }
+  deleteProject(){
+    return this.http.delete(`http://localhost:3000/admin/portfolio/${this.deletedProject}/delete`).subscribe((res) => {
+    }, (err) => {
+      console.log(err)
+    });
+  }
 
 }

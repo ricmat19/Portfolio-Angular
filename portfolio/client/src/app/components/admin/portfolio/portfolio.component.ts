@@ -252,9 +252,9 @@ export class AdminPortfolioComponent implements OnInit {
     }
   };
 
-  displayDeleteModal = async () => {
+  displayDeleteModal(deletedProject: any){
     try {
-      // this.deletedProject = this.currentTitle;
+      this.deletedProject = deletedProject
       this.deleteModalState="modal modal-active";
     } catch (err) {
       console.log(err);
