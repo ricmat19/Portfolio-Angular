@@ -1,6 +1,5 @@
 import { HttpClient } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
-// import IndexAPI from "../../../../apis/indexAPI";
 
 export interface Skill {
   category: string,
@@ -15,10 +14,11 @@ export interface Skill {
   templateUrl: './add-skill.component.html'
 })
 
-export class AdminAddSkillComponent{
+export class AdminAddSkillComponent implements OnInit{
 
-  skills = {};
-  icons = [];
+  skillsObject = {};
+  skills: any[] = [];
+  icons: any[] = [];
   skillInput = '';
   categorySelection = '';
   rankSelection = '';
@@ -28,54 +28,31 @@ export class AdminAddSkillComponent{
 
   constructor(private http: HttpClient){}
 
-  // addSkill(category: any, skill: any, level: any, icon: any, ranking: any){
-  //   return this.http.post(`http://localhost:3000/skill/add-skill`, [category, skill, level, icon, ranking]).subscribe((res) => {
-  //       this.skills = res;
-  //       console.log(this.skills)
-  //     }, (err) => {
-  //       console.log(err)
-  //     }
-  //   );
-  // }
+  ngOnInit() {
+    this.getIcons();
+  }
 
-  //   try {
+  getIcons(){
+    return this.http.get<any>(`http://localhost:3000/skills`).subscribe((res) => {
+        this.skills = res.results;
+        for(let i = 0; i < this.skills.length; i++){
+          this.icons.push(this.skills[i].icon)
+        }
+      }, (err) => {
+        console.log(err)
+      }
+    );
+  }
 
-  //     let iconSet = [];
-  //     function importAll(icons) {
-  //       let images = {};
-  //       icons.keys().forEach((index) => {
-  //         images[index.replace("./", "")] = icons(index);
-  //         Object.keys(images).forEach((key) => {
-  //           iconSet.push(key);
-  //           setIcons([...new Set(iconSet)]);
-  //         });
-  //       });
-  //     }
+  addSkill(category: any, skill: any, level: any, icon: any, ranking: any){
+    return this.http.post(`http://localhost:3000/skill/add-skill`, {category, skill, level, icon, ranking}).subscribe((res) => {
+        this.skillsObject = res;
+      }, (err) => {
+        console.log(err)
+      }
+    );
+  }
 
-  //     importAll(require.context("../../images/skills"));
 
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // }
-
-  // addSkill = async () => {
-  //   try {
-  //     await IndexAPI.post("/skill/add-skill", {
-  //       skill: this.skillInput,
-  //       category: this.categorySelection,
-  //       rank: this.rankSelection,
-  //       level: this.levelSelection,
-  //       icon: this.iconSelection,
-  //     });
-
-  //     this.skillInput = "";
-
-  //     props.setNewSkill(newSkill);
-
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
 
 }

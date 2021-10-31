@@ -1,7 +1,5 @@
 import { HttpClient } from "@angular/common/http";
 import { Component } from "@angular/core";
-// import FooterComponent from "../../standard/footer/footer.component";
-// import SkillC from "../add-skill/add-skill.component";
 
 export interface Root {
   status: string
@@ -45,9 +43,9 @@ export class AdminAboutComponent{
   ngOnInit(){
     this.getSkills()
 
-    document.addEventListener("mousedown", (event) => {
-      this.skillModalState = 'modal';
-    });
+    // document.addEventListener("mousedown", (event) => {
+    //   this.skillModalState = 'modal';
+    // });
 
   }
 

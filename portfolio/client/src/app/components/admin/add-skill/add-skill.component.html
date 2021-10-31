@@ -1,20 +1,13 @@
-<div class='grid skill-modal-div'>
-  <div class='sub-title'>ADD A SKILL</div>
-  <div class='grid skill-input'>
+<div class="grid skill-modal-div">
+  <div class="sub-title">ADD A SKILL</div>
+  <div class="grid skill-input">
     <label>SKILL</label>
-      <input
-        matInput
-        type='text'
-        name='skill'
-        [(ngModel)]='skillInput'
-      />
+    <input matInput type="text" name="skill" [(ngModel)]="skillInput" />
   </div>
-  <div class='grid skill-input'>
+  <div class="grid skill-input">
     <label>CATEGORY</label>
-    <select name='category' [(ngModel)]='categorySelection'>
-      <option disabled selected>
-        Select a Category...
-      </option>
+    <select name="category" [(ngModel)]="categorySelection">
+      <option disabled selected>Select a Category...</option>
       <option>MARKUP</option>
       <option>STYLE</option>
       <option>FRONTEND</option>
@@ -23,23 +16,19 @@
       <option>OTHER</option>
     </select>
   </div>
-  <div class='grid skill-input'>
+  <div class="grid skill-input">
     <label>RANKING</label>
-    <select name='rank' [(ngModel)]='rankSelection'>
-      <option disabled selected>
-        Select a Rank...
-      </option>
+    <select name="rank" [(ngModel)]="rankSelection">
+      <option disabled selected>Select a Rank...</option>
       <option>1</option>
       <option>2</option>
       <option>3</option>
     </select>
   </div>
-  <div class='grid skill-input'>
+  <div class="grid skill-input">
     <label>LEVEL</label>
-    <select name='level' [(ngModel)]='levelSelection'>
-      <option disabled selected>
-        Select a Level...
-      </option>
+    <select name="level" [(ngModel)]="levelSelection">
+      <option disabled selected>Select a Level...</option>
       <option>1</option>
       <option>2</option>
       <option>3</option>
@@ -47,18 +36,29 @@
       <option>5</option>
     </select>
   </div>
-  <div class='grid skill-input'>
+  <div class="grid skill-input">
     <label>ICON</label>
-    <select name='icon' [(ngModel)]='iconSelection'>
-      <option disabled selected>
-        Select an Icon...
-      </option>
-      <option *ngFor="let icon of icons">{{icon}}</option>;
+    <select name="icon" [(ngModel)]="iconSelection">
+      <option disabled selected>Select an Icon...</option>
+      <option *ngFor="let icon of icons">{{ icon }}</option>
+      ;
     </select>
   </div>
   <div>
-    <!-- <button class='form-button' type='submit' (click)='addSkill'>
+    <button
+      class="form-button"
+      type="submit"
+      (click)="
+        addSkill(
+          categorySelection,
+          skillInput,
+          levelSelection,
+          iconSelection,
+          rankSelection
+        )
+      "
+    >
       ADD
-    </button> -->
+    </button>
   </div>
 </div>

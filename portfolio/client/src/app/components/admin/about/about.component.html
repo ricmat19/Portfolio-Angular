@@ -1,5 +1,10 @@
 <div class='main'>
   <app-header></app-header>
+  <div class={{skillModalState}}>
+    <div class='modal-content'>
+      <app-add-skill></app-add-skill>
+    </div>
+  </div>
 
   <div class='container'>
     <div class='title-div'>
@@ -33,7 +38,7 @@
       </div>
       <div class='skills-category-container-div'>
         <div class='create-skill-div'>
-          <button (click)='displaySkillModal'>CREATE</button>
+          <button (click)='displaySkillModal()'>CREATE</button>
         </div>
         <div class='skill-category-div'>
           <div class='sub-title'>MARKUP</div>
