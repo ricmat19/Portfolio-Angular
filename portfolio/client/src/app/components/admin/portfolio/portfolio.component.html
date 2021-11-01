@@ -1,18 +1,18 @@
 <div class='main'>
   <app-header></app-header>
   <div class={{createModalState}}>
-    <div ref={createRef} class='modal-content'>
+    <div #createDiv class='modal-content'>
       <app-add-project></app-add-project>
     </div>
   </div>
   <div class={{updateModalState}}>
-    <div ref={updateRef} class='modal-content'>
+    <div #updateDiv class='modal-content'>
       <app-update-project></app-update-project>
     </div>
   </div>
 
   <div class={{deleteModalState}}>
-    <div ref={deleteRef} class='modal-content'>
+    <div #deleteDiv class='modal-content'>
       <app-delete-project deletedProject={{deletedProject}}></app-delete-project>
     </div>
   </div>

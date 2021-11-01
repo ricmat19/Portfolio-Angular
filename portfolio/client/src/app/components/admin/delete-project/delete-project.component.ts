@@ -1,7 +1,6 @@
 
 import { HttpClient } from "@angular/common/http";
 import { Component, Input } from "@angular/core";
-// import IndexAPI from "../../../../apis/indexAPI";
 
 @Component({
   selector: 'app-delete-project',

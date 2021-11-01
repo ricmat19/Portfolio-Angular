@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, Renderer2, ViewChild } from '@angular/core';
 
 export interface Root {
   status: string;
@@ -32,6 +32,11 @@ export interface Skill {
   templateUrl: './portfolio.component.html',
 })
 export class AdminPortfolioComponent implements OnInit {
+
+  @ViewChild('createDiv') createRef!: ElementRef;
+  @ViewChild('updateDiv') updateRef!: ElementRef;
+  @ViewChild('deleteDiv') deleteRef!: ElementRef;
+
   createModalState = 'modal';
   updateModalState = 'modal';
   deleteModalState = 'modal';
@@ -103,25 +108,23 @@ export class AdminPortfolioComponent implements OnInit {
   }
 
   ngAfterContentChecked() {
-    // document.addEventListener("mousedown", (event) => {
-    //   if (
-    //     createRef.current !== null &&
-    //     updateRef.current !== null &&
-    //     deleteRef !== null
-    //   ) {
-    //     if (!createRef.current.contains(event.target)) {
-    //       this.createModalState = "modal";
-    //     }
-    //     if (!updateRef.current.contains(event.target)) {
-    //       this.updateModalState = "modal";
-    //     }
-    //     if (!deleteRef.current.contains(event.target)) {
-    //       this.deleteModalState = "modal";
-    //     }
-    // }
-
     this.getProjectSet();
     this.getSkillSet();
+  }
+
+  @HostListener('window:click', ['$event.target']) clickOutside(event: any){
+    console.log(this.createRef.nativeElement)
+    if(this.createRef.nativeElement){
+      if (!this.createRef.nativeElement.contains(event)) {
+        this.createModalState = "modal";
+      }
+      if (!this.updateRef.nativeElement.contains(event)) {
+        this.updateModalState = "modal";
+      }
+      if (!this.deleteRef.nativeElement.contains(event)) {
+        this.deleteModalState = "modal";
+      }
+    }
   }
 
   //Get list of unique projects with their primary thumbnail
@@ -261,3 +264,4 @@ export class AdminPortfolioComponent implements OnInit {
     }
   };
 }
+
