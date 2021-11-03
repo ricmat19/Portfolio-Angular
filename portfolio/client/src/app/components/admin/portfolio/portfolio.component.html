@@ -22,7 +22,7 @@
       <p class='title'>portfolio</p>
     </div>
     <div class='create-project-div'>
-      <button (click)='displayCreateModal()'>CREATE</button>
+      <button #createButton (click)='displayCreateModal()'>CREATE</button>
       <div class='grid skill-filters'>
         <div class={{filterButtons}}>
           <div class='grid' *ngFor="let skill of skills">
@@ -45,11 +45,13 @@
       <div *ngFor="let thumbnail of currentProjects">
         <div class='project-buttons'>
           <button
-          (click)='displayUpdateModal()'
+            #updateButton
+            (click)='displayUpdateModal()'
           >
             UPDATE
           </button>
           <button
+            #deleteButton
             (click)='displayDeleteModal(thumbnail.project)'
           >
             DELETE

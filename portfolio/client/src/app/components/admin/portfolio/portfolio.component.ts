@@ -33,16 +33,17 @@ export interface Skill {
 })
 export class AdminPortfolioComponent implements OnInit {
 
-  @ViewChild('createDiv') createRef!: ElementRef;
-  @ViewChild('updateDiv') updateRef!: ElementRef;
-  @ViewChild('deleteDiv') deleteRef!: ElementRef;
+  @ViewChild('createDiv') createRef !: ElementRef;
+  @ViewChild('createButton') createButtonRef !: ElementRef;
+  @ViewChild('updateDiv') updateRef !: ElementRef;
+  @ViewChild('updateButton') updateButtonRef !: ElementRef;
+  @ViewChild('deleteDiv') deleteRef !: ElementRef;
+  @ViewChild('deleteButton') deleteButtonRef !: ElementRef;
 
   createModalState = 'modal';
   updateModalState = 'modal';
   deleteModalState = 'modal';
 
-  createdProject = '';
-  updatedProject = '';
   deletedProject = '';
 
   projectNames: any[] = [];
@@ -54,26 +55,32 @@ export class AdminPortfolioComponent implements OnInit {
   allSkills: any[] = [];
   currentSkills: any[] = [];
 
-  titlesArray = [];
-  allThumbnailsArray = [];
-  projectThumbnailsArray = [];
-  techArray = [];
-  skillsArray = [];
-
   filterButtons = 'skill-buttons';
-  filteredThumbnails: any[] = [];
 
   currentTitle = '';
-  currentThumbnailsArray = [];
-  currentTechArray = [];
-
-  tempObject = {};
 
   constructor(private http: HttpClient) {}
 
   ngOnInit() {
     this.getProjects();
     this.getSkills();
+  }
+
+  @HostListener('document:click', ['$event.target'])
+  clickOutside(event: Event){
+    // if(this.createRef !== undefined && this.updateRef !== undefined && this.deleteRef !== undefined){
+      if (!this.createRef.nativeElement.contains(event) && !this.createButtonRef.nativeElement.contains(event)) {
+        this.createModalState = "modal";
+      }
+      console.log(this.updateButtonRef)
+      // console.log(this.deleteButtonRef)
+      // if (!this.updateRef.nativeElement.contains(event) && !this.updateButtonRef.nativeElement.contains(event)) {
+      //   this.updateModalState = "modal";
+      // }
+      // if (!this.deleteRef.nativeElement.contains(event) && !this.deleteButtonRef.nativeElement.contains(event)) {
+      //   this.deleteModalState = "modal";
+      // }
+    // }
   }
 
   getProjects() {
@@ -85,7 +92,7 @@ export class AdminPortfolioComponent implements OnInit {
           this.currentProjects.push(this.projects[0][i]);
         }
         for(let i = 0; i < this.projects[1].length; i++){
-          this.allSkills.push(this.projects[0][i]);
+          this.allSkills.push(this.projects[1][i]);
           this.currentSkills.push(this.projects[1][i]);
         }
       },
@@ -110,21 +117,6 @@ export class AdminPortfolioComponent implements OnInit {
   ngAfterContentChecked() {
     this.getProjectSet();
     this.getSkillSet();
-  }
-
-  @HostListener('window:click', ['$event.target']) clickOutside(event: any){
-    console.log(this.createRef.nativeElement)
-    if(this.createRef.nativeElement){
-      if (!this.createRef.nativeElement.contains(event)) {
-        this.createModalState = "modal";
-      }
-      if (!this.updateRef.nativeElement.contains(event)) {
-        this.updateModalState = "modal";
-      }
-      if (!this.deleteRef.nativeElement.contains(event)) {
-        this.deleteModalState = "modal";
-      }
-    }
   }
 
   //Get list of unique projects with their primary thumbnail
@@ -231,25 +223,34 @@ export class AdminPortfolioComponent implements OnInit {
   displayUpdateModal = () => {
     try {
 
+      this.updateModalState="modal modal-active";
+
+      console.log(this.projectNames);
+      console.log(this.projects);
+      console.log(this.allProjects);
+      console.log(this.currentProjects);
+      console.log(this.projectSkills);
+      console.log(this.skills);
+      console.log(this.allSkills);
+      console.log(this.currentSkills);
+
       // for (let i = 0; i < this.allProjects.length; i++) {
       //   if (this.allProjects[i] !== undefined) {
-      //     this.currentThumbnails = this.projectThumbnails[i][this.currentTitle];
+      //     this.currentProjects = this.currentProjects[i][this.currentTitle];
       //     break;
       //   } else {
-      //    this.currentThumbnails = [];
+      //    this.currentProjects = [];
       //   }
       // }
 
-      // for (let i = 0; i < this.tech.length; i++) {
-      //   if (this.tech[i][this.currentTitle] !== undefined) {
-      //     this.currentTech = this.tech[i][this.currentTitle]
+      // for (let i = 0; i < this.currentSkills.length; i++) {
+      //   if (this.currentSkills[i][this.currentTitle] !== undefined) {
+      //     this.currentSkills = this.currentSkills[i][this.currentTitle]
       //     break;
       //   } else {
-      //     this.currentTech = [];
+      //     this.currentSkills = [];
       //   }
       // };
-
-      this.updateModalState="modal modal-active";
     } catch (err) {
       console.log(err);
     }
