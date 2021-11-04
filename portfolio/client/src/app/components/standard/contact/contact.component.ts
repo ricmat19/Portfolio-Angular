@@ -1,8 +1,5 @@
 import { HttpClient } from "@angular/common/http";
 import { Component } from "@angular/core";
-// import IndexAPI from "../../apis/indexAPI";
-// import HeaderC from "../../standard/header/header.component";
-// import FooterC from "../../standard/footer/footer.component";
 
 export interface Contact {
   name: string,

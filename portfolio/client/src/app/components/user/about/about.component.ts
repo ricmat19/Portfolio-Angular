@@ -1,8 +1,5 @@
 import { HttpClient } from "@angular/common/http";
 import { Component } from "@angular/core";
-// import IndexAPI from "../../../../apis/indexAPI";
-// import HeaderC from "../../standard/header/header.component";
-// import FooterC from "../../standard/footer/footer.component";
 
 export interface Root {
   status: string
@@ -39,11 +36,21 @@ export class AboutComponent{
 
   skill = '';
   skills: any[] = [];
+  uniqueMarkup: any[] = [];
+  uniqueStyle: any[] = [];
+  uniqueFrontend: any[] = [];
+  uniqueBackend: any[] = [];
+  uniqueDatabase: any[] = [];
+  uniqueOther: any[] = [];
 
   constructor(private http: HttpClient){}
 
   ngOnInit(){
     this.getSkills()
+  }
+
+  ngAfterContentChecked() {
+    this.createSkillArrays();
   }
 
   getSkills(){
@@ -54,6 +61,43 @@ export class AboutComponent{
         console.log(err)
       }
     );
+  }
+
+  createSkillArrays(){
+
+    let markup: any[] = [];
+    let style: any[] = [];
+    let frontend: any[] = [];
+    let backend: any[] = [];
+    let database: any[] = [];
+    let other: any[] = [];
+
+    for(let i = 0; i < this.skills.length; i++){
+      if(this.skills[i].category === "MARKUP"){
+        markup.push(this.skills[i])
+      }
+      if(this.skills[i].category === "STYLE"){
+        style.push(this.skills[i])
+      }
+      if(this.skills[i].category === "FRONTEND"){
+        frontend.push(this.skills[i])
+      }
+      if(this.skills[i].category === "BACKEND"){
+        backend.push(this.skills[i])
+      }
+      if(this.skills[i].category === "DATABASE"){
+        database.push(this.skills[i])
+      }
+      if(this.skills[i].category === "OTHER"){
+        other.push(this.skills[i])
+      }
+    }
+    this.uniqueMarkup = [...new Set(markup)];
+    this.uniqueStyle = [...new Set(style)];
+    this.uniqueFrontend = [...new Set(frontend)];
+    this.uniqueBackend = [...new Set(backend)];
+    this.uniqueDatabase = [...new Set(database)];
+    this.uniqueOther = [...new Set(other)];
   }
 
 }

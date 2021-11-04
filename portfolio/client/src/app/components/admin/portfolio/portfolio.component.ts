@@ -1,5 +1,13 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, ElementRef, HostListener, OnInit, Renderer2, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  HostListener,
+  OnInit,
+  QueryList,
+  ViewChild,
+  ViewChildren,
+} from '@angular/core';
 
 export interface Root {
   status: string;
@@ -32,13 +40,12 @@ export interface Skill {
   templateUrl: './portfolio.component.html',
 })
 export class AdminPortfolioComponent implements OnInit {
-
-  @ViewChild('createDiv') createRef !: ElementRef;
-  @ViewChild('createButton') createButtonRef !: ElementRef;
-  @ViewChild('updateDiv') updateRef !: ElementRef;
-  @ViewChild('updateButton') updateButtonRef !: ElementRef;
-  @ViewChild('deleteDiv') deleteRef !: ElementRef;
-  @ViewChild('deleteButton') deleteButtonRef !: ElementRef;
+  @ViewChild('createDiv') createRef!: ElementRef;
+  @ViewChild('createButton') createButtonRef!: ElementRef;
+  @ViewChildren('updateDiv') updateRef!: QueryList<ElementRef>;
+  @ViewChildren('updateButton') updateButtonRef!: QueryList<ElementRef>;
+  @ViewChildren('deleteDiv') deleteRef!: QueryList<ElementRef>;
+  @ViewChildren('deleteButton') deleteButtonRef!: QueryList<ElementRef>;
 
   createModalState = 'modal';
   updateModalState = 'modal';
@@ -67,31 +74,46 @@ export class AdminPortfolioComponent implements OnInit {
   }
 
   @HostListener('document:click', ['$event.target'])
-  clickOutside(event: Event){
-    // if(this.createRef !== undefined && this.updateRef !== undefined && this.deleteRef !== undefined){
-      if (!this.createRef.nativeElement.contains(event) && !this.createButtonRef.nativeElement.contains(event)) {
-        this.createModalState = "modal";
+  clickOutside(event: Event) {
+    if (
+      !this.createRef.nativeElement.contains(event) &&
+      !this.createButtonRef.nativeElement.contains(event)
+    ) {
+      this.createModalState = 'modal';
+    }
+
+    for (let i = 0; i < this.updateRef.toArray().length; i++) {
+      if (
+        !this.updateRef.toArray()[i].nativeElement.contains(event) &&
+        !this.updateButtonRef.toArray()[i].nativeElement.contains(event)
+      ) {
+        // console.log(this.updateRef.toArray()[i].nativeElement.parentElement.classList.value)
+        this.updateRef.toArray()[i].nativeElement.parentElement.classList.value = 'modal';
+        // console.log(this.updateRef.toArray()[i].nativeElement.parentElement.classList.value)
       }
-      console.log(this.updateButtonRef)
-      // console.log(this.deleteButtonRef)
-      // if (!this.updateRef.nativeElement.contains(event) && !this.updateButtonRef.nativeElement.contains(event)) {
-      //   this.updateModalState = "modal";
-      // }
-      // if (!this.deleteRef.nativeElement.contains(event) && !this.deleteButtonRef.nativeElement.contains(event)) {
-      //   this.deleteModalState = "modal";
-      // }
-    // }
+    }
+
+    for (let i = 0; i < this.deleteRef.toArray().length; i++) {
+      if (
+        !this.deleteRef.toArray()[i].nativeElement.contains(event) &&
+        !this.deleteButtonRef.toArray()[i].nativeElement.contains(event)
+      ) {
+        // console.log(this.deleteRef.toArray()[i].nativeElement.parentElement.classList.value)
+        this.deleteRef.toArray()[i].nativeElement.parentElement.classList.value = 'modal';
+        // console.log(this.deleteRef.toArray()[i].nativeElement.parentElement.classList.value)
+      }
+    }
   }
 
   getProjects() {
     return this.http.get<any>(`http://localhost:3000/projects`).subscribe(
       (res) => {
         this.projects = res.results;
-        for(let i = 0; i < this.projects[0].length; i++){
+        for (let i = 0; i < this.projects[0].length; i++) {
           this.allProjects.push(this.projects[0][i]);
           this.currentProjects.push(this.projects[0][i]);
         }
-        for(let i = 0; i < this.projects[1].length; i++){
+        for (let i = 0; i < this.projects[1].length; i++) {
           this.allSkills.push(this.projects[1][i]);
           this.currentSkills.push(this.projects[1][i]);
         }
@@ -222,17 +244,16 @@ export class AdminPortfolioComponent implements OnInit {
 
   displayUpdateModal = () => {
     try {
+      this.updateModalState = 'modal modal-active';
 
-      this.updateModalState="modal modal-active";
-
-      console.log(this.projectNames);
-      console.log(this.projects);
-      console.log(this.allProjects);
-      console.log(this.currentProjects);
-      console.log(this.projectSkills);
-      console.log(this.skills);
-      console.log(this.allSkills);
-      console.log(this.currentSkills);
+      // console.log(this.projectNames);
+      // console.log(this.projects);
+      // console.log(this.allProjects);
+      // console.log(this.currentProjects);
+      // console.log(this.projectSkills);
+      // console.log(this.skills);
+      // console.log(this.allSkills);
+      // console.log(this.currentSkills);
 
       // for (let i = 0; i < this.allProjects.length; i++) {
       //   if (this.allProjects[i] !== undefined) {
@@ -256,13 +277,12 @@ export class AdminPortfolioComponent implements OnInit {
     }
   };
 
-  displayDeleteModal(deletedProject: any){
+  displayDeleteModal(deletedProject: any) {
     try {
-      this.deletedProject = deletedProject
-      this.deleteModalState="modal modal-active";
+      this.deletedProject = deletedProject;
+      this.deleteModalState = 'modal modal-active';
     } catch (err) {
       console.log(err);
     }
-  };
+  }
 }
-

@@ -1,10 +1,5 @@
 import { HttpClient } from "@angular/common/http";
 import { Component } from "@angular/core";
-// import IndexAPI from "../../apis/indexAPI";
-// import HeaderC from "../../standard/header/header.component";
-// import FooterC from "../../standard/footer/footer.component";
-// import LeftArrowC from "../../standard/left-arrow/left-arrow.component";
-// import RightArrowC from "../../standard/right-arrow/right-arrow.component";
 
 export interface Root {
   status: string

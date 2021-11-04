@@ -1,5 +1,4 @@
 import { Component } from "@angular/core";
-// import IndexAPI from "../../../../apis/indexAPI";
 
 export interface Project {
   project: string,

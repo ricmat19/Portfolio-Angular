@@ -187,6 +187,11 @@ textarea {
   gap: 10px;
 }
 
+.test{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
 .icon-label {
   text-align: center;
 }
