@@ -6,6 +6,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http'
 
 import { AppComponent } from './app.component';
+import { AdminHomeComponent } from './components/admin/home/home.component';
+import { AdminHeaderComponent } from './components/admin/header/admin-header.component';
+import { AdminFooterComponent } from './components/admin/footer/admin-footer.component';
 import { AdminAboutComponent } from './components/admin/about/about.component';
 import { AdminAddProjectComponent } from './components/admin/add-project/add-project.component';
 import { AdminAddSkillComponent } from './components/admin/add-skill/add-skill.component';
@@ -13,19 +16,22 @@ import { AdminDeleteProjectComponent } from './components/admin/delete-project/d
 import { AdminPortfolioComponent } from './components/admin/portfolio/portfolio.component';
 import { AdminProjectDetailsComponent } from './components/admin/project-details/project-details.component';
 import { AdminUpdateProjectComponent } from './components/admin/update-project/update-project.component';
-import { FooterComponent } from './components/standard/footer/footer.component';
-import { HeaderComponent } from './components/standard/header/header.component';
+import { HomeComponent } from './components/user/home/home.component';
+import { HeaderComponent } from './components/user/header/header.component';
+import { FooterComponent } from './components/user/footer/footer.component';
 import { LeftArrowComponent } from './components/standard/left-arrow/left-arrow.component';
 import { RightArrowComponent } from './components/standard/right-arrow/right-arrow.component';
 import { AboutComponent } from './components/user/about/about.component';
 import { ContactComponent } from './components/standard/contact/contact.component';
-import { HomeComponent } from './components/standard/home/home.component';
 import { PortfolioComponent } from './components/user/portfolio/portfolio.component';
 import { ProjectDetailsComponent } from './components/user/project-details/project-details.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    AdminHomeComponent,
+    AdminHeaderComponent,
+    AdminFooterComponent,
     AdminAboutComponent,
     AdminAddProjectComponent,
     AdminAddSkillComponent,
@@ -33,13 +39,13 @@ import { ProjectDetailsComponent } from './components/user/project-details/proje
     AdminPortfolioComponent,
     AdminProjectDetailsComponent,
     AdminUpdateProjectComponent,
-    FooterComponent,
+    HomeComponent,
     HeaderComponent,
+    FooterComponent,
     LeftArrowComponent,
     RightArrowComponent,
     AboutComponent,
     ContactComponent,
-    HomeComponent,
     PortfolioComponent,
     ProjectDetailsComponent
   ],

@@ -1,247 +1,194 @@
-import { HttpClient } from "@angular/common/http";
-import { Component } from "@angular/core";
+import { HttpClient } from '@angular/common/http';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
 
 export interface Root {
-  status: string
-  results: Result[][]
-  data: Data
+  status: string;
+  results: Result[][];
+  data: Data;
 }
 
 export interface Result {
-  id: number
-  project: string
-  technology: string
-  thumbnail: string
-  primary_image?: number
+  id: number;
+  project: string;
+  technology: string;
+  thumbnail: string;
+  primary_image?: number;
 }
 
 export interface Data {
-  skills: Skill[][]
+  skills: Skill[][];
 }
 
 export interface Skill {
-  id: number
-  project: string
-  technology: string
-  thumbnail: string
-  primary_image?: number
+  id: number;
+  project: string;
+  technology: string;
+  thumbnail: string;
+  primary_image?: number;
 }
 
 @Component({
   selector: 'app-portfolio',
-  templateUrl: './portfolio.component.html'
+  templateUrl: './portfolio.component.html',
 })
+export class PortfolioComponent implements OnInit {
 
-export class PortfolioComponent{
+  deletedProject = '';
 
-  projects = [];
-  titles = [];
-  allThumbnails = [];
-  projectThumbnails = [];
-  tech = [];
-  skills = [];
+  projectNames: any[] = [];
+  projects: any[] = [];
+  allProjects: any[] = [];
+  currentProjects: any[] = [];
+  projectSkills: any[] = [];
+  skills: any[] = [];
+  allSkills: any[] = [];
+  currentSkills: any[] = [];
 
   filterButtons = 'skill-buttons';
-  filteredThumbnails = [];
 
-  constructor(private http: HttpClient){}
+  currentTitle = '';
 
-  ngOnInit(){
-    this.getProjects()
+  constructor(private http: HttpClient) {}
+
+  ngOnInit() {
+    this.getProjects();
+    this.getSkills();
   }
 
-  getProjects(){
-    return this.http.get<any>(`http://localhost:3000/projects`).subscribe((res) => {
-        this.projects = res;
-        console.log(this.projects)
-      }, (err) => {
-        console.log(err)
+  getProjects() {
+    return this.http.get<any>(`http://localhost:3000/projects`).subscribe(
+      (res) => {
+        this.projects = res.results;
+        for (let i = 0; i < this.projects[0].length; i++) {
+          this.allProjects.push(this.projects[0][i]);
+          this.currentProjects.push(this.projects[0][i]);
+        }
+        for (let i = 0; i < this.projects[1].length; i++) {
+          this.allSkills.push(this.projects[1][i]);
+          this.currentSkills.push(this.projects[1][i]);
+        }
+      },
+      (err) => {
+        console.log(err);
       }
     );
   }
 
-    // try {
-
-      // function importAll(projects) {
-      //   let images = {};
-      //   projects.keys().forEach((index) => {
-      //     images[index.replace("./", "")] = projects(index);
-      //   });
-      //   return images;
-      // }
-      // const projectThumbnails = importAll(require.context("../images/projects"));
-
-      // const skills = await IndexAPI.get(`/skills`);
-      // const skillsList = [];
-      // for (let i = 0; i < skills.data.data.skills.length; i++) {
-      //   skillsList.push(skills.data.data.skills[i].skill);
-      // }
-      // setSkills(skillsList);
-
-      //Get all project thumbnails and images from DB
-      // const projects = await IndexAPI.get(`/projects`);
-      // setProjects(projects.data.results);
-
-      //Adds all the projects in project_images to the projectThumbnailArray
-      // const projectThumbnailArray = [];
-      // Object.keys(projectThumbnails);
-      // for (let i = 0; i < projects.data.results[0].length; i++) {
-      //   if (
-      //     projectThumbnailArray.indexOf(
-      //       projects.data.results[0][i].thumbnail
-      //     ) === -1
-      //   ) {
-      //     projects.data.results[0][i].module =
-      //       projectThumbnails[projects.data.results[0][i].thumbnail];
-      //     projectThumbnailArray.push(projects.data.results[0][i]);
-      //   }
-      // }
-
-      //Loops through the projectThumbnailArray
-      // const projectTitles = [];
-      // for (let i = 0; i < projectThumbnailArray.length; i++) {
-      //   const tempArray = [];
-      //   //Loops through all data provided from project_images
-      //   for (let j = 0; j < projects.data.results[0].length; j++) {
-      //     //Checks if the current item in project_images pertains to the current project
-      //     if (
-      //       projects.data.results[0][j].project ===
-      //       projectThumbnailArray[i].project
-      //     ) {
-      //       tempArray.push(projects.data.results[0][j]);
-      //     }
-      //   }
-      //   const key = projectThumbnailArray[i].project;
-      //   const tempObject = {};
-      //   tempObject[key] = [tempArray];
-      //   if (projectTitles.indexOf(projectThumbnailArray[i].project) === -1) {
-      //     projectTitles.push(projectThumbnailArray[i].project);
-      //   }
-      //   currentProjectThumbnailArray.push(tempObject);
-      // }
-
-      //Filters out duplicate project thumbnail objects
-      // let exists = false;
-      // const filteredProjectThumbnailArray = [];
-      // for (let i = 0; i < currentProjectThumbnailArray.length; i++) {
-      //   if (filteredProjectThumbnailArray.length > 0) {
-      //     for (let j = 0; j < filteredProjectThumbnailArray.length; j++) {
-      //       if (
-      //         Object.keys(currentProjectThumbnailArray[i])[0] ===
-      //         Object.keys(filteredProjectThumbnailArray[j])[0]
-      //       ) {
-      //         exists = true;
-      //       }
-      //     }
-      //     if (exists === false) {
-      //       filteredProjectThumbnailArray.push(
-      //         currentProjectThumbnailArray[i]
-      //       );
-      //     }
-      //   } else {
-      //     filteredProjectThumbnailArray.push(currentProjectThumbnailArray[0]);
-      //   }
-      //   exists = false;
-      // }
-      // setAllThumbnails(filteredProjectThumbnailArray);
-
-      // const primaryThumbnailArray = [];
-      // for (let i = 0; i < filteredProjectThumbnailArray.length; i++) {
-      //   for (
-      //     let j = 0;
-      //     j <
-      //     filteredProjectThumbnailArray[i][
-      //       Object.keys(filteredProjectThumbnailArray[i])[0]
-      //     ][0].length;
-      //     j++
-      //   ) {
-      //     if (
-      //       filteredProjectThumbnailArray[i][
-      //         Object.keys(filteredProjectThumbnailArray[i])[0]
-      //       ][0][j].primary_image === 1
-      //     ) {
-      //       primaryThumbnailArray.push(
-      //         filteredProjectThumbnailArray[i][
-      //           Object.keys(filteredProjectThumbnailArray[i])[0]
-      //         ][0][j]
-      //       );
-      //     }
-      //   }
-      // }
-
-      // setTitles(projectTitles);
-      // setThumbnails(primaryThumbnailArray);
-      // setFilteredThumbnails(primaryThumbnailArray);
-
-      //Adds all the projects in project_tech to the projectTechArray
-      // const projectTechArray = [];
-      // for (let i = 0; i < projects.data.results[1].length; i++) {
-      //   if (
-      //     projectTechArray.indexOf(projects.data.results[1][i].project) === -1
-      //   ) {
-      //     projectTechArray.push(projects.data.results[1][i].project);
-      //   }
-      // }
-
-      //Loops through the projectArray
-      // const currentProjectTechArray = [];
-      // for (let i = 0; i < projectTechArray.length; i++) {
-      //   const tempArray = [];
-      //   //Loops through all data provided from project_tech
-      //   for (let j = 0; j < projects.data.results[1].length; j++) {
-      //     //Checks if the current item in project_tech pertains to the current project
-      //     if (projects.data.results[1][j].project === projectTechArray[i]) {
-      //       tempArray.push(projects.data.results[1][j].technology);
-      //     }
-      //   }
-      //   const key = projectTechArray[i];
-      //   const tempObject = {};
-      //   tempObject[key] = [tempArray];
-      //   currentProjectTechArray.push(tempObject);
-      // }
-      // setTechnology(currentProjectTechArray);
-    // } catch (err) {
-    //   console.log(err);
-    // }
-
+  getSkills() {
+    return this.http.get<any>(`http://localhost:3000/skills`).subscribe(
+      (res) => {
+        this.skills = res.results;
+        console.log(this.skills);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 
-  // displayFilter = async () => {
-  //   try {
-  //     if (this.filterButtons === "skill-buttons") {
-  //       this.filterButtons = "skill-buttons skill-buttons-view";
-  //     } else {
-  //       this.filterButtons = "skill-buttons";
-  //     }
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
+  ngAfterContentChecked() {
+    this.getProjectSet();
+    this.getSkillSet();
+  }
 
-  // filterProjects = async (skill) => {
-  //   try {
-  //     const techProjects = [];
-  //     for (let i = 0; i < this.tech.length; i++) {
-  //       const projectsTech = this.tech[i][Object.keys(this.tech[i])][0];
-  //       for (let j = 0; j < projectsTech.length; j++) {
-  //         if (projectsTech[j] === skill) {
-  //           techProjects.push(Object.keys(this.tech[i])[0]);
-  //         }
-  //       }
-  //     }
+  //Get list of unique projects with their primary thumbnail
+  getProjectSet() {
+    let exists = false;
+    const uniqueProjects = [];
+    if (this.currentProjects !== undefined) {
+      for (let i = 0; i < this.currentProjects.length; i++) {
+        if (uniqueProjects.length > 0) {
+          for (let j = 0; j < uniqueProjects.length; j++) {
+            if (this.currentProjects[i].project === uniqueProjects[j].project) {
+              exists = true;
+            }
+          }
+          if (exists === false && this.currentProjects[i].primary_image === 1) {
+            uniqueProjects.push(this.currentProjects[i]);
+          }
+        } else {
+          uniqueProjects.push(this.currentProjects[i]);
+        }
+        exists = false;
+      }
+    }
+    this.currentProjects = uniqueProjects;
+  }
 
-  //     const filteredThumbnailsArray: ArrayType[] = [];
-  //     for (let i = 0; i < techProjects.length; i++) {
-  //       for (let j = 0; j < this.projectThumbnails.length; j++) {
-  //         if (techProjects[i] === this.projectThumbnails[j].project) {
-  //           filteredThumbnailsArray.push(this.projectThumbnails[j]);
-  //         }
-  //       }
-  //     }
-  //     this.filteredThumbnails.push(filteredThumbnailsArray);
-    // } catch (err) {
-    //   console.log(err);
-    // }
-  // };
+  //Get list of all projects with their technologies
+  getSkillSet() {
+    const projectNames: any[] = [];
+    if (this.currentSkills !== undefined) {
+      for (let i = 0; i < this.currentSkills.length; i++) {
+        if (projectNames.indexOf(this.currentSkills[i].project) === -1) {
+          projectNames.push(this.currentSkills[i].project);
+        }
+      }
+    }
+    this.projectNames = projectNames;
+    const projectTech: any[] = [];
+    let newProjectTech: any = {};
+    for (let i = 0; i < projectNames.length; i++) {
+      const tempArray: any[] = [];
+      for (let j = 0; j < this.currentSkills.length; j++) {
+        if (projectNames[i] === this.currentSkills[j].project) {
+          tempArray.push(this.currentSkills[j].technology);
+        }
+      }
+      projectTech.push(tempArray);
 
-// }
+      Object.keys(projectTech).forEach(function () {
+        let value = projectTech[i];
+        let key = projectNames[i];
+        newProjectTech[key] = value;
+      });
+    }
+    this.projectSkills = newProjectTech;
+  }
+
+  filterProjects(skill: any) {
+    this.currentProjects = this.allProjects;
+    const filteredNames: any[] = [];
+    for (let i = 0; i < this.projectNames.length; i++) {
+      if (this.currentSkills !== undefined) {
+        for (let j = 0; j < this.currentSkills.length; j++) {
+          if (
+            this.currentSkills[j].technology === skill &&
+            filteredNames.indexOf(this.currentSkills[j].project) === -1
+          ) {
+            filteredNames.push(this.currentSkills[j].project);
+          }
+        }
+      }
+
+      const projectThumbnailsArray: any[] = [];
+      if (this.currentProjects[0] !== undefined) {
+        for (let i = 0; i < filteredNames.length; i++) {
+          for (let k = 0; k < this.currentProjects.length; k++) {
+            if (filteredNames[i] === this.currentProjects[k].project) {
+              projectThumbnailsArray.push(this.currentProjects[k]);
+            }
+          }
+        }
+      }
+
+      this.currentProjects = projectThumbnailsArray;
+    }
+  }
+
+  displayFilters = async () => {
+    try {
+      if (this.filterButtons === 'skill-buttons') {
+        this.filterButtons = 'skill-buttons skill-buttons-view';
+      } else {
+        this.filterButtons = 'skill-buttons';
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+}
