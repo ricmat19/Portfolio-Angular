@@ -64,28 +64,29 @@
             DELETE
           </button>
         </div>
-        <!-- <div
-          class='portfolio-item-div'
-          (click)='history.push(`/admin/portfolio/${thumbnail.project}`)'
-        > -->
         <div
           class='portfolio-item-div'
+          (click)='displayProjectDetails(thumbnail.project)'
         >
-          <div class='portfolio-project'>
-            <img
-              class='project-thumbnail'
-              src="{{'../../../../assets/images/projects/' + thumbnail.thumbnail}}"
-            />
-            <div class='thumbnail-overlay thumbnail-overlay--blur'>
-              <div class='thumbnail-title-div'>
-                {{thumbnail.project.toLowerCase()}}
-              </div>
-              <div class='buttons-div'>
-                <div class='tech-used project-tech'>
-                  <div class='grid project-tech' *ngFor="let project of projectSkills | keyvalue">
-                    <div class='grid project-tech' *ngIf="project.key === thumbnail.project">
-                      <div *ngFor="let technology of project.value">
-                        <button>{{technology}}</button>
+          <div
+            class='portfolio-item-div'
+          >
+            <div class='portfolio-project'>
+              <img
+                class='project-thumbnail'
+                src="{{'../../../../assets/images/projects/' + thumbnail.thumbnail}}"
+              />
+              <div class='thumbnail-overlay thumbnail-overlay--blur'>
+                <div class='thumbnail-title-div'>
+                  {{thumbnail.project.toLowerCase()}}
+                </div>
+                <div class='buttons-div'>
+                  <div class='tech-used project-tech'>
+                    <div class='grid project-tech' *ngFor="let project of projectSkills | keyvalue">
+                      <div class='grid project-tech' *ngIf="project.key === thumbnail.project">
+                        <div *ngFor="let technology of project.value">
+                          <button>{{technology}}</button>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -96,6 +97,5 @@
         </div>
       </div>
     </div>
-  </div>
   <app-admin-footer></app-admin-footer>
 </div>

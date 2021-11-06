@@ -72,14 +72,7 @@ export class AdminAddProjectComponent{
   }
 
   getImages(){
-    return this.http.get<any>(`http://localhost:3000/images`).subscribe(
-      (res) => {
 
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
   }
 
   addProject(projectTitle: any, projectImages: any, primaryImage: any, projectSkills: any){

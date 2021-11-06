@@ -6,24 +6,20 @@
     </div>
     <div class='grid project-details'>
       <div class='grid slider-div'>
-        <!-- <div class='slider-arrow' (click)='slideThumbnailLeft()'>
+        <div class='slider-arrow' (click)='slideThumbnailLeft()'>
           <app-left-arrow></app-left-arrow>
-        </div> -->
-        <div class='grid project-slide-div'>
-          {{thumbnails[0] !== undefined ? (
-            <div class='grid image-container'>
-              <img
-                class='grid project-image'
-                src={thumbnails[thumbnailIndex].default}
-              />
-            </div>
-          ) : (
-            ''
-          )}}
         </div>
-        <!-- <div class='slider-arrow' (click)='slideThumbnailRight()'>
+        <div class='grid project-slide-div'>
+          <div class='grid image-container'>
+            <!-- <img
+              class='grid project-image'
+              src={thumbnails[thumbnailIndex].default}
+            /> -->
+          </div>
+        </div>
+        <div class='slider-arrow' (click)='slideThumbnailRight()'>
           <app-right-arrow></app-right-arrow>
-        </div> -->
+        </div>
       </div>
       <div class='grid project-tech-div'>
         <button class='tech-label' *ngFor="let t of tech">
@@ -70,7 +66,7 @@
             <ul>
               <li>
                 <span class='project-resource'>
-                  <a href={githubLink} target='_blank' rel='noreferrer'>
+                  <a href={{githubLink}} target='_blank' rel='noreferrer'>
                     Github
                   </a>
                 </span>

@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const db = require("../db/index");
 const fs = require("fs");
-const image = require("../../client/src/assets/images/projects/arcade-screen-shot.jpg")
 
 router.get("/projects", async (req, res) => {
   try {
@@ -24,9 +23,11 @@ router.get("/projects", async (req, res) => {
   }
 });
 
-router.get("/images", async () => {
+router.get("/images", () => {
   try {
-    console.log(fs.readFile(image));
+    fs.readdir("../../client/src/assets/images/projects", 'utf8', function(error, data){
+      console.log(data)
+    })
   } catch (err) {
     console.log(err);
   }

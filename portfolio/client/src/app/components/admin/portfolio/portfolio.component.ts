@@ -10,6 +10,7 @@ import {
   ViewChild,
   ViewChildren,
 } from '@angular/core';
+import { Router } from '@angular/router';
 
 export interface Root {
   status: string;
@@ -73,7 +74,7 @@ export class AdminPortfolioComponent implements OnInit {
 
   currentTitle = '';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   ngOnInit() {
     this.getProjects();
@@ -284,5 +285,9 @@ export class AdminPortfolioComponent implements OnInit {
     } catch (err) {
       console.log(err);
     }
+  }
+
+  displayProjectDetails(title: any){
+    this.router.navigate(['/admin/portfolio', title])
   }
 }
