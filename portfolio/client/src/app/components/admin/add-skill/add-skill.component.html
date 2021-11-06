@@ -7,7 +7,7 @@
   <div class="grid skill-input">
     <label>CATEGORY</label>
     <select name="category" [(ngModel)]="categorySelection">
-      <option disabled selected>Select a Category...</option>
+      <option value="" disabled selected>Select a Category...</option>
       <option>MARKUP</option>
       <option>STYLE</option>
       <option>FRONTEND</option>
@@ -19,7 +19,7 @@
   <div class="grid skill-input">
     <label>RANKING</label>
     <select name="rank" [(ngModel)]="rankSelection">
-      <option disabled selected>Select a Rank...</option>
+      <option value="" disabled selected>Select a Rank...</option>
       <option>1</option>
       <option>2</option>
       <option>3</option>
@@ -28,7 +28,7 @@
   <div class="grid skill-input">
     <label>LEVEL</label>
     <select name="level" [(ngModel)]="levelSelection">
-      <option disabled selected>Select a Level...</option>
+      <option value="" disabled selected>Select a Level...</option>
       <option>1</option>
       <option>2</option>
       <option>3</option>
@@ -39,7 +39,7 @@
   <div class="grid skill-input">
     <label>ICON</label>
     <select name="icon" [(ngModel)]="iconSelection">
-      <option disabled selected>Select an Icon...</option>
+      <option value="" disabled selected>Select an Icon...</option>
       <option *ngFor="let icon of icons">{{ icon }}</option>
       ;
     </select>

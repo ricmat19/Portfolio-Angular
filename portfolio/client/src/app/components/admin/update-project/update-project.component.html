@@ -19,14 +19,14 @@
         </div>
       </div>
       <div>
-        <div class='grid image-checkbox-list' *ngFor="let project of allImages">
-          <label class='image-checkbox-label'>{{project.thumbnail}}</label>
+        <div class='grid image-checkbox-list' *ngFor="let image of images">
+          <label class='image-checkbox-label'>{{image}}</label>
           <div>
               <input
                 matInput
                 type='checkbox'
                 name='image'
-                (change)='imageSet(project.thumbnail, $event)'
+                (change)='imageSet(image, $event)'
               />
           </div>
           <div>
@@ -34,7 +34,7 @@
                 matInput
                 type='radio'
                 name='image'
-                (change)='primaryImageSet(project.thumbnail)'
+                (change)='primaryImageSet(image)'
               />
           </div>
         </div>

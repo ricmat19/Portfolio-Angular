@@ -8,6 +8,16 @@ export interface Project {
   projectTech: string,
 }
 
+export interface Root {
+  status: string
+  results: string[]
+  data: Data
+}
+
+export interface Data {
+  files: string[]
+}
+
 @Component({
   selector: 'app-add-project',
   templateUrl: './add-project.component.html'
@@ -15,7 +25,7 @@ export interface Project {
 
 export class AdminAddProjectComponent{
 
-  images: any[] = [];
+  images: any;
   skills: any[] = [];
 
   projects: any[] = [];
@@ -72,7 +82,11 @@ export class AdminAddProjectComponent{
   }
 
   getImages(){
-
+    this.http.get('http://localhost:3000/images').subscribe(
+      (res) => {
+        this.images = res;
+      }
+    );
   }
 
   addProject(projectTitle: any, projectImages: any, primaryImage: any, projectSkills: any){

@@ -83,6 +83,7 @@ export class AdminPortfolioComponent implements OnInit {
 
   @HostListener('document:click', ['$event.target'])
   clickOutside(event: Event) {
+
     if (
       !this.createRef.nativeElement.contains(event) &&
       !this.createButtonRef.nativeElement.contains(event)
@@ -90,27 +91,28 @@ export class AdminPortfolioComponent implements OnInit {
       this.createModalState = 'modal';
     }
 
-    for (let i = 0; i < this.updateRef.toArray().length; i++) {
-      if (
-        !this.updateRef.toArray()[i].nativeElement.contains(event) &&
-        !this.updateButtonRef.toArray()[i].nativeElement.contains(event)
-      ) {
-        // console.log(this.updateRef.toArray()[i].nativeElement.parentElement.classList.value)
-        this.updateRef.toArray()[i].nativeElement.parentElement.classList.value = 'modal';
-        // console.log(this.updateRef.toArray()[i].nativeElement.parentElement.classList.value)
-      }
-    }
+  //   for (let i = 0; i < this.updateRef.toArray().length; i++) {
+  //     if (
+  //       !this.updateRef.toArray()[i].nativeElement.contains(event) &&
+  //       !this.updateButtonRef.toArray()[i].nativeElement.contains(event)
+  //     ) {
+  //       // console.log(this.updateRef.toArray()[i].nativeElement.parentElement.classList.value)
+  //       this.updateRef.toArray()[i].nativeElement.parentElement.classList.value = 'modal';
+  //       // console.log(this.updateRef.toArray()[i].nativeElement.parentElement.classList.value)
+  //     }
+  //   }
 
-    for (let i = 0; i < this.deleteRef.toArray().length; i++) {
-      if (
-        !this.deleteRef.toArray()[i].nativeElement.contains(event) &&
-        !this.deleteButtonRef.toArray()[i].nativeElement.contains(event)
-      ) {
-        // console.log(this.deleteRef.toArray()[i].nativeElement.parentElement.classList.value)
-        this.deleteRef.toArray()[i].nativeElement.parentElement.classList.value = 'modal';
-        // console.log(this.deleteRef.toArray()[i].nativeElement.parentElement.classList.value)
-      }
-    }
+  //   for (let i = 0; i < this.deleteRef.toArray().length; i++) {
+  //     if (
+  //       !this.deleteRef.toArray()[i].nativeElement.contains(event) &&
+  //       !this.deleteButtonRef.toArray()[i].nativeElement.contains(event)
+  //     ) {
+  //       // console.log(this.deleteRef.toArray()[i].nativeElement.parentElement.classList.value)
+  //       this.deleteRef.toArray()[i].nativeElement.parentElement.classList.value = 'modal';
+  //       // console.log(this.deleteRef.toArray()[i].nativeElement.parentElement.classList.value)
+  //     }
+  //   }
+
   }
 
   getProjects() {
@@ -136,7 +138,6 @@ export class AdminPortfolioComponent implements OnInit {
     return this.http.get<any>(`http://localhost:3000/skills`).subscribe(
       (res) => {
         this.skills = res.results;
-        console.log(this.skills);
       },
       (err) => {
         console.log(err);

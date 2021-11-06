@@ -21,6 +21,7 @@ export class AdminUpdateProjectComponent{
   @Input() projectSkills: any[] = [];
   @Input() oldTitle = '';
 
+  images: any;
   project = {};
   projectInput = '';
   currentProjectImages: any[] = [];
@@ -40,6 +41,7 @@ export class AdminUpdateProjectComponent{
   ngOnInit() {
     this.getProjects();
     this.getSkills();
+    this.getImages();
   }
 
   getProjects() {
@@ -66,6 +68,14 @@ export class AdminUpdateProjectComponent{
       },
       (err) => {
         console.log(err);
+      }
+    );
+  }
+
+  getImages(){
+    this.http.get('http://localhost:3000/images').subscribe(
+      (res) => {
+        this.images = res;
       }
     );
   }

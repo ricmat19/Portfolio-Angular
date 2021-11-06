@@ -18,13 +18,13 @@ export class AdminAddSkillComponent implements OnInit{
 
   skillsObject = {};
   skills: any[] = [];
-  icons: any[] = [];
   skillInput = '';
   categorySelection = '';
   rankSelection = '';
   levelSelection = '';
   iconSelection = '';
   newSkill = '';
+  icons: any;
 
   constructor(private http: HttpClient){}
 
@@ -33,13 +33,9 @@ export class AdminAddSkillComponent implements OnInit{
   }
 
   getIcons(){
-    return this.http.get<any>(`http://localhost:3000/skills`).subscribe((res) => {
-        this.skills = res.results;
-        for(let i = 0; i < this.skills.length; i++){
-          this.icons.push(this.skills[i].icon)
-        }
-      }, (err) => {
-        console.log(err)
+    this.http.get('http://localhost:3000/icons').subscribe(
+      (res) => {
+        this.icons = res;
       }
     );
   }

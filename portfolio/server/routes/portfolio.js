@@ -1,7 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../db/index");
-const fs = require("fs");
+let path = require('path');
+var fs = require('fs');
 
 router.get("/projects", async (req, res) => {
   try {
@@ -23,14 +24,16 @@ router.get("/projects", async (req, res) => {
   }
 });
 
-router.get("/images", () => {
+router.get("/images", async (req, res) => {
+
+  let projects = path.resolve('../client/src/assets/images/projects');
+  let files = fs.readdirSync(projects);
   try {
-    fs.readdir("../../client/src/assets/images/projects", 'utf8', function(error, data){
-      console.log(data)
-    })
+    res.status(200).json(files);
   } catch (err) {
     console.log(err);
   }
+
 });
 
 router.post("/projects/add-project", async (req, res) => {

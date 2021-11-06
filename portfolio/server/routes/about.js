@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../db/index");
+let path = require('path');
+var fs = require('fs');
 
 router.get("/about", async (req, res) => {
   try {
@@ -10,6 +12,18 @@ router.get("/about", async (req, res) => {
   } catch (err) {
     console.log(err);
   }
+});
+
+router.get("/icons", async (req, res) => {
+
+  let skills = path.resolve('../client/src/assets/images/skills');
+  let files = fs.readdirSync(skills);
+  try {
+    res.status(200).json(files);
+  } catch (err) {
+    console.log(err);
+  }
+
 });
 
 router.post("/skill/add-skill", async (req, res) => {
