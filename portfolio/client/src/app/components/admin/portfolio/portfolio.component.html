@@ -7,7 +7,14 @@
   </div>
   <div class={{updateModalState}}>
     <div #updateDiv class='modal-content'>
-      <app-update-project></app-update-project>
+      <app-update-project
+      titleInput={{currentTitle}}
+      [projectImages]='updatedProjectImages'
+      primaryImage={{primaryImage}}
+      [projectSkills]='updatedProjectSkills'
+      oldTitle={{oldTitle}}
+      >
+    </app-update-project>
     </div>
   </div>
 
@@ -25,7 +32,7 @@
       <button #createButton (click)='displayCreateModal()'>CREATE</button>
       <div class='grid skill-filters'>
         <div class={{filterButtons}}>
-          <div class='grid' *ngFor="let skill of skills">
+          <div *ngFor="let skill of skills">
             <button
               class='skill'
               (click)='filterProjects(skill.skill)'
@@ -46,7 +53,7 @@
         <div class='project-buttons'>
           <button
             #updateButton
-            (click)='displayUpdateModal()'
+            (click)='displayUpdateModal(thumbnail.project)'
           >
             UPDATE
           </button>

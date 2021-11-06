@@ -1,3 +1,5 @@
+//Mapped Modals Pop-Up Functionality & Update Modal
+
 import { HttpClient } from '@angular/common/http';
 import {
   Component,
@@ -51,6 +53,9 @@ export class AdminPortfolioComponent implements OnInit {
   updateModalState = 'modal';
   deleteModalState = 'modal';
 
+  updatedProjectImages: any[] = [];
+  updatedProjectSkills: any[] = [];
+
   deletedProject = '';
 
   projectNames: any[] = [];
@@ -61,6 +66,8 @@ export class AdminPortfolioComponent implements OnInit {
   skills: any[] = [];
   allSkills: any[] = [];
   currentSkills: any[] = [];
+  primaryImage = '';
+  oldTitle = '';
 
   filterButtons = 'skill-buttons';
 
@@ -242,36 +249,29 @@ export class AdminPortfolioComponent implements OnInit {
     this.createModalState = 'modal modal-active';
   };
 
-  displayUpdateModal = () => {
+  displayUpdateModal = (currentTitle: any) => {
     try {
+      this.oldTitle = currentTitle;
+      this.updatedProjectImages = [];
+      this.updatedProjectSkills = [];
+
       this.updateModalState = 'modal modal-active';
 
-      // console.log(this.projectNames);
-      // console.log(this.projects);
-      // console.log(this.allProjects);
-      // console.log(this.currentProjects);
-      // console.log(this.projectSkills);
-      // console.log(this.skills);
-      // console.log(this.allSkills);
-      // console.log(this.currentSkills);
+      for (let i = 0; i < this.allProjects.length; i++) {
+        if (this.allProjects[i].project === currentTitle) {
+          this.updatedProjectImages.push(this.allProjects[i].thumbnail);
+        }
+        if(this.allProjects[i].primaryImage === 1){
+          this.primaryImage = this.allProjects[i].thumbnail;
+        }
+      }
 
-      // for (let i = 0; i < this.allProjects.length; i++) {
-      //   if (this.allProjects[i] !== undefined) {
-      //     this.currentProjects = this.currentProjects[i][this.currentTitle];
-      //     break;
-      //   } else {
-      //    this.currentProjects = [];
-      //   }
-      // }
+      for (let i = 0; i < this.allSkills.length; i++) {
+        if (this.allSkills[i].project === currentTitle) {
+          this.updatedProjectSkills.push(this.allSkills[i].technology);
+        }
+      }
 
-      // for (let i = 0; i < this.currentSkills.length; i++) {
-      //   if (this.currentSkills[i][this.currentTitle] !== undefined) {
-      //     this.currentSkills = this.currentSkills[i][this.currentTitle]
-      //     break;
-      //   } else {
-      //     this.currentSkills = [];
-      //   }
-      // };
     } catch (err) {
       console.log(err);
     }

@@ -15,17 +15,17 @@ export interface Project {
 
 export class AdminAddProjectComponent{
 
+  images: any[] = [];
+  skills: any[] = [];
+
   projects: any[] = [];
-  allImages: any[] = [];
-  allSkills: any[] = [];
+  projectImages: any[] = [];
+  projectSkills: any[] = [];
 
   project = {}
   projectTitle = '';
-  projectImages: any[] = [];
   currentProjectImages: any[] = [];
   skillInput = '';
-  skills: any[] = [];
-  projectSkills: any[] = [];
 
   imageChecked = false;
   skillChecked = false;
@@ -40,6 +40,7 @@ export class AdminAddProjectComponent{
   ngOnInit() {
     this.getProjects();
     this.getSkills();
+    this.getImages();
   }
 
   getProjects() {
@@ -47,10 +48,10 @@ export class AdminAddProjectComponent{
       (res) => {
         this.projects = res.results;
         for(let i = 0; i < this.projects[0].length; i++){
-          this.allImages.push(this.projects[0][i]);
+          this.projectImages.push(this.projects[0][i]);
         }
         for(let i = 0; i < this.projects[1].length; i++){
-          this.allSkills.push(this.projects[1][i]);
+          this.projectSkills.push(this.projects[1][i]);
         }
       },
       (err) => {
@@ -70,6 +71,17 @@ export class AdminAddProjectComponent{
     );
   }
 
+  getImages(){
+    return this.http.get<any>(`http://localhost:3000/images`).subscribe(
+      (res) => {
+
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
   addProject(projectTitle: any, projectImages: any, primaryImage: any, projectSkills: any){
     return this.http.post(`http://localhost:3000/projects/add-project`, {projectTitle, projectImages, primaryImage, projectSkills}).subscribe((res) => {
         this.project = res;
@@ -79,7 +91,7 @@ export class AdminAddProjectComponent{
     );
   }
 
-  skillSet = async (skill: HTMLTextAreaElement, e: any) => {
+  projectSkillSet = async (skill: HTMLTextAreaElement, e: any) => {
     try {
 
       const currentSkills: any[] = this.projectSkills;
@@ -96,7 +108,7 @@ export class AdminAddProjectComponent{
     }
   };
 
-  imageSet = async (image: HTMLTextAreaElement, e: any) => {
+  projectImageSet = async (image: HTMLTextAreaElement, e: any) => {
     try {
 
       const currentImages: any[] = this.projectImages;
@@ -113,7 +125,7 @@ export class AdminAddProjectComponent{
     }
   };
 
-  primaryImageSet = async (image: string) => {
+  setPrimaryImage = async (image: string) => {
     try {
 
       this.primaryImage = image

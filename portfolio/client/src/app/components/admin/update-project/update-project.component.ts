@@ -1,4 +1,5 @@
-import { Component } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { Component, Input } from "@angular/core";
 
 export interface Project {
   project: string,
@@ -14,155 +15,119 @@ export interface Project {
 
 export class AdminUpdateProjectComponent{
 
+  @Input() titleInput = '';
+  @Input() projectImages: any[] = [];
+  @Input() primaryImage = '';
+  @Input() projectSkills: any[] = [];
+  @Input() oldTitle = '';
+
   project = {};
-  files = [];
-  projectImages = [];
-  projectFiles = [];
-  primaryImage = '';
-  skills = [];
-  projectSkills = [];
+  projectInput = '';
+  currentProjectImages: any[] = [];
+  skillInput = '';
+  skills: any[] = [];
+  projectTitle = '';
+  projects: any[] = [];
+  allImages: any[] = [];
+  allSkills: any[] = [];
+  imageChecked = false;
+  skillChecked = false;
+  thumbnails: any[] = [];
+  projectTech: any[] = [];
 
-  titles = [];
-  titleInput = '';
-  thumbnails = [];
-  tech = [];
-  oldTitle = '';
+  constructor(private http: HttpClient){}
 
-  // updateProject(title: any, projectFiles: any, primaryImage: any, projectSkills: any, oldTitle: any){
-  //   return this.http.push(`http://localhost:3000/projects/update-project`, [title, projectFiles, primaryImage, projectSkills, oldTitle]).subscribe((res) => {
-  //       this.project = res;
-  //       console.log(this.project)
-  //     }, (err) => {
-  //       console.log(err)
-  //     }
-  //   );
-  // }
+  ngOnInit() {
+    this.getProjects();
+    this.getSkills();
+  }
 
-  //   try{
+  getProjects() {
+    return this.http.get<any>(`http://localhost:3000/projects`).subscribe(
+      (res) => {
+        this.projects = res.results;
+        for(let i = 0; i < this.projects[0].length; i++){
+          this.allImages.push(this.projects[0][i]);
+        }
+        for(let i = 0; i < this.projects[1].length; i++){
+          this.allSkills.push(this.projects[1][i]);
+        }
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
 
-  //     projectSet = [];
-  //     function importAll(projects) {
-  //       let images = {};
-  //       projects.keys().forEach((index) => {
-  //         images[index.replace("./", "")] = projects(index);
-  //         Object.keys(images).forEach((key) => {
-  //           projectSet.push(key);
-  //           setProjectImages([...new Set(projectSet)]);
-  //         });
-  //       });
-  //     }
-  //     importAll(require.context("../../images/projects"));
+  getSkills() {
+    return this.http.get<any>(`http://localhost:3000/skills`).subscribe(
+      (res) => {
+        this.skills = res.results;
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
 
-  //     setTitle(props.title);
-  //     setOldTitle(props.title);
+  updateProject(title: any, projectImages: any, primaryImage: any, projectSkills: any, oldTitle: any){
+    console.log(title);
+    console.log(projectImages);
+    console.log(primaryImage);
+    console.log(projectSkills);
+    console.log(oldTitle);
+    // return this.http.put(`http://localhost:3000/projects/update-project`, [title, projectFiles, primaryImage, projectSkills, oldTitle]).subscribe((res) => {
+    //     this.project = res;
+    //     console.log(this.project)
+    //   }, (err) => {
+    //     console.log(err)
+    //   }
+    // );
+  }
 
-  //     const titlesArray = [];
-  //     for (let i = 0; i < props.thumbnails.length; i++) {
-  //       titlesArray.push(Object.keys(props.thumbnails[i])[0]);
-  //     }
-  //     setTitles(titlesArray);
-
-  //     //Sets the full list of files
-  //     const filesArray = [];
-  //     for (let i = 0; i < props.thumbnails.length; i++) {
-  //       filesArray.push(props.thumbnails[i][titles[i]][0][0]["thumbnail"]);
-  //     }
-  //     setFiles(filesArray);
-
-  //     //Sets list of all of the files pertaining to this project
-  //     const projectFilesArray = [];
-  //     for (let i = 0; i < props.thumbnails.length; i++) {
-  //       if (Object.keys(props.thumbnails[i]).toString() === props.title) {
-  //         for (
-  //           let j = 0;
-  //           j < props.thumbnails[i][props.title][0].length;
-  //           j++
-  //         ) {
-  //           projectFilesArray.push(
-  //             props.thumbnails[i][props.title][0][j]["thumbnail"]
-  //           );
-  //         }
-  //       }
-  //     }
-  //     setProjectFiles(projectFilesArray);
-
-  //     //Get all skills from DB
-  //     const skills = await IndexAPI.get(`/skills`);
-  //     const skillsArray = [];
-  //     for (let i = 0; i < skills.data.results.length; i++) {
-  //       skillsArray.push(skills.data.results[i].skill);
-  //     }
-  //     setSkills(skillsArray);
-
-  //     //Sets list of all of the files pertaining to this project
-  //     const projectTechArray = [];
-  //     for (let i = 0; i < props.tech.length; i++) {
-  //       if (Object.keys(props.tech[i]).toString() === props.title) {
-  //         for (let j = 0; j < props.tech[i][props.title][0].length; j++) {
-  //           projectTechArray.push(props.tech[i][props.title][0][j]);
-  //         }
-  //       }
-  //     }
-  //     setProjectSkills(projectTechArray);
-
-  //     if (props.thumbnails === []) {
-  //       setThumbnails([]);
-  //     } else {
-  //       setThumbnails(props.thumbnails[0]);
-  //     }
-
-  //     if (props.tech === []) {
-  //       setTech([]);
-  //     } else {
-  //       setTech(props.tech[0]);
-  //     }
-
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // }
-
-  // skillSet = async (skillInput: HTMLTextAreaElement, checked) => {
-  //   try {
-
-  //     if (checked) {
-  //       this.skills.push(skillInput)
-  //     }
-
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
-
-  // projectSet = async (imageInput: HTMLTextAreaElement, checked) => {
-  //   try {
-
-  //     if (checked) {
-  //       this.tech.push(imageInput);
-  //     }
-
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
-
-  updateProject = async () => {
+  skillSet = async (skill: HTMLTextAreaElement, e: any) => {
     try {
 
-      // await IndexAPI.put("/projects/update-project", {
-      //   title: this.titleInput,
-      //   projectFiles: this.projectFiles,
-      //   primaryImage: this.primaryImage,
-      //   projectSkills: this.projectSkills,
-      //   oldTitle: this.oldTitle,
-      // });
+      const currentSkills: any[] = this.projectSkills;
+      if (e.target.checked) {
+        currentSkills.push(skill)
+      }else if (!e.target.checked) {
+        const index = currentSkills.indexOf(skill);
+        currentSkills.splice(index, 1);
+      }
+      this.projectSkills = currentSkills;
 
-      this.titleInput = "";
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
-      // props.setUpdatedProject(updatedProject)
+  imageSet = async (image: HTMLTextAreaElement, e: any) => {
+    try {
+
+      const currentImages: any[] = this.projectImages;
+      if (e.target.checked) {
+        currentImages.push(image)
+      }else if (!e.target.checked) {
+        const index = currentImages.indexOf(image);
+        currentImages.splice(index, 1);
+      }
+      this.projectImages = currentImages;
+
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  primaryImageSet = async (image: string) => {
+    try {
+
+      this.primaryImage = image
+
     } catch (err) {
       console.log(err);
     }
   };
 
 }
+

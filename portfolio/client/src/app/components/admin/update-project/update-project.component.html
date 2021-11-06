@@ -1,14 +1,12 @@
 <div class='grid add-project-modal'>
   <div class='grid toDo-modal-grid'>
     <label>TITLE</label>
-    <!-- <mat-form-field> -->
       <input
         matInput
         type='text'
         name='project_title'
-        [(ngModel)]='titleInput'
+        [(ngModel)]='projectTitle'
       />
-    <!-- </mat-form-field> -->
   </div>
   <div class='grid project-creation-checkbox-div'>
     <div class='grid thumbnail-checkbox-div'>
@@ -21,48 +19,25 @@
         </div>
       </div>
       <div>
-        <div class='grid image-checkbox-list' *ngFor="let file of projectImages">
-          <div *ngIf="projectFiles.includes(file)">
-            <label class='image-checkbox-label'>{{file}}</label>
-            <div>
-                <!-- <input
-                  matInput
-                  type='checkbox'
-                  name='image'
-                  [(ngModel)]='fileInput'
-                  (change)='projectSet(fileInput, e.target.checked)'
-                  checked
-                /> -->
-            </div>
-            <div>
-                <input
-                  matInput
-                  type='radio'
-                  name='image'
-                  [(ngModel)]='primaryImage'
-                />
-            </div>
+        <div class='grid image-checkbox-list' *ngFor="let project of allImages">
+          <label class='image-checkbox-label'>{{project.thumbnail}}</label>
+          <div>
+              <input
+                matInput
+                type='checkbox'
+                name='image'
+                (change)='imageSet(project.thumbnail, $event)'
+              />
           </div>
-          <div *ngIf="!projectFiles.includes(file)">
-            <label class='image-checkbox-label'>{{file}}</label>
-            <div>
-                <!-- <input
-                  matInput
-                  type='checkbox'
-                  name='image'
-                  [(ngModel)]='fileInput'
-                  (change)='projectSet(fileInput, e.target.checked)'
-                /> -->
-            </div>
-            <div>
-                <input
-                  matInput
-                  type='radio'
-                  name='image'
-                  [(ngModel)]='primaryImage'
-                />
-            </div>
+          <div>
+              <input
+                matInput
+                type='radio'
+                name='image'
+                (change)='primaryImageSet(project.thumbnail)'
+              />
           </div>
+        </div>
       </div>
     </div>
     <div class='grid tech-grid'>
@@ -75,38 +50,22 @@
       </div>
       <div>
         <div class='grid tech-checkbox-list' *ngFor="let skill of skills">
-          <div *ngIf="projectSkills.includes(skill)">
-            <label class='tech-checkbox-label'>{{skill}}</label>
-            <div>
-                <!-- <input
-                  matInput
-                  type='checkbox'
-                  name='skill'
-                  [(ngModel)]='skillInput'
-                  (change)='skillSet(skillInput, e.target.checked)'
-                  checked
-                /> -->
-            </div>
+          <label class='tech-checkbox-label'>{{skill.skill}}</label>
+          <div>
+              <input
+                matInput
+                type='checkbox'
+                name='skill'
+                (change)='skillSet(skill.skill, $event)'
+              />
           </div>
-            <div *ngIf="!projectSkills.includes(skill)">
-              <label class='tech-checkbox-label'>{{skill}}</label>
-              <div>
-                <!-- <input
-                  matInput
-                  type='checkbox'
-                  name='skill'
-                  [(ngModel)]='skillInput'
-                  (change)='creskillSetateList(skillInput, e.target.checked)'
-                /> -->
-              </div>
-            </div>
         </div>
       </div>
     </div>
   </div>
   <div>
-    <button class='form-button' type='submit' (click)='updateProject'>
-      UPDATE
+    <button class='form-button' type='submit' (click)='updateProject(projectTitle, projectImages, primaryImage, projectSkills, oldTitle)'>
+      CREATE
     </button>
   </div>
 </div>

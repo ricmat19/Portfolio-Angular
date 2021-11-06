@@ -22,7 +22,7 @@ import { FooterComponent } from './components/user/footer/footer.component';
 import { LeftArrowComponent } from './components/standard/left-arrow/left-arrow.component';
 import { RightArrowComponent } from './components/standard/right-arrow/right-arrow.component';
 import { AboutComponent } from './components/user/about/about.component';
-import { ContactComponent } from './components/standard/contact/contact.component';
+import { ContactComponent } from './components/user/contact/contact.component';
 import { PortfolioComponent } from './components/user/portfolio/portfolio.component';
 import { ProjectDetailsComponent } from './components/user/project-details/project-details.component';
 

@@ -1,10 +1,7 @@
+//Project Details Display
+
 import { HttpClient } from "@angular/common/http";
 import { Component } from "@angular/core";
-// import IndexAPI from "../../../../apis/indexAPI";
-// import HeaderC from "../../header.component";
-// import FooterC from "../../footer.component";
-// import LeftArrowC from "../../left-arrow.component";
-// import RightArrowC from "../../right-arrow.component";
 
 export interface Root {
   status: string

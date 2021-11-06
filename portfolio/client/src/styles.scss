@@ -55,11 +55,20 @@ textarea {
   font-family: "Rajdhani";
 }
 
+.admin-navbar {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  grid-template-columns: repeat(3, minmax(50px, 150px));
+  background-color: black;
+  height: 92px;
+}
+
 .navbar {
   display: grid;
   justify-content: center;
   align-items: center;
-  grid-template-columns: repeat(auto-fit, minmax(50px, 150px));
+  grid-template-columns: repeat(4, minmax(50px, 150px));
   background-color: black;
   height: 92px;
 }
@@ -79,10 +88,11 @@ textarea {
 }
 
 .about-content-div {
-  margin: 0 200px;
+  margin: 0 50px;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(300px, 500px));
   gap: 50px;
+  justify-content: center;
 }
 
 .icon {
@@ -319,15 +329,21 @@ textarea {
 
 .footer {
   background: black;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 1fr 1fr;
   padding: 0 100px;
   height: 92px;
   align-items: center;
   margin-top: auto;
 }
 
+.admin-footer-nav {
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
 .footer-nav {
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
 }
 
 .modal-content {

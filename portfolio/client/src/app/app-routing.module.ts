@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './components/user/home/home.component';
 import { AboutComponent } from './components/user/about/about.component';
-import { ContactComponent } from './components/standard/contact/contact.component';
+import { ContactComponent } from './components/user/contact/contact.component';
 import { PortfolioComponent } from './components/user/portfolio/portfolio.component';
 import { ProjectDetailsComponent } from './components/user/project-details/project-details.component';
 import { AdminPortfolioComponent } from './components/admin/portfolio/portfolio.component';

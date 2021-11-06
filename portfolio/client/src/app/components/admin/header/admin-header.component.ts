@@ -4,6 +4,7 @@ import { Component } from "@angular/core";
   selector: 'app-admin-header',
   templateUrl: './admin-header.component.html'
 })
+
 export class AdminHeaderComponent{
 
 }
