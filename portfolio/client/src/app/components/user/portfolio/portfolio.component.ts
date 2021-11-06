@@ -3,6 +3,7 @@ import {
   Component,
   OnInit,
 } from '@angular/core';
+import { Router } from '@angular/router';
 
 export interface Root {
   status: string;
@@ -51,7 +52,7 @@ export class PortfolioComponent implements OnInit {
 
   currentTitle = '';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   ngOnInit() {
     this.getProjects();
@@ -190,5 +191,9 @@ export class PortfolioComponent implements OnInit {
       console.log(err);
     }
   };
+
+  displayProjectDetails(title: any){
+    this.router.navigate(['/portfolio', title])
+  }
 
 }

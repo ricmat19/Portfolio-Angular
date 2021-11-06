@@ -6,20 +6,20 @@
     </div>
     <div class='grid project-details'>
       <div class='grid slider-div'>
-        <!-- <div class='slider-arrow' (click)='slideThumbnailLeft()'>
+        <div class='slider-arrow' (click)='slideThumbnailLeft()'>
           <app-left-arrow></app-left-arrow>
-        </div> -->
+        </div>
         <div class='grid project-slide-div'>
-          <div class='grid image-container' *ngIf="thumbnails[0] !== undefined">
-            <!-- <img
+          <div class='grid image-container'>
+            <img
               class='grid project-image'
-              src={{thumbnails[thumbnailIndex].default}}
-            /> -->
+              src="{{'../../../../assets/images/projects/' + thumbnails[thumbnailIndex]}}"
+            />
           </div>
         </div>
-        <!-- <div class='slider-arrow' (click)='slideThumbnailRight()'>
+        <div class='slider-arrow' (click)='slideThumbnailRight()'>
           <app-right-arrow></app-right-arrow>
-        </div> -->
+        </div>
       </div>
       <div class='grid project-tech-div'>
         <button class='tech-label' *ngFor="let t of tech">
@@ -77,5 +77,6 @@
       </div>
     </div>
   </div>
+
   <app-footer></app-footer>
 </div>
