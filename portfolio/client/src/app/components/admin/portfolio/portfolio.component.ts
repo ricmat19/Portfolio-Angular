@@ -21,8 +21,8 @@ export interface Root {
 export interface Result {
   id: number;
   project: string;
-  technology: string;
-  thumbnail: string;
+  technology?: string;
+  thumbnail?: string;
   primary_image?: number;
 }
 
@@ -33,8 +33,8 @@ export interface Data {
 export interface Skill {
   id: number;
   project: string;
-  technology: string;
-  thumbnail: string;
+  technology?: string;
+  thumbnail?: string;
   primary_image?: number;
 }
 

@@ -13,9 +13,9 @@ export interface Root {
 export interface Result {
   id: number
   project: string
-  thumbnail: string
-  primary_image: number
-  technology: string
+  technology?: string
+  thumbnail?: string
+  primary_image?: number
 }
 
 export interface Data {
@@ -25,9 +25,9 @@ export interface Data {
 export interface Project {
   id: number
   project: string
-  thumbnail: string
-  primary_image: number
-  technology: string
+  technology?: string
+  thumbnail?: string
+  primary_image?: number
 }
 
 @Component({
@@ -37,13 +37,13 @@ export interface Project {
 
 export class AdminProjectDetailsComponent{
 
-  project = {};
+  project: any[] = [];
   title = this.route.snapshot.paramMap.get('project')?.toLowerCase();
   //Fix: Add Github URL to DB
   githubLink = "https://github.com/ricmat19/" + this.route.snapshot.paramMap.get('project')?.toLowerCase();
-  thumbnails = [];
+  thumbnails: any[] = [];
   thumbnailIndex = 0;
-  tech = [];
+  tech: any[] = [];
 
   constructor(private http: HttpClient, private route: ActivatedRoute){}
 
@@ -67,15 +67,13 @@ export class AdminProjectDetailsComponent{
   slideThumbnailLeft = async () => {
     try {
       if (this.thumbnailIndex === 0) {
-        this.thumbnails.length - 1;
+        this.thumbnailIndex = this.thumbnails.length - 1;
       } else {
-        let newThumbnail = this.thumbnailIndex - 1;
-        this.thumbnailIndex = newThumbnail;
+        this.thumbnailIndex = this.thumbnailIndex - 1;
       }
     } catch (err) {
       console.log(err);
     }
-    console.log(this.title)
   };
 
   slideThumbnailRight = async () => {
@@ -83,8 +81,7 @@ export class AdminProjectDetailsComponent{
       if (this.thumbnailIndex === this.thumbnails.length - 1) {
         this.thumbnailIndex = 0;
       } else {
-        let newThumbnail = this.thumbnailIndex + 1;
-        this.thumbnailIndex = newThumbnail;
+        this.thumbnailIndex = this.thumbnailIndex + 1;
       }
     } catch (err) {
       console.log(err);
@@ -92,30 +89,17 @@ export class AdminProjectDetailsComponent{
   };
 
   getProjectDetails(){
-    const projectThumbnailsArray = [];
-    console.log(this.project)
     //Loops through the array of images associated with this project
-    // for (let i = 0; i < this.project[0].length; i++) {
-    //   //Gets the file name of the current project image
-    //   const projectFile = project.data.results[1][i].thumbnail;
+    for (let i = 0; i < this.project[1].length; i++) {
+      this.thumbnails.push(this.project[1][i].thumbnail)
+    }
+    this.thumbnails = [...new Set(this.thumbnails)];
 
-    //   //Loops through the array of imported images
-    //   for (let j = 0; j < Object.keys(projectThumbnails).length; j++) {
-    //     if (Object.keys(projectThumbnails)[j] === projectFile) {
-    //       projectThumbnailsArray.push(projectThumbnails[projectFile]);
-    //     }
-    //   }
-    // }
-    // setThumbnails(projectThumbnailsArray);
-    // console.log(projectThumbnailsArray);
-
-    // const projectTechArray = [];
     // //Loops through the array of technology associated with this project
-    // for (let i = 0; i < project.data.results[0].length; i++) {
-    //   projectTechArray.push(project.data.results[0][i].technology);
-    // }
-    // setTechs(projectTechArray);
-
+    for (let i = 0; i < this.project[0].length; i++) {
+      this.tech.push(this.project[0][i].technology)
+    }
+    this.tech = [...new Set(this.tech)];
   }
 
   }
