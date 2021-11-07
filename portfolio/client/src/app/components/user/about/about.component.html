@@ -1,16 +1,19 @@
-<div class='main'>
+<div class="main">
   <app-header></app-header>
 
-  <div class='container'>
-    <div class='title-div'>
-      <p class='title'>about</p>
+  <div class="container">
+    <div class="title-div">
+      <p class="title">about</p>
     </div>
-    <div class='about-content-div'>
-      <div class='profile-div'>
-        <div class='profile-image-div'>
-          <img class='profile-image' src='../../../../assets/images/about-image.jpg' />
+    <div class="about-content-div">
+      <div class="profile-div">
+        <div class="profile-image-div">
+          <img
+            class="profile-image"
+            src="../../../../assets/images/about-image.jpg"
+          />
         </div>
-        <div class='info-div'>
+        <div class="info-div">
           <p>
             Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quas
             doloribus saepe, incidunt unde atque adipisci sint dignissimos
@@ -31,62 +34,81 @@
           </p>
         </div>
       </div>
-      <div class='skills-category-container-div'>
-        <div class='skill-category-div'>
-          <div class='sub-title'>MARKUP</div>
-          <div class='skill-div'>
+      <div class="skills-category-container-div">
+        <div class="skill-category-div">
+          <div class="sub-title">MARKUP</div>
+          <div class="skill-div">
             <div *ngFor="let skill of uniqueMarkup">
-              <img class='icon' src="{{'../../../../assets/images/skills/' + skill.icon}}"/>
-              <div class='icon-label'>{{skill.skill}}</div>
+              <img
+                class="icon"
+                src="{{ '../../../../assets/images/skills/' + skill.icon }}"
+              />
+              <div class="icon-label">{{ skill.skill }}</div>
             </div>
           </div>
         </div>
-        <div class='skill-category-div'>
-          <div class='sub-title'>STYLE</div>
-          <div class='skill-div'>
+        <div class="skill-category-div">
+          <div class="sub-title">STYLE</div>
+          <div class="skill-div">
             <div *ngFor="let skill of uniqueStyle">
-              <img class='icon' src="{{'../../../../assets/images/skills/' + skill.icon}}"/>
-              <div class='icon-label'>{{skill.skill}}</div>
+              <img
+                class="icon"
+                src="{{ '../../../../assets/images/skills/' + skill.icon }}"
+              />
+              <div class="icon-label">{{ skill.skill }}</div>
             </div>
           </div>
         </div>
-        <div class='skill-category-div'>
-          <div class='sub-title'>FRONTEND</div>
-          <div class='skill-div'>
+        <div class="skill-category-div">
+          <div class="sub-title">FRONTEND</div>
+          <div class="skill-div">
             <div *ngFor="let skill of uniqueFrontend">
-              <img class='icon' src="{{'../../../../assets/images/skills/' + skill.icon}}"/>
-              <div class='icon-label'>{{skill.skill}}</div>
+              <img
+                class="icon"
+                src="{{ '../../../../assets/images/skills/' + skill.icon }}"
+              />
+              <div class="icon-label">{{ skill.skill }}</div>
             </div>
           </div>
         </div>
-        <div class='skill-category-div'>
-          <div class='sub-title'>BACKEND</div>
-          <div class='skill-div'>
+        <div class="skill-category-div">
+          <div class="sub-title">BACKEND</div>
+          <div class="skill-div">
             <div *ngFor="let skill of uniqueBackend">
-              <img class='icon' src="{{'../../../../assets/images/skills/' + skill.icon}}"/>
-              <div class='icon-label'>{{skill.skill}}</div>
+              <img
+                class="icon"
+                src="{{ '../../../../assets/images/skills/' + skill.icon }}"
+              />
+              <div class="icon-label">{{ skill.skill }}</div>
             </div>
           </div>
         </div>
-        <div class='skill-category-div'>
-          <div class='sub-title'>DATABASE</div>
-          <div class='skill-div'>
+        <div class="skill-category-div">
+          <div class="sub-title">DATABASE</div>
+          <div class="skill-div">
             <div *ngFor="let skill of uniqueDatabase">
-              <img class='icon' src="{{'../../../../assets/images/skills/' + skill.icon}}"/>
-              <div class='icon-label'>{{skill.skill}}</div>
+              <img
+                class="icon"
+                src="{{ '../../../../assets/images/skills/' + skill.icon }}"
+              />
+              <div class="icon-label">{{ skill.skill }}</div>
             </div>
           </div>
         </div>
-        <div class='skill-category-div'>
-          <div class='sub-title'>OTHER</div>
-          <div class='skill-div'>
+        <div class="skill-category-div">
+          <div class="sub-title">OTHER</div>
+          <div class="skill-div">
             <div *ngFor="let skill of uniqueOther">
-              <img class='icon' src="{{'../../../../assets/images/skills/' + skill.icon}}"/>
-              <div class='icon-label'>{{skill.skill}}</div>
+              <img
+                class="icon"
+                src="{{ '../../../../assets/images/skills/' + skill.icon }}"
+              />
+              <div class="icon-label">{{ skill.skill }}</div>
             </div>
           </div>
         </div>
+      </div>
     </div>
+    <app-footer></app-footer>
   </div>
-  <app-footer></app-footer>
 </div>

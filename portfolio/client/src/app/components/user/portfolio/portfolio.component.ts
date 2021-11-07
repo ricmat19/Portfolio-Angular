@@ -1,8 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import {
-  Component,
-  OnInit,
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 export interface Root {
@@ -36,7 +33,6 @@ export interface Skill {
   templateUrl: './portfolio.component.html',
 })
 export class PortfolioComponent implements OnInit {
-
   deletedProject = '';
 
   projectNames: any[] = [];
@@ -192,8 +188,7 @@ export class PortfolioComponent implements OnInit {
     }
   };
 
-  displayProjectDetails(title: any){
-    this.router.navigate(['/portfolio', title])
+  displayProjectDetails(title: any) {
+    this.router.navigate(['/portfolio', title]);
   }
-
 }

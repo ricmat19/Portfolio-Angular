@@ -39,7 +39,6 @@ router.get("/images", async (req, res) => {
 router.post("/projects/add-project", async (req, res) => {
   try {
 
-    console.log(req.body)
     const currentProjects = await db.query("SELECT project FROM projects");
 
     let uniqueProject = true;
@@ -54,24 +53,24 @@ router.post("/projects/add-project", async (req, res) => {
         req.body.projectTitle,
       ]);
 
-      for (let i = 0; i < req.body.projectImages.length; i++) {
-        if (req.body.projectImages[i] === req.body.primaryImage) {
+      for (let i = 0; i < req.body.newProjectImages.length; i++) {
+        if (req.body.newProjectImages[i] === req.body.primaryImage) {
           db.query(
             `INSERT INTO project_images (project, thumbnail, primary_image) VALUES (?, ?, ?)`,
-            [req.body.projectTitle, req.body.projectImages[i], true]
+            [req.body.projectTitle, req.body.newProjectImages[i], true]
           );
         } else {
           db.query(
             `INSERT INTO project_images (project, thumbnail, primary_image) VALUES (?, ?, ?)`,
-            [req.body.projectTitle, req.body.projectImages[i], false]
+            [req.body.projectTitle, req.body.newProjectImages[i], false]
           );
         }
       }
 
-      for (let i = 0; i < req.body.projectSkills.length; i++) {
+      for (let i = 0; i < req.body.newProjectSkills.length; i++) {
         db.query(
           `INSERT INTO project_tech (project, technology) VALUES (?, ?)`,
-          [req.body.projectTitle, req.body.projectSkills[i]]
+          [req.body.projectTitle, req.body.newProjectSkills[i]]
         );
       }
 
@@ -87,38 +86,38 @@ router.post("/projects/add-project", async (req, res) => {
 router.put("/projects/update-project", async (req, res) => {
   try {
     db.query(`UPDATE projects SET project=? WHERE project=?`, [
-      req.body.title,
+      req.body.titleInput,
       req.body.oldTitle,
     ]);
 
     db.query(
       `DELETE FROM project_images WHERE project=?`,
-      [req.body.title]
+      [req.body.oldTitle]
     );
 
-    for (let i = 0; i < req.body.projectFiles.length; i++) {
-      if (req.body.projectFiles[i] === req.body.primaryImage) {
+    for (let i = 0; i < req.body.projectImages.length; i++) {
+      if (req.body.projectImages[i] === req.body.primaryImage) {
         db.query(
           `INSERT INTO project_images (project, thumbnail, primary_image) VALUES (?, ?, ?)`,
-          [req.body.title, req.body.projectFiles[i], true]
+          [req.body.titleInput, req.body.projectImages[i], true]
         );
       } else {
         db.query(
           `INSERT INTO project_images (project, thumbnail, primary_image) VALUES (?, ?, ?)`,
-          [req.body.title, req.body.projectFiles[i], false]
+          [req.body.titleInput, req.body.projectImages[i], false]
         );
       }
     }
 
     db.query(
       `DELETE FROM project_tech WHERE project=?`,
-      [req.body.title]
+      [req.body.oldTitle]
     );
 
     for (let i = 0; i < req.body.projectSkills.length; i++) {
       db.query(
         `INSERT INTO project_tech (project, technology) VALUES (?, ?)`,
-        [req.body.title, req.body.projectSkills[i]]
+        [req.body.titleInput, req.body.projectSkills[i]]
       );
     }
 

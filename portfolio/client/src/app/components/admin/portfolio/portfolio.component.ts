@@ -45,9 +45,9 @@ export interface Skill {
 export class AdminPortfolioComponent implements OnInit {
   @ViewChild('createDiv') createRef!: ElementRef;
   @ViewChild('createButton') createButtonRef!: ElementRef;
-  @ViewChildren('updateDiv') updateRef!: QueryList<ElementRef>;
+  @ViewChild('updateDiv') updateRef!: ElementRef;
   @ViewChildren('updateButton') updateButtonRef!: QueryList<ElementRef>;
-  @ViewChildren('deleteDiv') deleteRef!: QueryList<ElementRef>;
+  @ViewChild('deleteDiv') deleteRef!: ElementRef;
   @ViewChildren('deleteButton') deleteButtonRef!: QueryList<ElementRef>;
 
   createModalState = 'modal';
@@ -83,7 +83,6 @@ export class AdminPortfolioComponent implements OnInit {
 
   @HostListener('document:click', ['$event.target'])
   clickOutside(event: Event) {
-
     if (
       !this.createRef.nativeElement.contains(event) &&
       !this.createButtonRef.nativeElement.contains(event)
@@ -91,28 +90,35 @@ export class AdminPortfolioComponent implements OnInit {
       this.createModalState = 'modal';
     }
 
-  //   for (let i = 0; i < this.updateRef.toArray().length; i++) {
-  //     if (
-  //       !this.updateRef.toArray()[i].nativeElement.contains(event) &&
-  //       !this.updateButtonRef.toArray()[i].nativeElement.contains(event)
-  //     ) {
-  //       // console.log(this.updateRef.toArray()[i].nativeElement.parentElement.classList.value)
-  //       this.updateRef.toArray()[i].nativeElement.parentElement.classList.value = 'modal';
-  //       // console.log(this.updateRef.toArray()[i].nativeElement.parentElement.classList.value)
-  //     }
-  //   }
+    let updateModalIndex = 0;
+    for (let i = 0; i < this.updateButtonRef.toArray().length; i++) {
+      if (this.updateButtonRef.toArray()[i].nativeElement.contains(event)) {
+        updateModalIndex = i;
+      }
+    }
+    if (
+      !this.updateRef.nativeElement.contains(event) &&
+      !this.updateButtonRef
+        .toArray()
+        [updateModalIndex].nativeElement.contains(event)
+    ) {
+      this.updateModalState = 'modal';
+    }
 
-  //   for (let i = 0; i < this.deleteRef.toArray().length; i++) {
-  //     if (
-  //       !this.deleteRef.toArray()[i].nativeElement.contains(event) &&
-  //       !this.deleteButtonRef.toArray()[i].nativeElement.contains(event)
-  //     ) {
-  //       // console.log(this.deleteRef.toArray()[i].nativeElement.parentElement.classList.value)
-  //       this.deleteRef.toArray()[i].nativeElement.parentElement.classList.value = 'modal';
-  //       // console.log(this.deleteRef.toArray()[i].nativeElement.parentElement.classList.value)
-  //     }
-  //   }
-
+    let deleteModalIndex = 0;
+    for (let i = 0; i < this.deleteButtonRef.toArray().length; i++) {
+      if (this.deleteButtonRef.toArray()[i].nativeElement.contains(event)) {
+        deleteModalIndex = i;
+      }
+    }
+    if (
+      !this.deleteRef.nativeElement.contains(event) &&
+      !this.deleteButtonRef
+        .toArray()
+        [deleteModalIndex].nativeElement.contains(event)
+    ) {
+      this.deleteModalState = 'modal';
+    }
   }
 
   getProjects() {
@@ -253,6 +259,7 @@ export class AdminPortfolioComponent implements OnInit {
 
   displayUpdateModal = (currentTitle: any) => {
     try {
+      this.currentTitle = currentTitle;
       this.oldTitle = currentTitle;
       this.updatedProjectImages = [];
       this.updatedProjectSkills = [];
@@ -262,9 +269,9 @@ export class AdminPortfolioComponent implements OnInit {
       for (let i = 0; i < this.allProjects.length; i++) {
         if (this.allProjects[i].project === currentTitle) {
           this.updatedProjectImages.push(this.allProjects[i].thumbnail);
-        }
-        if(this.allProjects[i].primaryImage === 1){
-          this.primaryImage = this.allProjects[i].thumbnail;
+          if (this.allProjects[i].primary_image === 1) {
+            this.primaryImage = this.allProjects[i].thumbnail;
+          }
         }
       }
 
@@ -273,7 +280,6 @@ export class AdminPortfolioComponent implements OnInit {
           this.updatedProjectSkills.push(this.allSkills[i].technology);
         }
       }
-
     } catch (err) {
       console.log(err);
     }
@@ -288,7 +294,7 @@ export class AdminPortfolioComponent implements OnInit {
     }
   }
 
-  displayProjectDetails(title: any){
-    this.router.navigate(['/admin/portfolio', title])
+  displayProjectDetails(title: any) {
+    this.router.navigate(['/admin/portfolio', title]);
   }
 }

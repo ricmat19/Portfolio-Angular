@@ -1,38 +1,38 @@
-import { HttpClient } from "@angular/common/http";
-import { Component } from "@angular/core";
+import { HttpClient } from '@angular/common/http';
+import { Component } from '@angular/core';
 
 export interface Project {
-  project: string,
-  thumbnails: string,
-  primaryImage: string,
-  projectTech: string,
+  project: string;
+  thumbnails: string;
+  primaryImage: string;
+  projectTech: string;
 }
 
 export interface Root {
-  status: string
-  results: string[]
-  data: Data
+  status: string;
+  results: string[];
+  data: Data;
 }
 
 export interface Data {
-  files: string[]
+  files: string[];
 }
 
 @Component({
   selector: 'app-add-project',
-  templateUrl: './add-project.component.html'
+  templateUrl: './add-project.component.html',
 })
-
-export class AdminAddProjectComponent{
-
+export class AdminAddProjectComponent {
   images: any;
   skills: any[] = [];
 
   projects: any[] = [];
   projectImages: any[] = [];
   projectSkills: any[] = [];
+  newProjectImages: any[] = [];
+  newProjectSkills: any[] = [];
 
-  project = {}
+  project = {};
   projectTitle = '';
   currentProjectImages: any[] = [];
   skillInput = '';
@@ -45,7 +45,7 @@ export class AdminAddProjectComponent{
   primaryImage = '';
   projectTech = [];
 
-  constructor(private http: HttpClient){}
+  constructor(private http: HttpClient) {}
 
   ngOnInit() {
     this.getProjects();
@@ -57,10 +57,10 @@ export class AdminAddProjectComponent{
     return this.http.get<any>(`http://localhost:3000/projects`).subscribe(
       (res) => {
         this.projects = res.results;
-        for(let i = 0; i < this.projects[0].length; i++){
+        for (let i = 0; i < this.projects[0].length; i++) {
           this.projectImages.push(this.projects[0][i]);
         }
-        for(let i = 0; i < this.projects[1].length; i++){
+        for (let i = 0; i < this.projects[1].length; i++) {
           this.projectSkills.push(this.projects[1][i]);
         }
       },
@@ -81,35 +81,45 @@ export class AdminAddProjectComponent{
     );
   }
 
-  getImages(){
-    this.http.get('http://localhost:3000/images').subscribe(
-      (res) => {
-        this.images = res;
-      }
-    );
+  getImages() {
+    this.http.get('http://localhost:3000/images').subscribe((res) => {
+      this.images = res;
+    });
   }
 
-  addProject(projectTitle: any, projectImages: any, primaryImage: any, projectSkills: any){
-    return this.http.post(`http://localhost:3000/projects/add-project`, {projectTitle, projectImages, primaryImage, projectSkills}).subscribe((res) => {
-        this.project = res;
-      }, (err) => {
-        console.log(err)
-      }
-    );
+  addProject(
+    projectTitle: any,
+    newProjectImages: any,
+    primaryImage: any,
+    newProjectSkills: any
+  ) {
+    return this.http
+      .post(`http://localhost:3000/projects/add-project`, {
+        projectTitle,
+        newProjectImages,
+        primaryImage,
+        newProjectSkills,
+      })
+      .subscribe(
+        (res) => {
+          this.project = res;
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
   }
 
   projectSkillSet = async (skill: HTMLTextAreaElement, e: any) => {
     try {
-
-      const currentSkills: any[] = this.projectSkills;
+      const currentSkills: any[] = this.newProjectSkills;
       if (e.target.checked) {
-        currentSkills.push(skill)
-      }else if (!e.target.checked) {
+        currentSkills.push(skill);
+      } else if (!e.target.checked) {
         const index = currentSkills.indexOf(skill);
         currentSkills.splice(index, 1);
       }
-      this.projectSkills = currentSkills;
-
+      this.newProjectSkills = currentSkills;
     } catch (err) {
       console.log(err);
     }
@@ -117,16 +127,14 @@ export class AdminAddProjectComponent{
 
   projectImageSet = async (image: HTMLTextAreaElement, e: any) => {
     try {
-
-      const currentImages: any[] = this.projectImages;
+      const currentImages: any[] = this.newProjectImages;
       if (e.target.checked) {
-        currentImages.push(image)
-      }else if (!e.target.checked) {
+        currentImages.push(image);
+      } else if (!e.target.checked) {
         const index = currentImages.indexOf(image);
         currentImages.splice(index, 1);
       }
-      this.projectImages = currentImages;
-
+      this.newProjectImages = currentImages;
     } catch (err) {
       console.log(err);
     }
@@ -134,12 +142,9 @@ export class AdminAddProjectComponent{
 
   setPrimaryImage = async (image: string) => {
     try {
-
-      this.primaryImage = image
-
+      this.primaryImage = image;
     } catch (err) {
       console.log(err);
     }
   };
-
 }

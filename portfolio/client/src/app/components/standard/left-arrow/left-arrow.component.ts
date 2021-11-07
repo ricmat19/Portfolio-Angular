@@ -1,10 +1,7 @@
-import { Component } from "@angular/core";
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-left-arrow',
-  templateUrl: './left-arrow.component.html'
+  templateUrl: './left-arrow.component.html',
 })
-
-export class LeftArrowComponent{
-
-}
+export class LeftArrowComponent {}

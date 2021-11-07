@@ -8,48 +8,54 @@
       <form class="contact-form" method="POST" action="/contact">
         <div class="subject-line">
           <label class="form-label">name</label>
-            <input
-              matInput
-              type="text"
-              name="name"
-              class="form-control"
-              [(ngModel)]="nameInput"
-            />
+          <input
+            matInput
+            type="text"
+            name="name"
+            class="form-control"
+            [(ngModel)]="nameInput"
+          />
         </div>
         <div class="subject-line">
           <label class="form-label">email</label>
-            <input
-              matInput
-              type="email"
-              name="email"
-              class="form-control"
-              [(ngModel)]="emailInput"
-              required
-            />
+          <input
+            matInput
+            type="email"
+            name="email"
+            class="form-control"
+            [(ngModel)]="emailInput"
+            required
+          />
         </div>
         <div class="subject-line">
           <label class="form-label">subject</label>
-            <input
-              matInput
-              type="text"
-              name="subject"
-              class="form-control"
-              [(ngModel)]="subjectInput"
-              required
-            />
+          <input
+            matInput
+            type="text"
+            name="subject"
+            class="form-control"
+            [(ngModel)]="subjectInput"
+            required
+          />
         </div>
         <div class="subject-line">
           <label class="form-label">message</label>
-            <textarea
-              matInput
-              name="message"
-              rows="10"
-              [(ngModel)]="messageText"
-              required
-            ></textarea>
+          <textarea
+            matInput
+            name="message"
+            rows="10"
+            [(ngModel)]="messageText"
+            required
+          ></textarea>
         </div>
         <div class="">
-          <button (click)="contactSubmit(nameInput, emailInput, subjectInput, messageText)" type="submit" class="">
+          <button
+            (click)="
+              contactSubmit(nameInput, emailInput, subjectInput, messageText)
+            "
+            type="submit"
+            class=""
+          >
             submit
           </button>
         </div>

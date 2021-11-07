@@ -11,19 +11,19 @@ import { AdminAboutComponent } from './components/admin/about/about.component';
 import { AdminHomeComponent } from './components/admin/home/home.component';
 
 const routes: Routes = [
-  {path: "admin", component: AdminHomeComponent},
-  {path: "admin/portfolio", component: AdminPortfolioComponent},
-  {path: "admin/portfolio/:project", component: AdminProjectDetailsComponent},
-  {path: "admin/about", component: AdminAboutComponent},
-  {path: "", component: HomeComponent},
-  {path: "about", component: AboutComponent},
-  {path: "contact", component: ContactComponent},
-  {path: "portfolio", component: PortfolioComponent},
-  {path: "portfolio/:project", component: ProjectDetailsComponent}
+  { path: 'admin', component: AdminHomeComponent },
+  { path: 'admin/portfolio', component: AdminPortfolioComponent },
+  { path: 'admin/portfolio/:project', component: AdminProjectDetailsComponent },
+  { path: 'admin/about', component: AdminAboutComponent },
+  { path: '', component: HomeComponent },
+  { path: 'about', component: AboutComponent },
+  { path: 'contact', component: ContactComponent },
+  { path: 'portfolio', component: PortfolioComponent },
+  { path: 'portfolio/:project', component: ProjectDetailsComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

@@ -1,72 +1,73 @@
-<div class='main'>
+<div class="main">
   <app-header></app-header>
-  <div class='project-details-container'>
-    <div class='title-div'>
-      <p class='title'>{{title}}</p>
+  <div class="project-details-container">
+    <div class="title-div">
+      <p class="title">{{ title }}</p>
     </div>
-    <div class='grid project-details'>
-      <div class='grid slider-div'>
-        <div class='slider-arrow' (click)='slideThumbnailLeft()'>
+    <div class="grid project-details">
+      <div class="grid slider-div">
+        <div class="slider-arrow" (click)="slideThumbnailLeft()">
           <app-left-arrow></app-left-arrow>
         </div>
-        <div class='grid project-slide-div'>
-          <div class='grid image-container'>
+        <div class="grid project-slide-div">
+          <div class="grid image-container">
             <img
-              class='grid project-image'
-              src="{{'../../../../assets/images/projects/' + thumbnails[thumbnailIndex]}}"
+              class="grid project-image"
+              src="{{
+                '../../../../assets/images/projects/' +
+                  thumbnails[thumbnailIndex]
+              }}"
             />
           </div>
         </div>
-        <div class='slider-arrow' (click)='slideThumbnailRight()'>
+        <div class="slider-arrow" (click)="slideThumbnailRight()">
           <app-right-arrow></app-right-arrow>
         </div>
       </div>
-      <div class='grid project-tech-div'>
-        <button class='tech-label' *ngFor="let t of tech">
-          {{t}}
+      <div class="grid project-tech-div">
+        <button class="tech-label" *ngFor="let t of tech">
+          {{ t }}
         </button>
       </div>
-      <div class='text-content-container'>
-        <div class='info-container'>
-          <div class='sub-title'>about the project</div>
-          <div class='info-div'>
+      <div class="text-content-container">
+        <div class="info-container">
+          <div class="sub-title">about the project</div>
+          <div class="info-div">
             <p>
               Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-              Explicabo itaque nulla deleniti aperiam animi rerum atque
-              numquam ex quod inventore rem fugit possimus ab quibusdam vel
-              sint, facere totam omnis? Lorem ipsum dolor sit amet
-              consectetur adipisicing elit. Veniam velit omnis ducimus in.
-              Aperiam aut possimus ullam consectetur ipsa cumque nesciunt
-              et, quia laborum accusantium iste magni, non minus quod?
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-              Corporis, molestiae doloribus cupiditate magni sapiente
-              nostrum voluptatem soluta nisi repellat quae voluptatibus
+              Explicabo itaque nulla deleniti aperiam animi rerum atque numquam
+              ex quod inventore rem fugit possimus ab quibusdam vel sint, facere
+              totam omnis? Lorem ipsum dolor sit amet consectetur adipisicing
+              elit. Veniam velit omnis ducimus in. Aperiam aut possimus ullam
+              consectetur ipsa cumque nesciunt et, quia laborum accusantium iste
+              magni, non minus quod? Lorem, ipsum dolor sit amet consectetur
+              adipisicing elit. Corporis, molestiae doloribus cupiditate magni
+              sapiente nostrum voluptatem soluta nisi repellat quae voluptatibus
               accusantium magnam illo facere fugit maxime distinctio quis
               officia.
             </p>
             <p>
               Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-              Explicabo itaque nulla deleniti aperiam animi rerum atque
-              numquam ex quod inventore rem fugit possimus ab quibusdam vel
-              sint, facere totam omnis? Lorem ipsum dolor sit amet
-              consectetur adipisicing elit. Veniam velit omnis ducimus in.
-              Aperiam aut possimus ullam consectetur ipsa cumque nesciunt
-              et, quia laborum accusantium iste magni, non minus quod?
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-              Corporis, molestiae doloribus cupiditate magni sapiente
-              nostrum voluptatem soluta nisi repellat quae voluptatibus
+              Explicabo itaque nulla deleniti aperiam animi rerum atque numquam
+              ex quod inventore rem fugit possimus ab quibusdam vel sint, facere
+              totam omnis? Lorem ipsum dolor sit amet consectetur adipisicing
+              elit. Veniam velit omnis ducimus in. Aperiam aut possimus ullam
+              consectetur ipsa cumque nesciunt et, quia laborum accusantium iste
+              magni, non minus quod? Lorem, ipsum dolor sit amet consectetur
+              adipisicing elit. Corporis, molestiae doloribus cupiditate magni
+              sapiente nostrum voluptatem soluta nisi repellat quae voluptatibus
               accusantium magnam illo facere fugit maxime distinctio quis
               officia.
             </p>
           </div>
         </div>
-        <div class='resource-container'>
-          <div class='sub-title'>Resources</div>
-          <div class='resources-div'>
+        <div class="resource-container">
+          <div class="sub-title">Resources</div>
+          <div class="resources-div">
             <ul>
               <li>
-                <span class='project-resource'>
-                  <a href={{githubLink}} target='_blank' rel='noreferrer'>
+                <span class="project-resource">
+                  <a href="{{ githubLink }}" target="_blank" rel="noreferrer">
                     Github
                   </a>
                 </span>

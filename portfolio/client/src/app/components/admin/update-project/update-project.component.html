@@ -1,70 +1,104 @@
-<div class='grid add-project-modal'>
-  <div class='grid toDo-modal-grid'>
+<div class="grid add-project-modal">
+  <div class="grid toDo-modal-grid">
     <label>TITLE</label>
-      <input
-        matInput
-        type='text'
-        name='project_title'
-        [(ngModel)]='projectTitle'
-      />
+    <input matInput type="text" name="project_title" [(ngModel)]="titleInput" />
   </div>
-  <div class='grid project-creation-checkbox-div'>
-    <div class='grid thumbnail-checkbox-div'>
+  <div class="grid project-creation-checkbox-div">
+    <div class="grid thumbnail-checkbox-div">
       <div>
         <label>THUMBNAIL</label>
-        <div class='grid image-checkbox-list'>
-          <label class='image-checkbox-label'></label>
-          <label class='image-checkbox-label'>Selection</label>
-          <label class='image-checkbox-label'>Primary</label>
+        <div class="grid image-checkbox-list">
+          <label class="image-checkbox-label"></label>
+          <label class="image-checkbox-label">Selection</label>
+          <label class="image-checkbox-label">Primary</label>
         </div>
       </div>
       <div>
-        <div class='grid image-checkbox-list' *ngFor="let image of images">
-          <label class='image-checkbox-label'>{{image}}</label>
-          <div>
-              <input
-                matInput
-                type='checkbox'
-                name='image'
-                (change)='imageSet(image, $event)'
-              />
+        <div class="grid image-checkbox-list" *ngFor="let image of images">
+          <label class="image-checkbox-label">{{ image }}</label>
+          <div *ngIf="projectImages.indexOf(image) !== -1">
+            <input
+              matInput
+              type="checkbox"
+              name="image"
+              (change)="imageSet(image, $event)"
+              checked
+            />
           </div>
-          <div>
-              <input
-                matInput
-                type='radio'
-                name='image'
-                (change)='primaryImageSet(image)'
-              />
+          <div *ngIf="projectImages.indexOf(image) === -1">
+            <input
+              matInput
+              type="checkbox"
+              name="image"
+              (change)="imageSet(image, $event)"
+            />
+          </div>
+          <div *ngIf="primaryImage === image">
+            <input
+              matInput
+              type="radio"
+              name="image"
+              (change)="primaryImageSet(image)"
+              checked
+            />
+          </div>
+          <div *ngIf="primaryImage !== image">
+            <input
+              matInput
+              type="radio"
+              name="image"
+              (change)="primaryImageSet(image)"
+            />
           </div>
         </div>
       </div>
     </div>
-    <div class='grid tech-grid'>
+    <div class="grid tech-grid">
       <div>
         <label>TECH</label>
-        <div class='grid tech-checkbox-list'>
-          <label class='image-checkbox-label'></label>
-          <label class='image-checkbox-label'>Selection</label>
+        <div class="grid tech-checkbox-list">
+          <label class="image-checkbox-label"></label>
+          <label class="image-checkbox-label">Selection</label>
         </div>
       </div>
       <div>
-        <div class='grid tech-checkbox-list' *ngFor="let skill of skills">
-          <label class='tech-checkbox-label'>{{skill.skill}}</label>
-          <div>
-              <input
-                matInput
-                type='checkbox'
-                name='skill'
-                (change)='skillSet(skill.skill, $event)'
-              />
+        <div class="grid tech-checkbox-list" *ngFor="let skill of skills">
+          <label class="tech-checkbox-label">{{ skill.skill }}</label>
+          <div *ngIf="projectSkills.indexOf(skill.skill) !== -1">
+            <input
+              matInput
+              type="checkbox"
+              name="skill"
+              (change)="skillSet(skill.skill, $event)"
+              checked
+            />
+          </div>
+          <div *ngIf="projectSkills.indexOf(skill.skill) === -1">
+            <input
+              matInput
+              type="checkbox"
+              name="skill"
+              (change)="skillSet(skill.skill, $event)"
+            />
           </div>
         </div>
       </div>
     </div>
   </div>
   <div>
-    <button class='form-button' type='submit' (click)='updateProject(projectTitle, projectImages, primaryImage, projectSkills, oldTitle)'>
+    <button
+      class="form-button"
+      type="submit"
+      (click)="
+        updateProject(
+          titleInput,
+          projectImages,
+          primaryImage,
+          projectSkills,
+          oldTitle
+        )
+      "
+    >
       CREATE
     </button>
   </div>
